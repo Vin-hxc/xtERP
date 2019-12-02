@@ -29,16 +29,16 @@ public interface LeaveMapper {
     /**
      * 根据编号修改状态
      * 用于审核是否通过请假
-     * @param id
+     * @param leaveId
      * @param verifyStatus
      * @return
      */
-    public boolean updateLeaveStatus(int id,int verifyStatus);
+    public boolean updateLeaveStatus(int leaveId,int verifyStatus);
 
     /**
      * 根据编号删除请假数据
-     * @param id
+     * @param leaveId
      * @return
      */
-    public boolean deleteLeave(int id);
+    public boolean deleteLeave(int leaveId);
 }

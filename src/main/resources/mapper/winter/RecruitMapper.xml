@@ -36,4 +36,9 @@
         </set>
         where id = #{id}
     </update>
+
+    <!-- 删除招聘信息 -->
+    <delete id="deleteRecruit" parameterType="com.xt.entity.winter.Recruit">
+        delete from recruit where id = #{id}
+    </delete>
 </mapper>

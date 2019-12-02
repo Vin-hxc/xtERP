@@ -7,4 +7,21 @@
     <insert id="saveLeave" parameterType="com.xt.entity.winter.Leave">
       insert into leave values()
     </insert>
+
+    <!-- 修改数据 -->
+
+    <!-- 修改状态 -->
+    <update id="updateLeaveStatus" parameterType="com.xt.entity.winter.Leave">
+        update leave
+        <set>
+            <if test="verifyStatus != null">
+                verifyStatus = #{verifyStatus}
+            </if>
+        </set>
+        where leaveId = #{leaveId}
+    </update>
+    <!-- 删除数据 -->
+    <delete id="deleteLeave" parameterType="com.xt.entity.winter.Leave">
+        delete from leave where leaveId = #{leaveId}
+    </delete>
 </mapper>
