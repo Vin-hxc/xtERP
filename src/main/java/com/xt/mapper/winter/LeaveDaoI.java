@@ -1,4 +1,4 @@
-package com.xt.dao;
+package com.xt.mapper.winter;
 
 import com.xt.entity.winter.Leave;
 import org.springframework.stereotype.Repository;
