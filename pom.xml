@@ -83,13 +83,13 @@
                 <filtering>false</filtering>
             </resource>
 
-            <resource>
+          <!--  <resource>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>resource/*.xml</include>
                     <include>resource/*.properties</include>
                 </includes>
-            </resource>
+            </resource>-->
         </resources>
     </build>
 
