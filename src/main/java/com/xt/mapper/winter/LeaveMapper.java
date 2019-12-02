@@ -36,7 +36,7 @@ public interface LeaveMapper {
     public boolean updateLeaveStatus(int id,int verifyStatus);
 
     /**
-     * 删除请假数据
+     * 根据编号删除请假数据
      * @param id
      * @return
      */

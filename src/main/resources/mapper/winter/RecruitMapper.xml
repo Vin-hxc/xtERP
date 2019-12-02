@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 招聘信息sql -->
+<mapper namespace="com.xt.mapper.winter.RecruitMapper">
+    <!-- 添加招聘信息 -->
+    <insert id="saveRecruit" parameterType="com.xt.entity.winter.Recruit">
+        insert into recruit values(#{id},#{title},#{content},#{position},#{salary},#{phone},#{address})
+    </insert>
+
+    <!-- 修改招聘信息 -->
+    <update id="updateRecruit" parameterType="com.xt.entity.winter.Recruit">
+        update recruit
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="position != null">
+                position = #{position},
+            </if>
+            <if test="salary != null">
+                salary = #{salary},
+            </if>
+            <if test="phone != null">
+                phone = #{phone},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>
