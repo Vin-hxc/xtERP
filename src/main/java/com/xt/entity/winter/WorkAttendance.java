@@ -1,5 +1,9 @@
 package com.xt.entity.winter;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -8,6 +12,9 @@ import java.util.Date;
  * @Date 2019/12/2 15:43
  * 考勤实体类
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class WorkAttendance implements Serializable {
     private static final long serialVersionUID = 6041751401738508571L;
     private Integer id;//主键编号
