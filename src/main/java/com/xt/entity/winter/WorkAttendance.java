@@ -9,6 +9,7 @@ import java.util.Date;
  * 考勤实体类
  */
 public class WorkAttendance implements Serializable {
+    private static final long serialVersionUID = 6041751401738508571L;
     private Integer id;//主键编号
     private Integer userId;//用户编号
     private Date attendanceDate;//考勤编号
