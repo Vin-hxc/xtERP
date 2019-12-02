@@ -11,7 +11,7 @@ import java.util.List;
  * 请假 持久操作接口
  */
 @Repository
-public interface LeaveDaoI {
+public interface LeaveMapper {
     /**
      * 添加请假数据
      * @param leave
