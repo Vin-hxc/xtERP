@@ -28,4 +28,3 @@ mybatis:
   # 实体类所在包
   type-aliases-package: com.xt.entity
 
-# --- ---------
