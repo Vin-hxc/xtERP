@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * @Author Winter
@@ -24,4 +25,6 @@ public class Leave implements Serializable {
     private Date endTime;//结束时间
     private Integer allHour;//总时长
     private Integer verifyStatus;//审核 0通过 1未通过
+
+
 }
