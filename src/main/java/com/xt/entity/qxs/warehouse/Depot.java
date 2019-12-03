@@ -19,6 +19,6 @@ public class Depot {
     private String sort;//排序
     private String remark;//描述
     private Integer principal;//仓库负责人,用户id
-    private Integer deleteFlag;//标记删除 0 未删除；1 已删除 默认 0
+    private Integer delete_Flag;//标记删除 0 未删除；1 已删除 默认 0
     private Integer isDefault;//是否默认，0 默认 1 不默认；默认为1
 }
