@@ -1,17 +1,13 @@
-package com.xt.mapper.winter;
+package com.xt.service.winter;
 
 import com.xt.entity.winter.Recruit;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @Author Winter
- * @Date 2019/12/2 16:51
- * 招聘 持久操作实现接口
+ * @Date 2019/12/3 8:42
+ * 招聘业务操作接口
  */
-@Repository
-public interface RecruitMapper {
+public interface RecruitServiceI {
     /**
      * 添加招聘信息
      * @param recruit
