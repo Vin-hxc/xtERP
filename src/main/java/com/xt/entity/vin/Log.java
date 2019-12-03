@@ -1,4 +1,4 @@
-package com.xt.entity.hxc;
+package com.xt.entity.vin;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * 用户操作日志
+ */
 public class Log {
     private int id;//主键
     private int userID;//操作用户ID

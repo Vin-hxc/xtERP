@@ -1,9 +1,12 @@
-package com.xt.entity.hxc;
+package com.xt.entity.vin;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * 产品类别
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
