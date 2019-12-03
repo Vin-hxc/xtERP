@@ -7,9 +7,8 @@ import java.util.Date;
 public class Dispatchedworker {
 
   private long id;//主键id
-  private long productId;//产品编号
-  private String dispatchedNo;//派工编号
-  private String monitor;//负责班长
+  private long dispatchedNo;//派工编号
+  private long monitor;//负责人id
   private Date dispatchingTime;//派工时间
   private long dispatchedAudits;//派工审核是否通过 0-通过 1-不通过
 
@@ -17,9 +16,8 @@ public class Dispatchedworker {
   public String toString() {
     return "Dispatchedworker{" +
             "id=" + id +
-            ", productId=" + productId +
-            ", dispatchedNo='" + dispatchedNo + '\'' +
-            ", monitor='" + monitor + '\'' +
+            ", dispatchedNo=" + dispatchedNo +
+            ", monitor=" + monitor +
             ", dispatchingTime=" + dispatchingTime +
             ", dispatchedAudits=" + dispatchedAudits +
             '}';
@@ -33,27 +31,19 @@ public class Dispatchedworker {
     this.id = id;
   }
 
-  public long getProductId() {
-    return productId;
-  }
-
-  public void setProductId(long productId) {
-    this.productId = productId;
-  }
-
-  public String getDispatchedNo() {
+  public long getDispatchedNo() {
     return dispatchedNo;
   }
 
-  public void setDispatchedNo(String dispatchedNo) {
+  public void setDispatchedNo(long dispatchedNo) {
     this.dispatchedNo = dispatchedNo;
   }
 
-  public String getMonitor() {
+  public long getMonitor() {
     return monitor;
   }
 
-  public void setMonitor(String monitor) {
+  public void setMonitor(long monitor) {
     this.monitor = monitor;
   }
 
@@ -76,9 +66,8 @@ public class Dispatchedworker {
   public Dispatchedworker() {
   }
 
-  public Dispatchedworker(long id, long productId, String dispatchedNo, String monitor, Date dispatchingTime, long dispatchedAudits) {
+  public Dispatchedworker(long id, long dispatchedNo, long monitor, Date dispatchingTime, long dispatchedAudits) {
     this.id = id;
-    this.productId = productId;
     this.dispatchedNo = dispatchedNo;
     this.monitor = monitor;
     this.dispatchingTime = dispatchingTime;

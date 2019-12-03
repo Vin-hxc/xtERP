@@ -7,11 +7,10 @@ import java.util.Date;
 public class Picking {
   private long id;//主键id
   private String pickingNo;//领料编号
-  private String monitor;//负责班长
+  private long monitor;//负责人id
   private String materialParts;//物料零件
   private String materialNumber;//物料数量
   private Date startTime;//出库时间
-  private String personCharge;//负责人
   private long productionAudit;//物料审核是否通过 0-通过 1-不通过
 
   @Override
@@ -19,11 +18,10 @@ public class Picking {
     return "Picking{" +
             "id=" + id +
             ", pickingNo='" + pickingNo + '\'' +
-            ", monitor='" + monitor + '\'' +
+            ", monitor=" + monitor +
             ", materialParts='" + materialParts + '\'' +
             ", materialNumber='" + materialNumber + '\'' +
             ", startTime=" + startTime +
-            ", personCharge='" + personCharge + '\'' +
             ", productionAudit=" + productionAudit +
             '}';
   }
@@ -44,11 +42,11 @@ public class Picking {
     this.pickingNo = pickingNo;
   }
 
-  public String getMonitor() {
+  public long getMonitor() {
     return monitor;
   }
 
-  public void setMonitor(String monitor) {
+  public void setMonitor(long monitor) {
     this.monitor = monitor;
   }
 
@@ -76,14 +74,6 @@ public class Picking {
     this.startTime = startTime;
   }
 
-  public String getPersonCharge() {
-    return personCharge;
-  }
-
-  public void setPersonCharge(String personCharge) {
-    this.personCharge = personCharge;
-  }
-
   public long getProductionAudit() {
     return productionAudit;
   }
@@ -95,14 +85,13 @@ public class Picking {
   public Picking() {
   }
 
-  public Picking(long id, String pickingNo, String monitor, String materialParts, String materialNumber, Date startTime, String personCharge, long productionAudit) {
+  public Picking(long id, String pickingNo, long monitor, String materialParts, String materialNumber, Date startTime, long productionAudit) {
     this.id = id;
     this.pickingNo = pickingNo;
     this.monitor = monitor;
     this.materialParts = materialParts;
     this.materialNumber = materialNumber;
     this.startTime = startTime;
-    this.personCharge = personCharge;
     this.productionAudit = productionAudit;
   }
 }

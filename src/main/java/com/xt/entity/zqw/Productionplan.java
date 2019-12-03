@@ -10,7 +10,7 @@ public class Productionplan {
   private long productId;//产品编号
   private Date startTime;//开始时间
   private Date endTime;//预计结束时间
-  private String personCharge;//负责人
+  private long personCharge;//负责人id
   private long productionAudit;//生产审核是否通过 0-通过 1-不通过
 
   @Override
@@ -20,7 +20,7 @@ public class Productionplan {
             ", productId=" + productId +
             ", startTime=" + startTime +
             ", endTime=" + endTime +
-            ", personCharge='" + personCharge + '\'' +
+            ", personCharge=" + personCharge +
             ", productionAudit=" + productionAudit +
             '}';
   }
@@ -57,11 +57,11 @@ public class Productionplan {
     this.endTime = endTime;
   }
 
-  public String getPersonCharge() {
+  public long getPersonCharge() {
     return personCharge;
   }
 
-  public void setPersonCharge(String personCharge) {
+  public void setPersonCharge(long personCharge) {
     this.personCharge = personCharge;
   }
 
@@ -76,7 +76,7 @@ public class Productionplan {
   public Productionplan() {
   }
 
-  public Productionplan(long id, long productId, Date startTime, Date endTime, String personCharge, long productionAudit) {
+  public Productionplan(long id, long productId, Date startTime, Date endTime, long personCharge, long productionAudit) {
     this.id = id;
     this.productId = productId;
     this.startTime = startTime;
