@@ -2,26 +2,27 @@ package com.xt.entity.zqw;
 
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Productionplan {
 
-  private long id;
-  private long productId;
-  private java.sql.Timestamp startTime;
-  private java.sql.Timestamp endTime;
-  private String personCharge;
-  private long productionAudit;
+  private long id;//主键id
+  private long productId;//产品编号
+  private Date startTime;//开始时间
+  private Date endTime;//预计结束时间
+  private String personCharge;//负责人
+  private long productionAudit;//生产审核是否通过 0-通过 1-不通过
 
-  public Productionplan() {
-  }
-
-  public Productionplan(long id, long productId, Timestamp startTime, Timestamp endTime, String personCharge, long productionAudit) {
-    this.id = id;
-    this.productId = productId;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.personCharge = personCharge;
-    this.productionAudit = productionAudit;
+  @Override
+  public String toString() {
+    return "Productionplan{" +
+            "id=" + id +
+            ", productId=" + productId +
+            ", startTime=" + startTime +
+            ", endTime=" + endTime +
+            ", personCharge='" + personCharge + '\'' +
+            ", productionAudit=" + productionAudit +
+            '}';
   }
 
   public long getId() {
@@ -32,7 +33,6 @@ public class Productionplan {
     this.id = id;
   }
 
-
   public long getProductId() {
     return productId;
   }
@@ -41,24 +41,21 @@ public class Productionplan {
     this.productId = productId;
   }
 
-
-  public java.sql.Timestamp getStartTime() {
+  public Date getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(java.sql.Timestamp startTime) {
+  public void setStartTime(Date startTime) {
     this.startTime = startTime;
   }
 
-
-  public java.sql.Timestamp getEndTime() {
+  public Date getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(java.sql.Timestamp endTime) {
+  public void setEndTime(Date endTime) {
     this.endTime = endTime;
   }
-
 
   public String getPersonCharge() {
     return personCharge;
@@ -68,7 +65,6 @@ public class Productionplan {
     this.personCharge = personCharge;
   }
 
-
   public long getProductionAudit() {
     return productionAudit;
   }
@@ -77,4 +73,15 @@ public class Productionplan {
     this.productionAudit = productionAudit;
   }
 
+  public Productionplan() {
+  }
+
+  public Productionplan(long id, long productId, Date startTime, Date endTime, String personCharge, long productionAudit) {
+    this.id = id;
+    this.productId = productId;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.personCharge = personCharge;
+    this.productionAudit = productionAudit;
+  }
 }
