@@ -23,5 +23,5 @@ public class Product {
     private Double trade_price;//销售价格
     private int product_state;//产品状态
     private String serial_number;//产品序列号
-    private String deleteFlag;//删除标记（0==未删除,1==删除)
+    private String delete_Flag;//删除标记（0==未删除,1==删除)
 }
