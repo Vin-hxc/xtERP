@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 请假操作语句 -->
-<mapper namespace="com.xt.mapper.winter">
+<mapper namespace="com.xt.mapper.winter.LeaveMapper">
     <!-- 添加数据 -->
     <insert id="saveLeave" parameterType="com.xt.entity.winter.Leave">
       insert into leave values()

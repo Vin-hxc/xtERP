@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
  * @Date 2019/12/3 8:43
  * 招聘业务实现类
  */
+@SuppressWarnings("all")
 @Service
 public class RecruitServiceImpl implements RecruitServiceI {
     @Autowired(required = true)
