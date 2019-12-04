@@ -24,7 +24,7 @@ logging:
 # mybatis 配置
 mybatis:
   # mapper.xml文件所在
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:mapper/*/*.xml
   # 实体类所在包
   type-aliases-package: com.xt.entity
 

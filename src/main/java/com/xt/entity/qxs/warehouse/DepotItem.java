@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
  * 单据子表
  */
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class DepotItem {
     private Integer id;//主键
@@ -22,5 +21,24 @@ public class DepotItem {
     private String img;//样品图
     private Depot depot;//仓库id
     private String mType;//商品类型
-    private String deleteFlag;//标记删除
+    private String delete_Flag;//标记删除
+
+    public DepotItem(Integer id, Depothead header, Integer materialId,
+                     String mUnit, Double basicNumber, Double unitPrice,
+                     String remark, String img, Depot depot,
+                     String mType, String deleteFlag) {
+        this.id = id;
+        this.header = header;
+        this.materialId = materialId;
+        this.mUnit = mUnit;
+        this.basicNumber = basicNumber;
+        this.unitPrice = unitPrice;
+        //计算总金额
+        this.allPrice = this.basicNumber*this.unitPrice;
+        this.remark = remark;
+        this.img = img;
+        this.depot = depot;
+        this.mType = mType;
+        this.delete_Flag = deleteFlag;
+    }
 }

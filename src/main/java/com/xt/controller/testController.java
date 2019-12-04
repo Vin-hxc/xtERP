@@ -11,7 +11,7 @@ public class testController {
    /* @ResponseBody*/
     @RequestMapping("/")
     public String test(){
-        return "redirect:index.html";
+        return "index";
     }
 
     @RequestMapping("err")

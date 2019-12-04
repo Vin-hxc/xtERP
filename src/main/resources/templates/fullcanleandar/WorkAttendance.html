@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>考勤日历</title>
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/fullcalendar.css">
+		<style type="text/css">
+			#calendar {
+				width: 900px;
+				margin: 20px auto 10px auto
+			}
+			.button{
+				text-align: center;
+			}
+		</style>
+		<script src='js/jquery-1.9.1.min.js'></script>
+		<script src='js/jquery-ui-1.10.2.custom.min.js'></script>
+		<script src='js/fullcalendar.min.js'></script>
+		<script type="text/javascript">
+			$(function() {
+
+				var date = new Date();
+				var d = date.getDate();
+				var m = date.getMonth();
+				var y = date.getFullYear();
+
+				$('#calendar').fullCalendar({
+					header: {
+						left: 'prev,next today',
+						center: 'title',
+						right: 'month,agendaWeek,agendaDay'
+					},
+					theme: false,
+					monthNames: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"],
+					monthNamesShort: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"],
+					dayNames: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+					dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],
+					today: ["今天"],
+					buttonText: {
+						today: '今天',
+						month: '月',
+						week: '周',
+						day: '日'
+					},
+					firstDay: 1,
+					editable: true, //支持Event日程拖动修改，默认false
+					timeFormat: 'H:mm',
+					axisFormat: 'H:mm',
+					/*events: function(start, end, callback) {
+							var events = [];
+							var now = new Date();
+							for(var i = -10; i < 60; i++) {
+								var evtstart = new Date(now.getFullYear(), now.getMonth(), (now.getDate() - i), now.getHours() - 5, now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+
+								var evtend = new Date(now.getFullYear(), now.getMonth(), (now.getDate() - i), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+
+								events.push({
+									sid: 1,
+									uid: 1,
+									title: 'Daily Scrum meeting',
+									start: evtstart,
+									end: evtend,
+									fullname: 'terry li',
+									confname: 'Meeting 1',
+									confshortname: 'M1',
+									confcolor: '#ff3f3f',
+									confid: 'test1',
+									allDay: false,
+									topic: 'Daily Scrum meeting',
+									description: 'Daily Scrum meeting',
+									id: 1,
+								});
+							}
+							callback(events);
+						},*/
+					events: [
+						{
+							"title": "打卡上班",
+							"time": "7:40--18:30",
+							"antualTime": "9:40--18:40",
+							"start": "2019-11-27"
+						}
+					]
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<div id="header">
+			<div id="logo">
+				<h1><a href="#">helloweba</a></h1></div>
+		</div>
+		<div id="main" style="width:80%">
+			<h2 class="top_title"><a href="#">打卡考勤</a></h2>
+			<div class="button">
+				<button>上班打卡</button>
+				<p>1.（法定上班时间为08:30:00，晚于该时间即为迟到。
+					法定下班时间为18:00:00，早于该时间即为早退）;</p>
+				<p>2.下班后还未进行上班打卡的员工，则视为旷工，当天则不允许打卡，
+				如果当天忘记打卡，需第二天向领导进行申诉申请，并说明原因</p>
+			</div>
+			<div id='calendar'></div>
+		</div>
+	</body>
+
+</html>
+
+<!--	
+id	可选，事件唯一标识，重复的事件具有相同的id
+title	必须，事件在日历上显示的title
+allDay	可选，true or false，是否是全天事件。
+start	必须，事件的开始时间。
+end	可选，结束时间。
+url	可选，当指定后，事件被点击将打开对应url。
+className	指定事件的样式。
+editable	事件是否可编辑，可编辑是指可以移动, 改变大小等。
+source	指向次event的eventsource对象。
+color	背景和边框颜色。
+backgroundColor	背景颜色。
+borderColor	边框颜色。
+textColor	文本颜色。
+-->

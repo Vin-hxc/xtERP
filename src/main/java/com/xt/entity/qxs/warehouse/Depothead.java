@@ -28,6 +28,6 @@ public class Depothead {
     private String payType;//付款方式
     private String remark;//描述
     private Integer accountDay;//存储天数
-    private Integer status;//单据状态 1 已审核 0未审核 默认 0
-    private String deleteFlag;//标记删除 1 删除 0 未删除 默认 0
+    private Integer status;//单据状态 1 已审核 0未审核 2：不通过 默认 0 其他数值为待审核
+    private String delete_Flag;//标记删除 1 删除 0 未删除 默认 0
 }
