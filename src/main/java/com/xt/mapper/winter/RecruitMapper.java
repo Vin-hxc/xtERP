@@ -10,7 +10,7 @@ import java.util.List;
  * @Date 2019/12/2 16:51
  * 招聘 持久操作实现接口
  */
-@Repository
+
 public interface RecruitMapper {
     /**
      * 添加招聘信息

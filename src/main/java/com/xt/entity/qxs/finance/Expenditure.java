@@ -2,7 +2,6 @@ package com.xt.entity.qxs.finance;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.relational.core.sql.In;
 
 import java.util.Date;
 

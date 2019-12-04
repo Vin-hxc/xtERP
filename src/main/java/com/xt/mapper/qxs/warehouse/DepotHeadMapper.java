@@ -13,10 +13,17 @@ import java.util.List;
 public interface DepotHeadMapper {
 
     /**
-     * 查询所有单据主表
+     * 查询所有未删除的单据主表
      * @return
      */
     @Select("select * from depotHead where delete_Flag!='1' order by createTime desc")
+    List<Depothead> queryNotDeleteDepotHead();
+
+    /**
+     * 查询所有数据,包括删除的数据
+     * @return
+     */
+    @Select("select * from depotHead order by createTime desc")
     List<Depothead> queryAllDepotHead();
 
     /**
@@ -31,7 +38,7 @@ public interface DepotHeadMapper {
      * 查询被删除的数据
      * @return
      */
-    @Select("select * from depotHead where delete_Flag!='1'")
+    @Select("select * from depotHead where delete_Flag='1' order by createTime desc")
     List<Depothead> queryDelete();
 
     /**
