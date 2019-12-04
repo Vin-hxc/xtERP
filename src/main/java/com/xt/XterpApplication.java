@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class })
-/*@ComponentScan(basePackages = "com.xt.service")*/
+@ComponentScan(basePackages = "com.xt.service")
 @MapperScan(basePackages = {"com.xt.mapper"})
 public class XterpApplication {
 
