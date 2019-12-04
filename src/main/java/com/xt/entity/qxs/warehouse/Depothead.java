@@ -1,6 +1,5 @@
 package com.xt.entity.qxs.warehouse;
 
-import com.xt.entity.qxs.finance.Account;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,7 @@ public class Depothead {
     private Date operTime;//出入库时间
     private Integer organId;//供应商/客户 id
     private Integer handsPersonId;//经手人id：销售/采购
-    private Account account;//外键 付款账号
+    private Integer account;//外键 付款账号
     private Double changeAmount;//变动金额 付款/收款
     private Double totalPrice;//合计金额
     private String payType;//付款方式

@@ -1,6 +1,5 @@
 package com.xt.entity.qxs.finance;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
