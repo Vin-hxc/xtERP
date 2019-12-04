@@ -17,13 +17,15 @@ public interface OrderMapper {
      * @return
      */
     @Select("select * from Order")
-    List<Order> queryAllDepot();
+    List<Order> queryAllOrder();
 
     /**
      * 新增采购订单
      * @return
      */
-    @Select("select * from depot where !=1delete_Flag order by sort desc")
-    List<Depot> queryAllDepot();
+    @Select("insert into order values(null,#{orderid},#{supplierid},#{purchaserid},#{rebate},#{paytype},#{total},#{amount_paid},#{total_tax},#{orderstate},#{preferential},#{costid})")
+    List<Order> addOrder(Order order);
+
+
 
 }
