@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RecruitServiceImpl implements RecruitServiceI {
-    @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
+    @Autowired(required = true)
+    private RecruitMapper recruitMapper;
     /**
      * 添加招聘信息
      * @param recruit
@@ -23,8 +23,7 @@ public class RecruitServiceImpl implements RecruitServiceI {
      */
     @Override
     public boolean saveRecruit(Recruit recruit) {
-        RecruitMapper mapper = sqlSessionTemplate.getMapper(RecruitMapper.class);
-        return mapper.saveRecruit(recruit);
+        return recruitMapper.saveRecruit(recruit);
     }
 
     /**
@@ -34,8 +33,7 @@ public class RecruitServiceImpl implements RecruitServiceI {
      */
     @Override
     public boolean updateRecruit(Recruit recruit) {
-        RecruitMapper mapper = sqlSessionTemplate.getMapper(RecruitMapper.class);
-        return mapper.updateRecruit(recruit);
+        return recruitMapper.updateRecruit(recruit);
     }
 
     /**
@@ -45,7 +43,6 @@ public class RecruitServiceImpl implements RecruitServiceI {
      */
     @Override
     public boolean deleteRecruit(int id) {
-        RecruitMapper mapper = sqlSessionTemplate.getMapper(RecruitMapper.class);
-        return mapper.deleteRecruit(id);
+        return recruitMapper.deleteRecruit(id);
     }
 }

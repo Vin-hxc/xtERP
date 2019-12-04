@@ -10,7 +10,7 @@ import java.util.List;
  * @Date 2019/12/2 16:15
  * 请假 持久操作接口
  */
-@Repository
+/*@Repository*/
 public interface LeaveMapper {
     /**
      * 添加请假数据
