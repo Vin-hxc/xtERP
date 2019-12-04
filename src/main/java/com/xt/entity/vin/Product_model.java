@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product_model {
-    private int id;//主键
+    private long id;//主键
     private String brand;//品牌
     private String model_name;//类型名
     private String motherboard;//主板

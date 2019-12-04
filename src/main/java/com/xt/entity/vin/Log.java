@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
  * 用户操作日志
  */
 public class Log {
-    private int id;//主键
-    private int userID;//操作用户ID
+    private long id;//主键
+    private long userID;//操作用户ID
     private String operation;//操作模块名称
     private String clientIP;//客户端IP
     private Data createtime;//创建时间

@@ -55,14 +55,14 @@ public interface ProductMapper {
      * @param id
      * @return boolean
      */
-    public boolean deleteProduct(int id);
+    public boolean deleteProduct(long id);
 
     /**
      * 查询产品型号
      * @param id
      * @return Product_model
      */
-    public Product_model getProductModel(int id);
+    public Product_model getProductModel(long id);
 
     /**
      * 查询产品库存信息
@@ -75,5 +75,5 @@ public interface ProductMapper {
      * @param id
      * @return boolean
      */
-    public boolean updateProductState(int id);
+    public boolean updateProductState(long id);
 }

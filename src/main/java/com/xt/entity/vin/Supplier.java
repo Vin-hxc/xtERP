@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Supplier {
-    private int id;
+    private long id;//主键
     private String supplier;//供应商，客户，名称
     private String contacts;//联系人
     private String phonenum;//联系电话

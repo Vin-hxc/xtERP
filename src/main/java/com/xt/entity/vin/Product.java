@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-    private int id;//产品主键
+    private long id;//产品主键
     private String product_name;//产品名称
-    private String product_model;//产品型号
-    private int product_type;//产品类别
+    private long product_model;//产品型号
+    private long product_type;//产品类别
     private String product_unit;//产品单位
     private int product_stock;//产品库存
     private Double retail_price;//零售价
