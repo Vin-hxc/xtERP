@@ -15,8 +15,9 @@ import java.util.Date;
 public class Income {
 
     private Integer incomeId;//收入编号
-    private Integer clientid;//客户编号
+    private Integer clientId;//客户编号
     private Double payable;//应付金额
+    private String paymentMethod;//付款方式：记账；全款；定金；
     private Double actual_payment;//实付金额
     private Double balance_payment;//尾款
     private Date date_recorded;//入账时间
@@ -25,16 +26,21 @@ public class Income {
     private String remark;//描述
     private Integer deleteFlag;//标记删除
 
-    public Income(Integer incomeId, Integer clientid,
-                  Double payable, Double actual_payment,
-                  Date date_recorded, Integer confirm_receipt, Integer principal,
-                  String remark, Integer deleteFlag) {
+    public Income(Integer incomeId, Integer clientId,
+                  Double payable, String paymentMethod,
+                  Double actual_payment, Date date_recorded, Integer confirm_receipt,
+                  Integer principal, String remark, Integer deleteFlag) {
         this.incomeId = incomeId;
-        this.clientid = clientid;
+        this.clientId = clientId;
         this.payable = payable;
+        this.paymentMethod = paymentMethod;
         this.actual_payment = actual_payment;
-        //计算尾款
-        this.balance_payment = this.payable-this.actual_payment;
+        // 计算尾款
+        if("全款".equals(this.paymentMethod)){
+            this.balance_payment = 0.00;
+        }else{
+            this.balance_payment = this.payable-this.actual_payment;
+        }
         this.date_recorded = date_recorded;
         this.confirm_receipt = confirm_receipt;
         this.principal = principal;

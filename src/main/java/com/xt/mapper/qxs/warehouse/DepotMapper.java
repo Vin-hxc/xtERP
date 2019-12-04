@@ -11,11 +11,25 @@ import java.util.List;
 public interface DepotMapper {
 
     /**
-     * 查询所有仓库
+     * 查询所有未删除的仓库
      * @return
      */
-    @Select("select * from depot where !=1delete_Flag order by sort desc")
+    @Select("select * from depot where delete_Flag!=1 order by sort desc")
+    List<Depot> queryNotDeleteDepot();
+
+    /**
+     * 查询所有数据包括删除的数据
+     * @return
+     */
+    @Select("select * from depot order by sort desc")
     List<Depot> queryAllDepot();
+
+    /**
+     * 查询所有被删除的仓库
+     * @return
+     */
+    @Select("select * from depot where delete_Flag=1 order by sort desc")
+    List<Depot> queryDelete();
 
     /**
      * 获取仓库名
@@ -30,7 +44,7 @@ public interface DepotMapper {
      * @param id
      * @return
      */
-    @Select("select * from ")
+    @Select("select * from depot where id=#{id} and delete_flag!='1' ")
     Depot getOneDepot(Integer id);
 
     /**

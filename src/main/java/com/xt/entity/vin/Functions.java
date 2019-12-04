@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Functions {
-    private int id;//主键
+    private long id;//主键
     private String number;//编码
     private String name;//名称
     private String parentId;//上级编码

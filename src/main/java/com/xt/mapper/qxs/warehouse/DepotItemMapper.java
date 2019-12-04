@@ -13,10 +13,17 @@ import java.util.List;
 public interface DepotItemMapper {
 
     /**
-     * 查询所有单据子表
+     * 查询所有未删除的单据子表
      * @return
      */
     @Select("select * from depotItem where delete_Flag!='1' ")
+    List<DepotItem> queryNotDeleteDepotItem();
+
+    /**
+     * 查询所有数据包括已删除的数据
+     * @return
+     */
+    @Select("select * from depotItem ")
     List<DepotItem> queryAllDepotItem();
 
     /**
@@ -31,7 +38,7 @@ public interface DepotItemMapper {
      * 查询被删除的数据
      * @return
      */
-    @Select("select * from depotItem where delete_Flag='1'")
+    @Select("select * from depotItem where delete_Flag='1' ")
     List<DepotItem> queryDelete();
 
     /**
