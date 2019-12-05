@@ -1,36 +1,30 @@
-package com.xt.mapper.qxs.finance;
+package com.xt.service.qxs;
 
 import com.xt.entity.qxs.finance.Expenditure;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
 /**
- * 财政支出记录数据操作
+ * 财政支出记录业务操作
  */
-public interface ExpenditureMapper {
+public interface ExpenditureServiceI {
 
     /**
      * 查询所有未删除的支出信息
      * @return
      */
-    @Select("select * from expenditure where deleteFlag !=1 order by date_payment desc")
     List<Expenditure> queryNotExpenditure();
 
     /**
      * 查询所有已删除的支出信息
      * @return
      */
-    @Select("select * from expenditure where deleteFlag =1 order by date_payment desc")
     List<Expenditure> queryDeleteExpenditure();
 
     /**
      * 查询所有数据
      * @return
      */
-    @Select("select * from expenditure order by date_payment desc")
     List<Expenditure> queryAllExpenditure();
 
     /**
@@ -38,7 +32,6 @@ public interface ExpenditureMapper {
      * @param expenditureId
      * @return
      */
-    @Select("select * from expenditure where expenditureId=#{expenditureId} and deleteFlag !=1 ")
     Expenditure getOneExpenditure(Integer expenditureId);
 
     /**
@@ -53,7 +46,6 @@ public interface ExpenditureMapper {
      * @param state 状态；0：未付款；1：已付款；3：取消付款 默认0
      * @return
      */
-    @Update("update expenditure set confirm_payment=#{state} where expenditureId=#{id}")
     boolean confirmation(Integer state,Integer id);
 
     /**
@@ -62,22 +54,12 @@ public interface ExpenditureMapper {
      * @param id
      * @return
      */
-    @Update("update expenditure set deleteFlag=#{deleteFlag} where expenditureId=#{id}")
     boolean deleteExpenditure(Integer deleteFlag,Integer id);
-
-    /**
-     * 结算总支出
-     * @return
-     */
-    @Select("select sum(actual_payment) from expenditure where deleteFlag !=1 and confirm_payment =1 ")
-    Double sumExpenditure();
 
     /**
      * 新增支出记录
      * @param expenditure
      * @return
      */
-    @Insert("insert into expenditure values(null,#{type},#{payment_amount},#{actual_payment}," +
-            "#{balance_payment},#{date_payment},#{account},0,#{remark},#{principal},0)")
     boolean addExpenditure(Expenditure expenditure);
 }

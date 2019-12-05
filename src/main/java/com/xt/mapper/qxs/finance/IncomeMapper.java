@@ -1,6 +1,7 @@
 package com.xt.mapper.qxs.finance;
 
 import com.xt.entity.qxs.finance.Income;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -83,4 +84,13 @@ public interface IncomeMapper {
      */
     @Select("select * from income where deleteFlag !=1 and confirm_receipt =1 ")
     Double sumIncome();
+
+    /**
+     * 新增收入记录
+     * @param income
+     * @return
+     */
+    @Insert("insert into income values(null,#{clientId},#{payable},#{paymentMethod}," +
+            "#{actual_payment},#{balance_payment},#{date_recorded},0,#{principal},#{remark},0)")
+    boolean addIncome(Income income);
 }

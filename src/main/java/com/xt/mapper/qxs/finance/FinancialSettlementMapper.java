@@ -1,6 +1,7 @@
 package com.xt.mapper.qxs.finance;
 
 import com.xt.entity.qxs.finance.FinancialSettlement;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -56,4 +57,13 @@ public interface FinancialSettlementMapper {
      */
     @Update("update FinancialSettlement set deleteFlag =#{deleteFlag} where id=#{id}")
     boolean deleteFinancialSettlement(Integer deleteFlag,Integer id);
+
+    /**
+     * 新增财务结算记录
+     * @param financialSettlement
+     * @return
+     */
+    @Insert("insert into FinancialSettlement values(null,#{totalMoney},#{balanceDate},#{type}," +
+            "#{userId},#{remark},0)")
+    boolean addFinancialSettlement(FinancialSettlement financialSettlement);
 }

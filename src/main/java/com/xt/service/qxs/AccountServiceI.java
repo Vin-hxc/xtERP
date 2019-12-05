@@ -1,36 +1,30 @@
-package com.xt.mapper.qxs.finance;
+package com.xt.service.qxs;
 
 import com.xt.entity.qxs.finance.Account;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
 /**
- * 账号信息数据操作
+ * 账号信息业务处理
  */
-public interface AccountMapper {
+public interface AccountServiceI {
 
     /**
      * 查询所有未删除的账号信息
      * @return
      */
-    @Select("select * from account where deleteFlag!=1 order by dateCreated desc")
     List<Account> queryNotDeleteAccount();
 
     /**
      * 查询所有已删除的记录
      * @return
      */
-    @Select("select * from account where deleteFlag=1 order by dateCreated desc")
     List<Account> queryDeleteAccount();
 
     /**
      * 查询所有数据包括已删除的
      * @return
      */
-    @Select("select * from account order by dateCreated desc")
     List<Account> queryAllAccount();
 
     /**
@@ -38,7 +32,6 @@ public interface AccountMapper {
      * @param id
      * @return
      */
-    @Select("select * from account where id=#{id} and deleteFlag!=1 ")
     Account getOneAccount(Integer id);
 
     /**
@@ -54,7 +47,6 @@ public interface AccountMapper {
      * @param id
      * @return
      */
-    @Update("update account set deleteFlag=#{deleteFlag} where id = #{id}")
     boolean deleteAccount(Integer deleteFlag,Integer id);
 
     /**
@@ -62,6 +54,5 @@ public interface AccountMapper {
      * @param account
      * @return
      */
-    @Insert("insert into account values(null,#{supplier},#{cardNumber},#{dateCreated},#{remark},0)")
-    boolean addAccount(Account account);
+    boolean addAccount(Account account,String name);
 }

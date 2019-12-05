@@ -8,6 +8,7 @@ class XterpApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println(Math.round(11.5));
     }
 
 }

@@ -2,6 +2,7 @@ package com.xt.mapper.qxs.finance;
 
 import com.xt.entity.qxs.finance.Account;
 import com.xt.entity.qxs.finance.Summarizing;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -55,4 +56,13 @@ public interface SummarizingMapper {
      */
     @Select("select * from summarizing deleteFlag=#{deleteFlag} where id=#{id}")
     boolean deleteSummarizing(Integer deleteFlag,Integer id);
+
+    /**
+     * 新增财务汇总记录
+     * @param summarizing
+     * @return
+     */
+    @Insert("insert into summarizing values(null,#{financialSettlement},#{collect_date},#{principal}," +
+            "#{describe},0)")
+    boolean addSummarizing(Summarizing summarizing);
 }
