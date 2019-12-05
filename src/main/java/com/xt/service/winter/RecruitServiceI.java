@@ -2,6 +2,8 @@ package com.xt.service.winter;
 
 import com.xt.entity.winter.Recruit;
 
+import java.util.HashMap;
+
 /**
  * @Author Winter
  * @Date 2019/12/3 8:42

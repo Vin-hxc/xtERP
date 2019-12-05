@@ -1,11 +1,18 @@
-package com.xt.service.winter.zqw;
+package com.xt.service.zqw;
 
 import com.xt.entity.zqw.Productionplan;
+
+import java.util.HashMap;
 
 /**
  * 生产计划业务操作接口
  */
 public interface ProductionplanServiceI {
+    /**
+     * 查询生产计划
+     * @return
+     */
+    HashMap seleProuct();
     /**
      * 添加一个生产计划
      * @param productionplan

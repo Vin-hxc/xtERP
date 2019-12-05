@@ -1,11 +1,13 @@
-package com.xt.service.winter.zqw.impl;
+package com.xt.service.zqw.impl;
 
 import com.xt.entity.zqw.Productionplan;
 import com.xt.mapper.zqw.ProductionplanMapper;
-import com.xt.service.winter.zqw.ProductionplanServiceI;
+import com.xt.service.zqw.ProductionplanServiceI;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 
 /**
  * 生产计划业务实现类
@@ -14,6 +16,12 @@ import org.springframework.stereotype.Service;
 public class ProductionplanServiceImpl implements ProductionplanServiceI {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
+
+    @Override
+    public HashMap seleProuct() {
+        ProductionplanMapper mapper = sqlSessionTemplate.getMapper(ProductionplanMapper.class);
+        return mapper.seleProuct();
+    }
 
     /**
      * 添加一个生产计划

@@ -1,14 +1,23 @@
 
 package com.xt.mapper.zqw;
 import com.xt.entity.zqw.Productionplan;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.HashMap;
 
 /**
  * 生产计划持久层操作接口
  */
 @Repository
 public interface ProductionplanMapper {
+    /**
+     * 查询生产计划
+     * @return
+     */
+    @Select("select * from productionplan")
+    HashMap seleProuct();
     /**
      * 添加一个生产计划
      * @param productionplan
