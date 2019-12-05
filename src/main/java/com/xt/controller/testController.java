@@ -12,7 +12,7 @@ public class testController {
    /* @ResponseBody*/
     @RequestMapping("/")
     public String test(){
-        return "index";
+        return "user/login";
     }
 
     @RequestMapping("err")
