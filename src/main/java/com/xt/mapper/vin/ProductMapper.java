@@ -19,28 +19,28 @@ public interface ProductMapper {
      * 查询所有产品
      * @return List<Product>
      */
-    @Select("select * from product where delete_Flag = '0'")
+//    @Select("select * from product where delete_Flag = '0'")
     public List<Product> getAllProduct();
 
     /**
      * 查询所有的产品类别
      * @return List<Product_type>
      */
-    @Select("SELECT * FROM product_type where delete_Flag = '0'")
+//    @Select("SELECT * FROM product_type where delete_Flag = '0'")
     public List<Product_type> getProductType();
 
     /**
      * 查询所有产品型号
      * @return List<Product_model>
      */
-    @Select("SELECT * FROM product_model where delete_Flag = '0'")
+//    @Select("SELECT * FROM product_model where delete_Flag = '0'")
     public List<Product_model> getProductModel();
 
     /**
      * 根据产品id查询
      * @return Product
      */
-    @Select("select * from product where delete_Flag = '0' AND id = #{id}")
+//    @Select("select * from product where delete_Flag = '0' AND id = #{id}")
     public Product getProductById(long id);
 
     /**
@@ -48,8 +48,8 @@ public interface ProductMapper {
      * @param product
      * @return boolean
      */
-    @Insert("INSERT INTO product (product_name,product_model,product_type,product_unit,product_stock,retail_price,min_price,cost_price,trade_price,product_state,serial_number,delete_Flag)" +
-            "VALUES(#{product_name},#{product_model},#{product_type},#{product_unit},#{product_stock},#{retail_price},#{min_price},#{cost_price},#{trade_price},#{product_state},#{serial_number},'0')")
+//    @Insert("INSERT INTO product (product_name,product_model,product_type,product_unit,product_stock,retail_price,min_price,cost_price,trade_price,product_state,serial_number,delete_Flag)" +
+//            "VALUES(#{product_name},#{product_model},#{product_type},#{product_unit},0,#{retail_price},#{min_price},#{cost_price},#{trade_price},#{product_state},#{serial_number},'0')")
     public boolean insertProduct(Product product);
 
     /**
@@ -57,7 +57,7 @@ public interface ProductMapper {
      * @param product
      * @return boolean
      */
-    @Update("UPDATE product SET product_name=#{product_name},product_model=#{product_model},product_type=#{product_type},product_unit=#{product_unit},product_stock=#{product_stock},retail_price=#{retail_price},min_price=#{min_price},cost_price=#{cost_price},trade_price=#{trade_price} WHERE id=#{id} and delete_Flag='0'")
+//    @Update("UPDATE product SET product_name=#{product_name},product_model=#{product_model},product_type=#{product_type},product_unit=#{product_unit},product_stock=#{product_stock},retail_price=#{retail_price},min_price=#{min_price},cost_price=#{cost_price},trade_price=#{trade_price} WHERE id=#{id} and delete_Flag='0'")
     public boolean updateProduct(Product product);
 
     /**
@@ -65,7 +65,7 @@ public interface ProductMapper {
      * @param id
      * @return boolean
      */
-    @Update("UPDATE product SET delete_Flag='1' where id = #{id} and delete_Flag='0'")
+//    @Update("UPDATE product SET delete_Flag='1' where id = #{id} and delete_Flag='0'")
     public boolean deleteProduct(long id);
 
     /**
@@ -73,14 +73,17 @@ public interface ProductMapper {
      * @param id
      * @return Product_model
      */
-    @Select("SELECT * from product_model WHERE id=#{id} and delete_Flag='0'")
+//    @Select("SELECT * from product_model WHERE id=#{id} and delete_Flag='0'")
     public Product_model getProductModel(long id);
 
     /**
      * 查询产品库存信息
      * @return List<Depothead>
      */
-    @Select("")
+//    @Select("SELECT dh.Id,dh.Type,dt.BasicNumber,dh.OperTime from `depothead` AS dh " +
+//            "INNER JOIN `depotitem` AS dt ON dh.Id = dt.HeaderId" +
+//            "INNER JOIN `depot` AS d ON dt.DepotId = d.id" +
+//            "WHERE dt.MaterialId = #{id} AND dh.delete_Flag = 0")
     public List<Depothead> getProductStock();
 
     /**
