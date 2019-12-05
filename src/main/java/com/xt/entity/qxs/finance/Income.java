@@ -16,7 +16,7 @@ public class Income {
     private Integer incomeId;//收入编号
     private Integer clientId;//客户编号
     private Double payable;//应付金额
-    private String paymentMethod;//付款方式：记账；全款；定金；
+    private String paymentMethod;//付款类型：记账；全款；定金；
     private Double actual_payment;//实付金额
     private Double balance_payment;//尾款
     private Date date_recorded;//入账时间
