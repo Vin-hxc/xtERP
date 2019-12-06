@@ -10,31 +10,9 @@
 
     <!-- 修改招聘信息 -->
     <update id="updateRecruit" parameterType="com.xt.entity.winter.Recruit">
-        update recruit
-        <set>
-            <if test="title != null">
-                title = #{title},
-            </if>
-            <if test="content != null">
-                content = #{content},
-            </if>
-            <if test="content != null">
-                content = #{content},
-            </if>
-            <if test="position != null">
-                position = #{position},
-            </if>
-            <if test="salary != null">
-                salary = #{salary},
-            </if>
-            <if test="phone != null">
-                phone = #{phone},
-            </if>
-            <if test="address != null">
-                address = #{address},
-            </if>
-        </set>
-        where id = #{id}
+        update recruit set title = #{title},content = #{content},
+        content = #{content},position = #{position},salary = #{salary},
+        phone = #{phone},address = #{address} where id = #{id}
     </update>
 
     <!-- 删除招聘信息 -->
