@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 
 @Controller
 public class ProductionplanContrller {
@@ -16,14 +17,14 @@ public class ProductionplanContrller {
 
     @RequestMapping("pdsele")
     public String pdsele(HttpServletRequest request){
-        HashMap hashMap = productionplanServiceI.seleProuct();
-        request.setAttribute("pdsele",hashMap);
-        System.out.println(hashMap);
+        List<HashMap> list = productionplanServiceI.seleProuct();
+        request.setAttribute("pdsele",list);
+        System.out.println(list);
         return "zqw/seleProuct";
     }
     @RequestMapping("aaa")
     public String aa(){
         System.out.println("1");
-        return "zqw/seleProuct";
+        return "zqw/index";
     }
 }

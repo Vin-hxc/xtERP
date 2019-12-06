@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 生产计划业务实现类
@@ -17,8 +18,9 @@ public class ProductionplanServiceImpl implements ProductionplanServiceI {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
+
     @Override
-    public HashMap seleProuct() {
+    public List<HashMap> seleProuct() {
         ProductionplanMapper mapper = sqlSessionTemplate.getMapper(ProductionplanMapper.class);
         return mapper.seleProuct();
     }

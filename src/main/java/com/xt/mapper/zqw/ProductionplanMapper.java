@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 生产计划持久层操作接口
@@ -17,7 +18,7 @@ public interface ProductionplanMapper {
      * @return
      */
     @Select("select * from productionplan")
-    HashMap seleProuct();
+    List<HashMap> seleProuct();
     /**
      * 添加一个生产计划
      * @param productionplan

@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../../static/css/H-ui.min.css">
-    <script src="../../static/css/jquery.dataTables.min.js"></script>
-    <script src="../../static/css/jquery-1.8.3.min.js"></script>
-    <script src="../../static/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/static/css/H-ui.min.css">
+    <script src="/static/css/jquery-1.8.3.min.js"></script>
+    <script src="/static/css/jquery.dataTables.min.js"></script>
+
 </head>
 <body>
-<button id="aaa">1111</button>
 <table  id = "tbo"
         class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
@@ -20,37 +19,28 @@
         <th width="100">endTime</th>
         <th width="100">personCharge</th>
         <th width="100">productionAudit</th>
+        <th width="100">操作</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="pdsele:${seleuser}" height="40px" class="text-c">
+    <tr th:each="seleuser:${pdsele}" height="40px" class="text-c">
         <td th:text="${seleuser.id}"></td>
         <td th:text="${seleuser.productId}"></td>
         <td th:text="${seleuser.startTime}"></td>
         <td th:text="${seleuser.endTime}"></td>
         <td th:text="${seleuser.personCharge}"></td>
         <td th:text="${seleuser.productionAudit}"></td>
+        <td></td>
     </tr>
     </tbody>
 </table>
 <script>
     $(function(){
         $('#tbo').DataTable({
-            "aLengthMenu":[4,6]   //每页显示数
-
-
+            "aLengthMenu":[4,6]  , //每页显示数
         });
     });
 
-</script>
-<script type="text/javascript"></script>
-<script>
-    $(function () {
-        $("#aaa").click(function () {
-            alert("1111")
-        })
-
-    })
 </script>
 </body>
 </html>
