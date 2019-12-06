@@ -69,7 +69,8 @@ public interface ExpenditureMapper {
      * 结算总支出
      * @return
      */
-    @Select("select sum(actual_payment) from expenditure where deleteFlag !=1 and confirm_payment =1 ")
+    @Select("select sum(actual_payment) from expenditure where deleteFlag !=1 " +
+            "and confirm_payment =1 and stateClose=0 ")
     Double sumExpenditure();
 
     /**
@@ -78,6 +79,15 @@ public interface ExpenditureMapper {
      * @return
      */
     @Insert("insert into expenditure values(null,#{type},#{payment_amount},#{actual_payment}," +
-            "#{balance_payment},#{date_payment},#{account},0,#{remark},#{principal},0)")
+            "#{balance_payment},#{date_payment},#{account},0,#{remark},#{principal},0,0)")
     boolean addExpenditure(Expenditure expenditure);
+
+    /**
+     * 修改结算状态
+     * @param stateClose 结算状态 0 未结算 1 已结算
+     * @param
+     * @return
+     */
+    @Update("update expenditure set stateClose=#{stateClose} ")
+    boolean updateStateClose(Integer stateClose);
 }

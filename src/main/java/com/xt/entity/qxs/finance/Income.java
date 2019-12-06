@@ -23,12 +23,13 @@ public class Income {
     private Integer confirm_receipt;//确认收款；0：未收款；1：已收款；审批字段
     private Integer principal;//负责人；用户id
     private String remark;//描述
+    private Integer stateClose;// 结算状态 0 未结算 1 已结算
     private Integer deleteFlag;//标记删除
 
     public Income(Integer incomeId, Integer clientId,
                   Double payable, String paymentMethod,
                   Double actual_payment, Date date_recorded, Integer confirm_receipt,
-                  Integer principal, String remark, Integer deleteFlag) {
+                  Integer principal, String remark, Integer stateClose, Integer deleteFlag) {
         this.incomeId = incomeId;
         this.clientId = clientId;
         this.payable = payable;
@@ -44,6 +45,7 @@ public class Income {
         this.confirm_receipt = confirm_receipt;
         this.principal = principal;
         this.remark = remark;
+        this.stateClose = stateClose;
         this.deleteFlag = deleteFlag;
     }
 }

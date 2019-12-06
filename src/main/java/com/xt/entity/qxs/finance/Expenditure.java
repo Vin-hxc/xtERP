@@ -23,11 +23,12 @@ public class Expenditure {
     private String remark;//描述
     private Integer principal;//负责人，用户id
     private Integer deleteFlag;//标记删除；0：未删除；1：已删除
+    private Integer stateClose;//结算状态 0 未结算 1 已结算
 
     public Expenditure(Integer expenditureId, Integer type,
                        Double payment_amount, Double actual_payment,
                        Date date_payment, Integer account,
-                       Integer confirm_payment, String remark, Integer principal, Integer deleteFlag) {
+                       Integer confirm_payment, String remark, Integer principal, Integer deleteFlag, Integer stateClose) {
         this.expenditureId = expenditureId;
         this.type = type;
         this.payment_amount = payment_amount;
@@ -40,5 +41,6 @@ public class Expenditure {
         this.remark = remark;
         this.principal = principal;
         this.deleteFlag = deleteFlag;
+        this.stateClose = stateClose;
     }
 }

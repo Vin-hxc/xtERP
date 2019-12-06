@@ -1,8 +1,10 @@
-package com.xt.service.qxs.impl;
+package com.xt.service.qxs.finance.impl;
 
 import com.xt.entity.qxs.finance.Expenditure;
+import com.xt.entity.qxs.finance.FinancialSettlement;
 import com.xt.mapper.qxs.finance.ExpenditureMapper;
-import com.xt.service.qxs.ExpenditureServiceI;
+import com.xt.mapper.qxs.finance.FinancialSettlementMapper;
+import com.xt.service.qxs.finance.ExpenditureServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ public class ExpenditureServiceImpl implements ExpenditureServiceI {
 
     @Autowired
     private ExpenditureMapper expenditureMapper;
+    @Autowired
+    private FinancialSettlementMapper financialSettlementMapper;
 
     /**
      * 查询所有未删除的数据
@@ -51,7 +55,7 @@ public class ExpenditureServiceImpl implements ExpenditureServiceI {
     }
 
     /**
-     * 修改支出记录
+     * 修改支出记录数据,修改收款账号，清算尾款
      * @param expenditure
      * @return
      */
@@ -90,5 +94,26 @@ public class ExpenditureServiceImpl implements ExpenditureServiceI {
     @Override
     public boolean addExpenditure(Expenditure expenditure) {
         return expenditureMapper.addExpenditure(expenditure);
+    }
+
+    /**
+     * 对支出进行结算 调用财务总结
+     * @return
+     */
+    @Override
+    public boolean sumExpenditure(FinancialSettlement fs) {
+        //获取总金额
+        Double sumExpenditure = expenditureMapper.sumExpenditure();
+        System.out.println("总金额："+sumExpenditure);
+        // 修改结算状态
+        boolean stateClose = expenditureMapper.updateStateClose(1);
+        boolean b = false;
+        if(stateClose){
+            fs.setTotalMoney(sumExpenditure);
+            fs.setType(1);
+            System.out.println("fs对象："+fs);
+            b = financialSettlementMapper.addFinancialSettlement(fs);
+        }
+        return b;
     }
 }

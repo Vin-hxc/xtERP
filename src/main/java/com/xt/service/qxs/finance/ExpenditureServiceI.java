@@ -1,6 +1,7 @@
-package com.xt.service.qxs;
+package com.xt.service.qxs.finance;
 
 import com.xt.entity.qxs.finance.Expenditure;
+import com.xt.entity.qxs.finance.FinancialSettlement;
 
 import java.util.List;
 
@@ -62,4 +63,10 @@ public interface ExpenditureServiceI {
      * @return
      */
     boolean addExpenditure(Expenditure expenditure);
+
+    /**
+     * 结算总支出
+     * @return
+     */
+    boolean sumExpenditure(FinancialSettlement fs);
 }

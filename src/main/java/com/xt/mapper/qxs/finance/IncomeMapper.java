@@ -82,7 +82,8 @@ public interface IncomeMapper {
      * 结算总收入
      * @return
      */
-    @Select("select * from income where deleteFlag !=1 and confirm_receipt =1 ")
+    @Select("select * from income where deleteFlag !=1 and confirm_receipt =1 " +
+            "and stateClose=0")
     Double sumIncome();
 
     /**
@@ -91,6 +92,15 @@ public interface IncomeMapper {
      * @return
      */
     @Insert("insert into income values(null,#{clientId},#{payable},#{paymentMethod}," +
-            "#{actual_payment},#{balance_payment},#{date_recorded},0,#{principal},#{remark},0)")
+            "#{actual_payment},#{balance_payment},#{date_recorded},0,#{principal},#{remark},0,0)")
     boolean addIncome(Income income);
+
+    /**
+     * 修改结算状态
+     * @param stateClose 结算状态 0 未结算 1 已结算
+     * @param
+     * @return
+     */
+    @Update("update income set stateClose=#{stateClose} ")
+    boolean updateStateClose(Integer stateClose);
 }

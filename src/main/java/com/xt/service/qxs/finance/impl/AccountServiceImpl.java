@@ -1,8 +1,8 @@
-package com.xt.service.qxs.impl;
+package com.xt.service.qxs.finance.impl;
 
 import com.xt.entity.qxs.finance.Account;
 import com.xt.mapper.qxs.finance.AccountMapper;
-import com.xt.service.qxs.AccountServiceI;
+import com.xt.service.qxs.finance.AccountServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.xt.service.qxs;
+package com.xt.service.qxs.finance;
 
 import com.xt.entity.qxs.finance.Account;
 
