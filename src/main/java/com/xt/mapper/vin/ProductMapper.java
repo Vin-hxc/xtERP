@@ -78,7 +78,7 @@ public interface ProductMapper {
      * @return Product_model
      */
     @Select("SELECT * from product_model WHERE id=#{id} and delete_Flag='0'")
-    public Product_model getProductModel(long id);
+    public Product_model getProductModelById(long id);
 
     /**
      * 查询产品库存信息

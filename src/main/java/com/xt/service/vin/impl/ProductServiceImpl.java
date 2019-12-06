@@ -55,8 +55,8 @@ public class ProductServiceImpl implements ProductServiceI {
     }
 
     @Override
-    public Product_model getProductModel(long id) {
-        return productMapper.getProductModel(id);
+    public Product_model getProductModelById(long id) {
+        return productMapper.getProductModelById(id);
     }
 
     @Override

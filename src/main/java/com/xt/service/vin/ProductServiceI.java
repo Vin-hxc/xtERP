@@ -62,7 +62,7 @@ public interface ProductServiceI {
      * @param id
      * @return Product_model
      */
-    public Product_model getProductModel(long id);
+    public Product_model getProductModelById(long id);
 
     /**
      * 查询产品库存信息

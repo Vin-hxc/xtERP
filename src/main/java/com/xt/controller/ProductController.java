@@ -1,4 +1,4 @@
-package com.xt.controller.vin;
+package com.xt.controller;
 
 import com.xt.mapper.vin.ProductMapper;
 import com.xt.service.vin.ProductServiceI;
@@ -14,6 +14,7 @@ public class ProductController {
 
     @RequestMapping("/getAllProduct")
     public String getAllProduct(){
-        return  "";
+
+        return  "product";
     }
 }
