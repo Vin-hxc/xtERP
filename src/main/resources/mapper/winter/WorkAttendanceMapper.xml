@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xt.mapper.winter.WorkAttendanceMapper">
+    <insert id="saveWorkAttendance" parameterType="com.xt.entity.winter.WorkAttendance">
+      insert into workAttendance values(#{id},#{userId},#{attendanceDate},#{week},#{startTime},#{endTime},#{allHour},#{state})
+    </insert>
+    <update id="updateWorkAttendance" parameterType="com.xt.entity.winter.WorkAttendance">
+      update workAttendance set userId = #{userId},attendanceDate = #{attendanceDate},week = #{week},startTime = #{startTime},endTime = #{endTime},allHour = #{allHour},state = #{state} where id = #{id}
+    </update>
+    <update id="updateWorkAttendanceState" parameterType="com.xt.entity.winter.WorkAttendance">
+      update workAttendance set start = #{start} where id = #{id}
+    </update>
+    <select id="getEmployeeAttendance" resultType="com.xt.entity.winter.WorkAttendance">
+        select * from workAttendance where userId = #{userId}
+    </select>
+</mapper>
