@@ -16,21 +16,21 @@ public interface ExpenditureMapper {
      * 查询所有未删除的支出信息
      * @return
      */
-    @Select("select * from expenditure where deleteFlag !=1 order by date_payment desc")
+    @Select("select * from expenditure where deleteFlag !=1 order by date_receopt desc")
     List<Expenditure> queryNotExpenditure();
 
     /**
      * 查询所有已删除的支出信息
      * @return
      */
-    @Select("select * from expenditure where deleteFlag =1 order by date_payment desc")
+    @Select("select * from expenditure where deleteFlag =1 order by date_receopt desc")
     List<Expenditure> queryDeleteExpenditure();
 
     /**
      * 查询所有数据
      * @return
      */
-    @Select("select * from expenditure order by date_payment desc")
+    @Select("select * from expenditure order by date_receopt desc")
     List<Expenditure> queryAllExpenditure();
 
     /**
@@ -79,7 +79,7 @@ public interface ExpenditureMapper {
      * @return
      */
     @Insert("insert into expenditure values(null,#{type},#{payment_amount},#{actual_payment}," +
-            "#{balance_payment},#{date_payment},#{account},0,#{remark},#{principal},0,0)")
+            "#{balance_payment},#{date_receopt},#{account},0,#{remark},#{principal},0,0)")
     boolean addExpenditure(Expenditure expenditure);
 
     /**

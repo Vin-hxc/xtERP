@@ -2,14 +2,13 @@ package com.xt.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 用来进行访问静态页面的Controller
+ */
 @Controller
+public class PageController {
 
-public class testController {
-
-   /* @ResponseBody*/
     @RequestMapping("/")
     public String test(){
         return "user/login";

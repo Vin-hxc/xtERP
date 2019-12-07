@@ -91,8 +91,8 @@ public interface IncomeMapper {
      * @param income
      * @return
      */
-    @Insert("insert into income values(null,#{clientId},#{payable},#{paymentMethod}," +
-            "#{actual_payment},#{balance_payment},#{date_recorded},0,#{principal},#{remark},0,0)")
+    @Insert("insert into income values(null,#{clientId},#{payable}," +
+            "#{actual_payment},#{balance_payment},#{date_recorded},0,#{principal},#{remark},0,#{paymentMethod},0)")
     boolean addIncome(Income income);
 
     /**

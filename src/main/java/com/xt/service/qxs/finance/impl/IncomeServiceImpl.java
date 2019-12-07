@@ -111,7 +111,7 @@ public class IncomeServiceImpl implements IncomeServiceI {
         boolean stateClose = incomeMapper.updateStateClose(1);
         if(stateClose){
             //给FinancialSettlement 对象赋值
-            fs.setTotalMoney(income);
+            fs.setTotal_Money(income);
             fs.setType(2);
             //调用 财政结算的新增方法
             boolean b = financialSettlementMapper.addFinancialSettlement(fs);

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>财务主页</title>
+    <script src="../static/js/echarts.js"></script>
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+
+    <style>
+        #myChart{
+            position: absolute;
+            top: 10%;
+            left: 8%;
+        }
+        #main{
+            position: absolute;
+            top: 10%;
+            right: 8%;
+        }
+    </style>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="myChart" style="width:700px; height: 400px; "></div>
+    <div id="main" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    //南丁格尔图
+    var my = echarts.init($("#myChart").get(0));
+    my.setOption({
+        title : {
+            text: '政务年度结算报表'
+        },
+        series : [
+            {
+                name: '政务年度结算报表',
+                type: 'pie',
+                // 扇形图半径
+                radius: '95%',
+                data:[
+                    {value:0, name:'支出'},
+                    {value:0, name:'收入'},
+                ]
+            }
+        ],
+        // 阴影
+        itemStyle: {
+            // 阴影的大小
+            shadowBlur: 200,
+            // 设置扇形的颜色
+            //color: '#c23531',
+            // 阴影水平方向上的偏移
+            shadowOffsetX: 0,
+            // 阴影垂直方向上的偏移
+            shadowOffsetY: 0,
+            // 阴影颜色
+            shadowColor: 'rgba(0, 0, 0, 0)'
+        }
+    });
+    my.showLoading();//数据加载完之前先显示一段简单的loading动画
+
+    var zc=[]; //用于存放支出类型的值
+    var sr=[];  //用于存放收入类型的值
+    var zcType;//支出类型
+    var srType;//收入类型
+    //进行南丁格尔图数据加载
+    $.ajax({
+        url:"/finance/queryNotDeleteFs",
+        dataType:"json",
+        type:"post",
+        success:function (resp) {
+            //debugger;
+            if(resp!=null){
+                for (var i=0;i<resp.length;i++){
+                    if(resp[i].type==1){
+                        zc.push(resp[i].total_Money);
+                        zcType = '支出';
+                    }
+                    if(resp[i].type==2){
+                        sr.push(resp[i].total_Money);
+                        srType = '收入';
+                    }
+                }
+                //隐藏加载动画
+                my.hideLoading();
+                //加载数据图表
+                my.setOption({
+                    series:[{
+                        type:'pie',
+                        radius:'95%',
+                        data:[
+                            {value:zc,name:zcType},
+                            {value:sr,name:srType}
+                        ]
+                    }]
+                });
+            }else {
+                alert("图表请求数据失败!");
+                my.hideLoading();
+            }
+        }
+    });
+
+    //柱状统计图
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init($("#main").get(0));
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '财务详情'
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'cross',
+                label: {
+                    backgroundColor: '#283b56'
+                }
+            }
+        },
+        legend: {
+            data:['支出','收入']
+        },
+        xAxis: [{
+            name:"付款时间",
+            data: ["仓库","采购","薪资"]
+        },{
+            data:['1','2','3']
+        }
+        ],
+        yAxis: [{
+           /* data:['1','2','3']*/
+        },{name:'收款时间'}],
+        series: [{
+            name: '支出',
+            type: 'bar',
+            //data: [30, 20]
+        },
+            {
+                name:"收入",
+                type:'line',
+                //data: [30, 100, 45]
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    myChart.showLoading();
+
+    var fk = [];//支出的值
+    var sk = [];//收入的值
+    var fkDates=[];//支出时间
+    var skDates=[];//收入时间
+    /**
+     * 加载财政详情数据
+     */
+    $.ajax({
+        url:"/finance/queryNotDeleteFinance",
+        dataType:"json",
+        type:"post",
+        data:{},
+        success:function (resp) {
+            debugger;
+            if(resp!=null){
+                for (var i=0;i<resp[1].length;i++){
+                    fk.push(resp[1][i].actual_payment);
+                    fkDates.push(resp[1][i].date_receopt);
+                    //alert(resp[i].key)
+                    /*if(resp[i].key==1){
+                        //获取支出的值
+                        for (var j=0;j<resp[i].length;j++){
+                            fk.push(resp[i][j].actual_payment);
+                            fkDates.push(resp[i][j].date_receopt);
+                        }
+                    }else if(resp[i].key==2) {
+                        //获取收入的值
+                        for (var j=0;j<resp[i].length;j++){
+                            sk.push(resp[i][j].actual_payment);
+                            skDates.push(resp[i][j].date_recorded);
+                        }*/
+                    }
+                    for (var j=0;j<resp[2].length;j++){
+                        sk.push(resp[2][j].payable);
+                        skDates.push(resp[2][j].date_recorded);
+                    }
+                //隐藏加载动画
+                myChart.hideLoading();
+                //加载数据图表
+                myChart.setOption({
+                    xAxis:[
+                        {
+                            data:fkDates
+                        },{
+                            data:skDates
+                        }
+                    ],
+                    series:[
+                        {
+                            name: '支出',
+                            type: 'bar',
+                            data: fk
+                        },{
+                            name: '收入',
+                            type: 'line',
+                            data: sk
+                        }
+                    ]
+                });
+                }else {
+                alert("图表数据加载失败！");
+                myChart.hideLoading();
+                }
+            }
+    })
+</script>
+</body>
+</html>

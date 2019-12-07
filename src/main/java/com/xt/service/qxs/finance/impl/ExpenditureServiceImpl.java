@@ -109,7 +109,7 @@ public class ExpenditureServiceImpl implements ExpenditureServiceI {
         boolean stateClose = expenditureMapper.updateStateClose(1);
         boolean b = false;
         if(stateClose){
-            fs.setTotalMoney(sumExpenditure);
+            fs.setTotal_Money(sumExpenditure);
             fs.setType(1);
             System.out.println("fs对象："+fs);
             b = financialSettlementMapper.addFinancialSettlement(fs);

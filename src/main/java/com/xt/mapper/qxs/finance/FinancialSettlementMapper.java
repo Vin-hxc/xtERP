@@ -16,21 +16,21 @@ public interface FinancialSettlementMapper {
      * 查询所有未删除的记录
      * @return
      */
-    @Select("select * from FinancialSettlement where deleteFlag !=1 order by balanceDate desc")
+    @Select("select * from FinancialSettlement where deleteFlag !=1 order by balance_Date desc")
     List<FinancialSettlement> queryNotDeleteFs();
 
     /**
      * 查询所有已删除的数据
      * @return
      */
-    @Select("select * from FinancialSettlement where deleteFlag =1 order by balanceDate desc")
+    @Select("select * from FinancialSettlement where deleteFlag =1 order by balance_Date desc")
     List<FinancialSettlement> queryDeleteFs();
 
     /**
      * 查询所有数据
      * @return
      */
-    @Select("select * from FinancialSettlement order by balanceDate desc")
+    @Select("select * from FinancialSettlement order by balance_Date desc")
     List<FinancialSettlement> queryAllFinancialSettlement();
 
     /**
@@ -63,7 +63,7 @@ public interface FinancialSettlementMapper {
      * @param financialSettlement
      * @return
      */
-    @Insert("insert into FinancialSettlement values(null,#{totalMoney},#{balanceDate},#{type}," +
-            "#{userId},#{remark},0)")
+    @Insert("insert into FinancialSettlement values(null,#{totalMoney},#{balanceDate}," +
+            "#{userId},#{remark},0,#{type})")
     boolean addFinancialSettlement(FinancialSettlement financialSettlement);
 }

@@ -1,9 +1,7 @@
 package com.xt.service.qxs.finance.impl;
 
 import com.xt.entity.qxs.finance.FinancialSettlement;
-import com.xt.mapper.qxs.finance.ExpenditureMapper;
 import com.xt.mapper.qxs.finance.FinancialSettlementMapper;
-import com.xt.mapper.qxs.finance.IncomeMapper;
 import com.xt.service.qxs.finance.FinancialSettlementServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

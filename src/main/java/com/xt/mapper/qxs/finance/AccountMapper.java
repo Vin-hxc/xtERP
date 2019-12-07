@@ -16,21 +16,21 @@ public interface AccountMapper {
      * 查询所有未删除的账号信息
      * @return
      */
-    @Select("select * from account where deleteFlag!=1 order by dateCreated desc")
+    @Select("select * from account where deleteFlag!=1 order by date_Created desc")
     List<Account> queryNotDeleteAccount();
 
     /**
      * 查询所有已删除的记录
      * @return
      */
-    @Select("select * from account where deleteFlag=1 order by dateCreated desc")
+    @Select("select * from account where deleteFlag=1 order by date_Created desc")
     List<Account> queryDeleteAccount();
 
     /**
      * 查询所有数据包括已删除的
      * @return
      */
-    @Select("select * from account order by dateCreated desc")
+    @Select("select * from account order by date_Created desc")
     List<Account> queryAllAccount();
 
     /**
@@ -62,6 +62,6 @@ public interface AccountMapper {
      * @param account
      * @return
      */
-    @Insert("insert into account values(null,#{supplier},#{cardNumber},#{dateCreated},#{remark},0)")
+    @Insert("insert into account values(null,#{supplier},#{cardNumber},#{date_Created},#{remark},0)")
     boolean addAccount(Account account);
 }
