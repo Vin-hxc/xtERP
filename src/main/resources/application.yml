@@ -13,7 +13,8 @@ spring:
   # 配置数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/erp?useSSL=false&serverTimezone=GMT
+    # serverTimezone=UTC 世界统一时间  GMT格林尼治所在地标准时间 CTT（Asia&Shanghai）亚洲时间
+    url: jdbc:mysql://localhost:3306/erp?useSSL=false&serverTimezone=CTT
     username: root
     password: root
 
@@ -28,6 +29,9 @@ mybatis:
   mapper-locations: classpath:mapper/*/*.xml
   # 实体类所在包
   type-aliases-package: com.xt.entity
+  configuration:
+    # 打印数据库语句 用于测试
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 #静态资源路径配置
 #spring.mvc.static-path-pattern=/static/**

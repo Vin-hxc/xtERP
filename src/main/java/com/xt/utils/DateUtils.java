@@ -4,6 +4,7 @@ package com.xt.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -284,7 +285,7 @@ public class DateUtils {
      * @param endTime 结束时间
      * @return
      */
-    public static String timeDifference(Date startTime,Date endTime){
+    public static String timeDifference(Time startTime, Time endTime){
         //先将两个时间转换为毫秒相减，得到相差的毫秒数
         long differ = endTime.getTime() - startTime.getTime();
         //日
@@ -328,6 +329,6 @@ public class DateUtils {
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         Date date1 = format.parse("8:30:00");
         Date date2 = format.parse("14:20:20");
-        logger.info("计算两个时间之间的时间差："+DateUtils.timeDifference(date1,date2));
+        /*logger.info("计算两个时间之间的时间差："+DateUtils.timeDifference(date1,date2));*/
     }
 }

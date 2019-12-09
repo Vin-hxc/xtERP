@@ -11,6 +11,9 @@
     <update id="updateWorkAttendanceState" parameterType="com.xt.entity.winter.WorkAttendance">
       update workAttendance set start = #{start} where id = #{id}
     </update>
+    <update id="updateWorkAttendanceDate" parameterType="com.xt.entity.winter.WorkAttendance">
+      update workAttendance set startTime = #{startTime},endTime = #{endTime},allHour = #{allHour} where id = #{id}
+    </update>
     <select id="getEmployeeAttendance" resultType="com.xt.entity.winter.WorkAttendance">
         select * from workAttendance where userId = #{userId}
     </select>
