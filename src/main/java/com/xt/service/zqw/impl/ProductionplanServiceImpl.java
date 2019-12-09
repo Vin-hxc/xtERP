@@ -18,7 +18,10 @@ public class ProductionplanServiceImpl implements ProductionplanServiceI {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-
+    /**
+     * 查询生产计划
+     * @return
+     */
     @Override
     public List<HashMap> seleProuct() {
         ProductionplanMapper mapper = sqlSessionTemplate.getMapper(ProductionplanMapper.class);
