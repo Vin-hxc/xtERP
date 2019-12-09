@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author Winter
@@ -59,8 +60,18 @@ public class WorkAttendanceServiceImpl implements WorkAttendanceServiceI {
         //计算上下班时间时长
         String timeDifference = DateUtils.timeDifference(startTime, endTime);
         Date date = sdf.parse(timeDifference);
-        //allHour = sdf.parse(timeDifference);
         allHour = new Time(date.getTime());
         return workAttendanceMapper.updateWorkAttendanceDate(startTime,endTime,allHour,id);
+    }
+
+    /**
+     * 查看该员工的考勤信息
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<WorkAttendance> getEmployeeAttendance(int userId) {
+        return workAttendanceMapper.getEmployeeAttendance(userId);
     }
 }

@@ -37,8 +37,9 @@ public interface LeaveMapper {
 
     /**
      * 根据编号删除请假数据
+     * @param deleteFlag
      * @param leaveId
      * @return
      */
-    public boolean deleteLeave(int leaveId);
+    public boolean deleteLeave(int deleteFlag,int leaveId);
 }

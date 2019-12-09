@@ -22,6 +22,6 @@
     </update>
     <!-- 删除数据 -->
     <delete id="deleteLeave" parameterType="com.xt.entity.winter.Leave">
-        delete from leave where leaveId = #{leaveId}
+        update leave set deleteFlag = #{deleteFlag} where leaveId = #{leaveId}
     </delete>
 </mapper>

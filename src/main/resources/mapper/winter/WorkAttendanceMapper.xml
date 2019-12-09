@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xt.mapper.winter.WorkAttendanceMapper">
+    <!-- 多对一 多个考勤对一个用户  一对多标签 <collection ofType="com.xt.entity.winter.WordAttendance" autoMapping="true">-->
+    <!--<resultMap id="workToUser" type="com.xt.entity.winter.WorkAttendance" autoMapping="true">
+        <id property="id" column="id"></id>
+        <association property="userId" javaType="com.xt.entity..UserInfo" autoMapping="true">
+            <id property="id" column="id"></id>
+        </association>
+    </resultMap>-->
     <insert id="saveWorkAttendance" parameterType="com.xt.entity.winter.WorkAttendance">
       insert into workAttendance values(#{id},#{userId},#{attendanceDate},#{week},#{startTime},#{endTime},#{allHour},#{state})
     </insert>
@@ -15,6 +22,6 @@
       update workAttendance set startTime = #{startTime},endTime = #{endTime},allHour = #{allHour} where id = #{id}
     </update>
     <select id="getEmployeeAttendance" resultType="com.xt.entity.winter.WorkAttendance">
-        select * from workAttendance where userId = #{userId}
+        select * from workAttendance w left join userInfo u u.id = w.userId where userId = #{userId} order by desc
     </select>
 </mapper>

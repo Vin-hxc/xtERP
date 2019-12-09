@@ -4,7 +4,7 @@ import com.xt.entity.winter.WorkAttendance;
 
 import java.sql.Time;
 import java.text.ParseException;
-import java.util.Date;
+import java.util.List;
 
 /**
  * @Author Winter
@@ -35,4 +35,11 @@ public interface WorkAttendanceServiceI {
      * @return
      */
     boolean updateWorkAttendanceDate(Time startTime, Time endTime, Time allHour, int id) throws ParseException;
+
+    /**
+     * 查看该员工的考勤信息
+     * @param userId
+     * @return
+     */
+    List<WorkAttendance> getEmployeeAttendance(int userId);
 }
