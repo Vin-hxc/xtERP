@@ -4,6 +4,9 @@ package com.xt.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -77,7 +80,6 @@ public class DateUtils {
      * @return String
      */
     public static Date getSysTime() {
-        ;
         return Date.from(LOCAL_CURRENT_DATE_TIME.atZone(ZoneId.systemDefault()).toInstant());
     }
 
@@ -277,6 +279,26 @@ public class DateUtils {
     }
 
     /**
+     * 计算两个时间的时间差
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return
+     */
+    public static String timeDifference(Date startTime,Date endTime){
+        //先将两个时间转换为毫秒相减，得到相差的毫秒数
+        long differ = endTime.getTime() - startTime.getTime();
+        //日
+        long day = differ / (24 * 60 * 60 * 1000);
+        //时
+        long hour = (differ / (60 * 60 * 1000) - day * 24);
+        //分
+        long min = ((differ / (60 * 1000)) - day * 24 * 60 - hour * 60);
+        //秒
+        long se = (differ / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+        String time = hour +":"+ min +":"+se;
+        return time;
+    }
+    /**
      * 获得指定日期的下一个月的最后一天
      *
      * @param date
@@ -292,7 +314,7 @@ public class DateUtils {
         return date;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         logger.info("获取当前日期时间：{}", DateUtils.getCurrentTime());
         logger.info("获取当前日期：{}", DateUtils.getCurrentDate());
         logger.info("获取当前日期时间：{}", DateUtils.getSysTime());
@@ -303,5 +325,9 @@ public class DateUtils {
         logger.info("获取当前月：{}", DateUtils.getCurrentMonth());
         logger.info("获取当前日：{}", DateUtils.getCurrentDay());
         logger.info("获取当前日：{}", DateUtils.getCureentHourMinute());
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        Date date1 = format.parse("8:30:00");
+        Date date2 = format.parse("14:20:20");
+        logger.info("计算两个时间之间的时间差："+DateUtils.timeDifference(date1,date2));
     }
 }

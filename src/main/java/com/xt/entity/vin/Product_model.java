@@ -25,4 +25,6 @@ public class Product_model {
     private Double weight;//裸机重量
     private String model_type;//产品类别
     private String deleteFlag;//删除标记（0==未删除,1==删除)
+
+//    private Product productModel;
 }

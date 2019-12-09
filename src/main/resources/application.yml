@@ -8,7 +8,8 @@ spring:
     cache: false
     servlet:
       content-type: text/html
-
+  mvc:
+    static-path-pattern: /static/**
   # 配置数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -27,4 +28,7 @@ mybatis:
   mapper-locations: classpath:mapper/*/*.xml
   # 实体类所在包
   type-aliases-package: com.xt.entity
+
+#静态资源路径配置
+#spring.mvc.static-path-pattern=/static/**
 

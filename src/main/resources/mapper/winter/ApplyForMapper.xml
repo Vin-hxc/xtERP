@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xt.mapper.winter.ApplyForMapper">
+    <!-- 倒序查询申请数据 -->
+    <select id="getAllApplyFor" resultType="com.xt.entity.winter.ApplyFor">
+        select * from applyfor where id = #{id} order by desc
+    </select>
+    <!-- 添加申请数据 -->
+    <insert id="saveApplyFor" parameterType="com.xt.entity.winter.ApplyFor">
+        insert into applyfor values(#{id},#{type},#{productId},#{number},#{itemDescribe},#{approval},#{proposer},#{auditor},#{deleteFlag})
+    </insert>
+    <!-- 修改数据 -->
+    <update id="updateApplyFor" parameterType="com.xt.entity.winter.ApplyFor">
+        update applyfor set type = #{type},productId = #{productId},number = #{number},itemDescribe = #{itemDescribe},approval = #{approval},proposer = #{proposer},auditor = #{auditor},deleteFlag = #{deleteFlag}
+        where id = #{id}
+    </update>
+    <!-- 删除标记修改 -->
+    <delete id="deleteApplyFor" parameterType="com.xt.entity.winter.ApplyFor">
+        update applyfor set deteleFlag = #{deleteFlag} where id = #{id}
+    </delete>
+</mapper>

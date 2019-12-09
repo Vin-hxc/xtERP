@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/H-ui.min.css">
+    <script src="/static/css/jquery-1.8.3.min.js"></script>
+    <script src="/static/css/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+<table  id = "tbo"
+        class="table table-border table-bordered table-hover table-bg table-sort">
+    <thead>
+    <tr class="text-c">
+        <th width="100">id</th>
+        <th width="100">productId</th>
+        <th width="100">startTime</th>
+        <th width="100">endTime</th>
+        <th width="100">personCharge</th>
+        <th width="100">productionAudit</th>
+        <th width="100">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="seleuser:${pdsele}" height="40px" class="text-c">
+        <td th:text="${seleuser.id}"></td>
+        <td th:text="${seleuser.productId}"></td>
+        <td th:text="${seleuser.startTime}"></td>
+        <td th:text="${seleuser.endTime}"></td>
+        <td th:text="${seleuser.personCharge}"></td>
+        <td th:text="${seleuser.productionAudit}"></td>
+        <td></td>
+    </tr>
+    </tbody>
+</table>
+<script>
+    $(function(){
+        $('#tbo').DataTable({
+            "aLengthMenu":[4,6]  , //每页显示数
+        });
+    });
+
+</script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.xt.mapper.qxs.warehouse;
 
 import com.xt.entity.qxs.warehouse.Depot;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import java.util.List;
@@ -72,4 +73,13 @@ public interface DepotMapper {
      */
     @Update("update depot set delete_Flag=#{deleteFlag} where id=#{id}")
     boolean deleteDepot(String deleteFlag,Integer id);
+
+    /**
+     * 新增仓库
+     * @param depot
+     * @return
+     */
+    @Insert("insert into depot values(null,#{name},#{address},#{truckage},#{type},#{sort}," +
+            "#{remark},#{principal},0,1)")
+    boolean addDepot(Depot depot);
 }
