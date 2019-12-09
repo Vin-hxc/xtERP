@@ -63,7 +63,7 @@ public interface OrderMapper {
      * @return
      */
     @Update("(update Order set supplierid=#{supplierid},purchaserid=#{purchaserid},rebate=#{rebate},amount_paid=#{amount_paid}   where id=#{id})")
-    int updateOrder(int id);
+    int updateOrder(int id,int supplierid,int purchaserid,int rebate,int amount_paid);
 
     /**
      * 添加采购支出
@@ -95,7 +95,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Update("(update  cost set costprice=#{costprice}  where id=#{id} )")
+    @Update("(update  cost set costprice=#{costprice},costtype=#{costtype}  where id=#{id} )")
     int delectCost(int id,String costtype,int costprice);
 
 }
