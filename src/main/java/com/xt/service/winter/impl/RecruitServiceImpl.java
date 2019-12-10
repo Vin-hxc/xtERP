@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author Winter
  * @Date 2019/12/3 8:43
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service;
 @SuppressWarnings("all")
 @Service
 public class RecruitServiceImpl implements RecruitServiceI {
-    @Autowired(required = true)
+    @Autowired
     private RecruitMapper recruitMapper;
     /**
      * 添加招聘信息
@@ -39,11 +41,53 @@ public class RecruitServiceImpl implements RecruitServiceI {
 
     /**
      * 根据编号删除招聘信息
+     * @param deleteFlag
      * @param id
      * @return
      */
     @Override
-    public boolean deleteRecruit(int id) {
-        return recruitMapper.deleteRecruit(id);
+    public boolean deleteRecruit(int deleteFlag,int id) {
+        return recruitMapper.deleteRecruit(deleteFlag,id);
+    }
+
+    /**
+     * 查询所有未删除的招聘信息
+     *
+     * @return
+     */
+    @Override
+    public List<Recruit> getAllNoDeleteRecruit() {
+        return recruitMapper.getAllNoDeleteRecruit();
+    }
+
+    /**
+     * 查询所有已删除的招聘信息
+     *
+     * @return
+     */
+    @Override
+    public List<Recruit> getAllDeleteRecruit() {
+        return recruitMapper.getAllDeleteRecruit();
+    }
+
+    /**
+     * 查询所有招聘信息
+     *
+     * @return
+     */
+    @Override
+    public List<Recruit> getAllRecruit() {
+        return recruitMapper.getAllRecruit();
+    }
+
+    /**
+     * 根据编号查询单条招聘信息
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public Recruit findRecruitOne(int id) {
+        return recruitMapper.findRecruitOne(id);
     }
 }

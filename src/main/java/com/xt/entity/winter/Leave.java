@@ -25,6 +25,6 @@ public class Leave implements Serializable {
     private Date endTime;//结束时间
     private Integer allHour;//总时长
     private Integer verifyStatus;//审核 0通过 1未通过
-
+    private Integer deleteFlag;//请假编号
 
 }

@@ -1,17 +1,16 @@
-package com.xt.mapper.winter;
+package com.xt.service.winter;
 
 import com.xt.entity.winter.Application;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
 
 /**
  * @Author Winter
- * @Date 2019/12/9 14:29
- * 考勤申请数据操作接口
+ * @Date 2019/12/10 10:12
+ * 考勤申请业务操作接口
  */
-public interface ApplicationMapper {
+public interface ApplicationServiceI {
     /**
      * 根据申请人
      * 查询考勤申请数据
@@ -34,8 +33,7 @@ public interface ApplicationMapper {
      * @param id
      * @return
      */
-    boolean updateApplicationAuditTime(@Param("auditTime") Date auditTime,
-                                       @Param("id") int id);
+    boolean updateApplicationAuditTime(Date auditTime, int id);
 
     /**
      * 修改申请审核状态
@@ -43,8 +41,7 @@ public interface ApplicationMapper {
      * @param id
      * @return
      */
-    boolean updateApplicationApproval(@Param("approval") int approval,
-                                      @Param("id") int id);
+    boolean updateApplicationApproval(int approval, int id);
 
     /**
      * 添加考勤信息
@@ -59,6 +56,5 @@ public interface ApplicationMapper {
      * @param id
      * @return
      */
-    boolean deleteApplication(@Param("deleteFlag") int deleteFlag,
-                              @Param("id") int id);
+    boolean deleteApplication(int deleteFlag, int id);
 }

@@ -1,17 +1,15 @@
-package com.xt.mapper.winter;
+package com.xt.service.winter;
 
 import com.xt.entity.winter.Leave;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @Author Winter
- * @Date 2019/12/2 16:15
- * 请假 持久操作接口
+ * @Date 2019/12/10 10:16
+ * 请假 业务操作接口
  */
-public interface LeaveMapper {
+public interface LeaveServiceI {
     /**
      * 添加请假数据
      * @param leave
@@ -33,8 +31,7 @@ public interface LeaveMapper {
      * @param verifyStatus
      * @return
      */
-    boolean updateLeaveStatus(@Param("leaveId") int leaveId,
-                              @Param("verifyStatus") int verifyStatus);
+    boolean updateLeaveStatus(int leaveId, int verifyStatus);
 
     /**
      * 根据编号删除请假数据
@@ -42,8 +39,7 @@ public interface LeaveMapper {
      * @param leaveId
      * @return
      */
-    boolean deleteLeave(@Param("deleteFlag") int deleteFlag,
-                        @Param("leaveId") int leaveId);
+    boolean deleteLeave(int deleteFlag, int leaveId);
 
     /**
      * 未被删除的请假数据

@@ -17,6 +17,27 @@ import java.util.List;
 public class ApplyForServiceImpl implements ApplyForServiceI {
     @Autowired
     private ApplyForMapper applyForMapper;
+
+    /**
+     * 查看所有未删除的申请数据
+     *
+     * @return
+     */
+    @Override
+    public List<ApplyFor> getAllNoDeleteApplyFor() {
+        return applyForMapper.getAllNoDeleteApplyFor();
+    }
+
+    /**
+     * 查看所有已删除的申请数据
+     *
+     * @return
+     */
+    @Override
+    public List<ApplyFor> getAllDeleteApplyFor() {
+        return applyForMapper.getAllDeleteApplyFor();
+    }
+
     /**
      * 查看所有申请数据
      * 倒序
@@ -26,6 +47,17 @@ public class ApplyForServiceImpl implements ApplyForServiceI {
     @Override
     public List<ApplyFor> getAllApplyFor() {
         return applyForMapper.getAllApplyFor();
+    }
+
+    /**
+     * 根据编号查询单条申请数据
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public ApplyFor findApplyFoyOne(int id) {
+        return applyForMapper.findApplyFoyOne(id);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.xt.mapper.winter;
 
 import com.xt.entity.winter.Recruit;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,9 +28,35 @@ public interface RecruitMapper {
     boolean updateRecruit(Recruit recruit);
 
     /**
-     * 根据编号删除招聘信息
+     * 删除招聘信息
      * @param id
      * @return
      */
-    boolean deleteRecruit(int id);
+    boolean deleteRecruit(@Param("deleteFlag") int deleteFlag,
+                          @Param("id") int id);
+
+    /**
+     * 查询所有未删除的招聘信息
+     * @return
+     */
+    List<Recruit> getAllNoDeleteRecruit();
+
+    /**
+     *查询所有已删除的招聘信息
+     * @return
+     */
+    List<Recruit> getAllDeleteRecruit();
+
+    /**
+     * 查询所有招聘信息
+     * @return
+     */
+    List<Recruit> getAllRecruit();
+
+    /**
+     * 根据编号查询单条招聘信息
+     * @param id
+     * @return
+     */
+    Recruit findRecruitOne(int id);
 }

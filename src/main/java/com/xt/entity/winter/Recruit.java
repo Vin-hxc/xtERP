@@ -24,4 +24,5 @@ public class Recruit implements Serializable {
     private String salary;//工资金额 如5000-6000
     private String phone;//联系电话
     private String address;//联系地址
+    private Integer deleteFlag;//删除标记
 }

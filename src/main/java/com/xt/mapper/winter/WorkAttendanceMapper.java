@@ -33,7 +33,8 @@ public interface WorkAttendanceMapper {
      * @param id
      * @return
      */
-    boolean updateWorkAttendanceState(int state,int id);
+    boolean updateWorkAttendanceState(@Param("state") int state,
+                                      @Param("id") int id);
 
     /**
      * 修改考勤时间

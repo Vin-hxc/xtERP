@@ -26,4 +26,5 @@ public class WorkAttendance implements Serializable {
     private Time endTime;//结束时间
     private Time allHour;//总时长
     private Integer state;//考勤状态 0早卡，1工时不足，2全勤，3缺勤,4未打晚卡，5未打早卡
+    private Integer deleteFlag;//删除标记
 }
