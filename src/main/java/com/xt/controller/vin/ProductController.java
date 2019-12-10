@@ -1,12 +1,16 @@
 package com.xt.controller.vin;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.xt.entity.vin.Product;
 import com.xt.entity.vin.Product_model;
+import com.xt.entity.vin.Product_type;
 import com.xt.mapper.vin.ProductMapper;
 import com.xt.service.vin.ProductServiceI;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +21,7 @@ import java.util.List;
 public class ProductController {
     @Resource
     private ProductServiceI productServiceI;
+
 
     @RequestMapping("/getAllProduct")
     public String getAllProduct(HttpServletRequest request){
@@ -47,11 +52,30 @@ public class ProductController {
         return "vin/product";
     }
 
-    @RequestMapping("/insertProduct")
+    @RequestMapping("/insert_Product")
     public String insertProduct(Product product, Model model){
         List<Product_model> product_models = productServiceI.getProductModel();
+
         model.addAttribute("product_models",product_models);
-        System.out.println(product);
+        for (Product_model list : product_models){
+            System.out.println(list);
+        }
         return "vin/insertProduct";
+    }
+
+    @RequestMapping("/queryByModelName")
+    @ResponseBody
+    public Product_type queryByModelName(Integer model_id){
+        System.out.println(model_id);
+        Product_type product_type = productServiceI.queryByModelName(model_id);
+        if(product_type!=null){
+            System.out.println(product_type);
+        }
+        return product_type;
+    }
+
+    @RequestMapping("/insertProduct")
+    public String insertProduct(){
+        return "";
     }
 }

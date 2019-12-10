@@ -20,7 +20,7 @@ public interface ProductMapper {
      * 查询所有产品
      * @return List<Product>
      */
-    @Select("select p.id,p.product_name,pm.model_name,pt.type_name,p.product_unit,p.product_stock,p.retail_price,p.min_price,p.cost_price,p.trade_price,p.product_state,p.serial_number from product as p" +
+    @Select("select p.id,p.product_name,pm.model_name,p.product_model,pt.type_name,p.product_unit,p.product_stock,p.retail_price,p.min_price,p.cost_price,p.trade_price,p.product_state,p.serial_number from product as p" +
             " INNER JOIN product_model AS pm ON p.product_model = pm.id" +
             " INNER JOIN product_type as pt ON p.product_type = pt.id" +
             " where p.delete_Flag = '0'")
@@ -97,4 +97,11 @@ public interface ProductMapper {
      */
     @Update("UPDATE product SET product_state = #{product_state} where id = #{id}")
     public boolean updateProductState(long id);
+
+    /**
+     * 根据产品型号获取产品类型
+     * @return Product_type
+     */
+    @Select("SELECT * from product_type where id =#{id} and delete_Flag = 0")
+    public Product_type queryByModelName(long id);
 }
