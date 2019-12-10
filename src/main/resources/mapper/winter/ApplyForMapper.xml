@@ -20,7 +20,8 @@
     </select>
     <!-- 添加申请数据 -->
     <insert id="saveApplyFor" parameterType="com.xt.entity.winter.ApplyFor">
-        insert into applyfor values(#{id},#{type},#{productId},#{number},#{itemDescribe},#{approval},#{proposer},#{auditor},#{deleteFlag})
+        insert into applyfor values(#{id},#{type},#{productId},#{number},
+        #{itemDescribe},#{approval},#{proposer},#{auditor},#{deleteFlag})
     </insert>
     <!-- 修改数据 -->
     <update id="updateApplyFor" parameterType="com.xt.entity.winter.ApplyFor">

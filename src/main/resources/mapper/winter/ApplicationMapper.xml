@@ -20,7 +20,8 @@
     </update>
     <!-- 添加审批数据 -->
     <insert id="saveApplication" parameterType="com.xt.entity.winter.Application">
-        insert into application values(#{id},#{workId.id},#{cause},#{proposer},#{applicationTime},#{approval},#{auditor},#{auditTime},#{deleteFlag});
+        insert into application values(#{id},#{workId},#{cause},
+        #{proposer},#{applicationTime},#{approval},#{auditor},#{auditTime},#{deleteFlag});
     </insert>
     <!-- 删除申请数据 删除标记修改 -->
     <delete id="deleteApplication" parameterType="int">
