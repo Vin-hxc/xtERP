@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>财务主页</title>
+    <script src="../static/layui/layui/layui.js"></script>
+    <link href="../static/layui/layui/css/layui.css" />
     <script src="../static/js/echarts.js"></script>
     <script src="../static/js/jquery-3.4.1.min.js"></script>
-
     <style>
         #myChart{
             position: absolute;
@@ -23,9 +24,10 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div id="myChart" style="width:700px; height: 400px; "></div>
     <div id="main" style="width: 600px;height:400px;"></div>
+
 <script type="text/javascript">
     //南丁格尔图
-    var my = echarts.init($("#myChart").get(0));
+    var my = echarts.init(document.getElementById('myChart'));
     my.setOption({
         title : {
             text: '政务年度结算报表'
@@ -102,7 +104,7 @@
 
     //柱状统计图
     // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init($("#main").get(0));
+    var myChart = echarts.init(document.getElementById('main'));
     // 指定图表的配置项和数据
     var option = {
         title: {
@@ -159,26 +161,15 @@
         type:"post",
         data:{},
         success:function (resp) {
-            debugger;
+            //debugger;
             if(resp!=null){
                 for (var i=0;i<resp[1].length;i++){
+                    //获取支出
                     fk.push(resp[1][i].actual_payment);
                     fkDates.push(resp[1][i].date_receopt);
-                    //alert(resp[i].key)
-                    /*if(resp[i].key==1){
-                        //获取支出的值
-                        for (var j=0;j<resp[i].length;j++){
-                            fk.push(resp[i][j].actual_payment);
-                            fkDates.push(resp[i][j].date_receopt);
-                        }
-                    }else if(resp[i].key==2) {
-                        //获取收入的值
-                        for (var j=0;j<resp[i].length;j++){
-                            sk.push(resp[i][j].actual_payment);
-                            skDates.push(resp[i][j].date_recorded);
-                        }*/
                     }
                     for (var j=0;j<resp[2].length;j++){
+                        //获取收入
                         sk.push(resp[2][j].payable);
                         skDates.push(resp[2][j].date_recorded);
                     }
@@ -210,7 +201,28 @@
                 myChart.hideLoading();
                 }
             }
-    })
+    });
+    //打开汇总详情页面
+    $("#myChart").click(function () {
+        layui.use('layer',function () {
+            var layer = layui.layer; //独立版的layer无需执行这一句
+            layer.open({
+                title:'财务年度报表详情',
+                type:2,
+                skin: 'layui-layer-lan ', //样式类名
+                closeBtn: 1, //显示关闭按钮
+                anim: 2,
+                area:['60%','45%'],
+                resize:true,
+                id: '1', //防止重复弹出
+                shadeClose: true, //开启遮罩关闭
+                shade:[0.5], //透明度，背景颜色
+                content: ['/finance/pageDetailsFs'],
+                offset:'auto',
+                btn:['确认']
+            });
+        });
+    });
 </script>
 </body>
 </html>

@@ -107,15 +107,17 @@ public class IncomeServiceImpl implements IncomeServiceI {
         //调用结算方法
         Double income = incomeMapper.sumIncome();
         System.out.println("总收入："+income);
-        //调用修改结算状态方法
-        boolean stateClose = incomeMapper.updateStateClose(1);
-        if(stateClose){
-            //给FinancialSettlement 对象赋值
-            fs.setTotal_Money(income);
-            fs.setType(2);
-            //调用 财政结算的新增方法
-            boolean b = financialSettlementMapper.addFinancialSettlement(fs);
-            return b;
+        if(income > 0.00){
+            //调用修改结算状态方法
+            boolean stateClose = incomeMapper.updateStateClose(1);
+            if(stateClose){
+                //给FinancialSettlement 对象赋值
+                fs.setTotal_Money(income);
+                fs.setType(2);
+                //调用 财政结算的新增方法
+                boolean b = financialSettlementMapper.addFinancialSettlement(fs);
+                return b;
+            }
         }
         return false;
     }
