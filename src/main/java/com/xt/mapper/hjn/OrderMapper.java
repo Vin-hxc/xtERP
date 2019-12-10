@@ -30,7 +30,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Insert("insert into order values(null,#{orderid},#{supplierid},#{purchaserid},#{rebate},#{paytype},#{total},#{amount_paid},#{total_tax},#{orderstate},#{preferential},#{costid})")
+    //@Insert("insert into order values(null,#{orderid},#{supplierid},#{purchaserid},#{rebate},#{paytype},#{total},#{amount_paid},#{total_tax},#{orderstate},#{preferential},#{costid})")
     int addOrder(Order order);
 
     /**
@@ -38,7 +38,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Insert("insert into Detailed values(null,#{orderid},#{storehouseid},#{goodsid},#{number},#{tax},#{price},#{remarks}")
+    //@Insert("insert into Detailed values(null,#{orderid},#{storehouseid},#{goodsid},#{number},#{tax},#{price},#{remarks}")
     int addDetailed(Detailed detailed);
 
     /**
@@ -46,7 +46,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Update("update Order set orderstate=2 where id=#{id}")
+    //@Update("update Order set orderstate=2 where id=#{id}")
     int updateState(int id);
 
     /**
@@ -54,7 +54,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Update("update Order set orderstate=3 where id=#{id}")
+    //@Update("update Order set orderstate=3 where id=#{id}")
     int updateOrderState(int id);
 
     /**
@@ -62,7 +62,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Update("(update Order set supplierid=#{supplierid},purchaserid=#{purchaserid},rebate=#{rebate},amount_paid=#{amount_paid}   where id=#{id})")
+    //@Update("(update Order set supplierid=#{supplierid},purchaserid=#{purchaserid},rebate=#{rebate},amount_paid=#{amount_paid}   where id=#{id})")
     int updateOrder(int id,int supplierid,int purchaserid,int rebate,int amount_paid);
 
     /**
@@ -70,7 +70,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Insert("(insert into cost values(null,#{orderid},#{costtype},#{costprice}))")
+    //@Insert("(insert into cost values(null,#{orderid},#{costtype},#{costprice}))")
     int addCost(Cost cost);
 
 
@@ -79,7 +79,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Delete("(delect from cost where id=#{id} )")
+    //@Delete("(delect from cost where id=#{id} )")
     int delectCost(int id);
 
     /**
@@ -87,7 +87,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Select("(delect from cost where orderid=#{orderid} )")
+   // @Select("(delect from cost where orderid=#{orderid} )")
     List<Cost> findCost(int orderid);
 
     /**
@@ -95,7 +95,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Update("(update  cost set costprice=#{costprice},costtype=#{costtype}  where id=#{id} )")
+    //@Update("(update  cost set costprice=#{costprice},costtype=#{costtype}  where id=#{id} )")
     int delectCost(int id,String costtype,int costprice);
 
 }

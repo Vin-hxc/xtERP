@@ -12,6 +12,7 @@ public class Picking {
   private String materialNumber;//物料数量
   private Date startTime;//出库时间
   private long productionAudit;//物料审核是否通过 0-通过 1-不通过
+  private long deletePick;//删除标记
 
   @Override
   public String toString() {
@@ -23,6 +24,7 @@ public class Picking {
             ", materialNumber='" + materialNumber + '\'' +
             ", startTime=" + startTime +
             ", productionAudit=" + productionAudit +
+            ", deletePick=" + deletePick +
             '}';
   }
 
@@ -82,10 +84,18 @@ public class Picking {
     this.productionAudit = productionAudit;
   }
 
+  public long getDeletePick() {
+    return deletePick;
+  }
+
+  public void setDeletePick(long deletePick) {
+    this.deletePick = deletePick;
+  }
+
   public Picking() {
   }
 
-  public Picking(long id, String pickingNo, long monitor, String materialParts, String materialNumber, Date startTime, long productionAudit) {
+  public Picking(long id, String pickingNo, long monitor, String materialParts, String materialNumber, Date startTime, long productionAudit, long deletePick) {
     this.id = id;
     this.pickingNo = pickingNo;
     this.monitor = monitor;
@@ -93,5 +103,6 @@ public class Picking {
     this.materialNumber = materialNumber;
     this.startTime = startTime;
     this.productionAudit = productionAudit;
+    this.deletePick = deletePick;
   }
 }

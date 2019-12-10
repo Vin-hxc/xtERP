@@ -11,6 +11,7 @@ public class Dispatchedworker {
   private long monitor;//负责人id
   private Date dispatchingTime;//派工时间
   private long dispatchedAudits;//派工审核是否通过 0-通过 1-不通过
+  private long deleteDw;//删除标记
 
   @Override
   public String toString() {
@@ -20,6 +21,7 @@ public class Dispatchedworker {
             ", monitor=" + monitor +
             ", dispatchingTime=" + dispatchingTime +
             ", dispatchedAudits=" + dispatchedAudits +
+            ", deleteDw=" + deleteDw +
             '}';
   }
 
@@ -63,14 +65,23 @@ public class Dispatchedworker {
     this.dispatchedAudits = dispatchedAudits;
   }
 
+  public long getDeleteDw() {
+    return deleteDw;
+  }
+
+  public void setDeleteDw(long deleteDw) {
+    this.deleteDw = deleteDw;
+  }
+
   public Dispatchedworker() {
   }
 
-  public Dispatchedworker(long id, long dispatchedNo, long monitor, Date dispatchingTime, long dispatchedAudits) {
+  public Dispatchedworker(long id, long dispatchedNo, long monitor, Date dispatchingTime, long dispatchedAudits, long deleteDw) {
     this.id = id;
     this.dispatchedNo = dispatchedNo;
     this.monitor = monitor;
     this.dispatchingTime = dispatchingTime;
     this.dispatchedAudits = dispatchedAudits;
+    this.deleteDw = deleteDw;
   }
 }
