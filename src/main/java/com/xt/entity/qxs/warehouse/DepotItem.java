@@ -11,19 +11,19 @@ import lombok.NoArgsConstructor;
 public class DepotItem {
     private Integer id;//主键
     private Integer header;//单据主表id
-    private Integer materialId;//材料id
+    private Integer materialId;//材料id/商品id
     private String mUnit;//计量单位
-    private Double basicNumber;//基础数量
+    private Integer basicNumber;//基础数量
     private Double unitPrice;//单价
     private Double allPrice;//总金额
     private String remark;//描述
     private String img;//样品图
     private Integer depot;//仓库id
-    private String mType;//商品类型
+    private String mType;//类型:成品/材料
     private String delete_Flag;//标记删除
 
     public DepotItem(Integer id, Integer header, Integer materialId,
-                     String mUnit, Double basicNumber, Double unitPrice,
+                     String mUnit, Integer basicNumber, Double unitPrice,
                      String remark, String img, Integer depot,
                      String mType, String deleteFlag) {
         this.id = id;

@@ -12,10 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * 财政试图层
@@ -77,8 +75,34 @@ public class FinanceController {
     @RequestMapping("pageDetailsFs")
     public String pageDetailsFs(Model model){
         System.out.println("url:pageDetailsFs");
-        List<FinancialSettlement> fs = financialSettlementServiceI.queryNotDeleteFs();
+        List<FinancialSettlement> fs = financialSettlementServiceI.queryAllFinancialSettlement();
         model.addAttribute("fsList",fs);
         return "qxs/finance/FinancialSettlement";
+    }
+
+    /**
+     * 标记删除 汇总数据
+     * @return
+     */
+    @RequestMapping("deleteFlagFs")
+    @ResponseBody
+    public boolean deleteFlagFs(Integer flag,Integer id){
+        System.err.println(id);
+        return financialSettlementServiceI.deleteFinancialSettlement(flag,id);
+    }
+
+    /**
+     *  跳转值财务详情页面
+     * @return
+     */
+    @RequestMapping("pageFinanceDetails")
+    public String pageFinanceDetails(Model model){
+        //查询所有支出记录
+        List<Expenditure> expenditures = expenditureServiceI.queryAllExpenditure();
+        //查询所有收入记录
+        List<Income> incomes = incomeServiceI.queryAllIncome();
+        model.addAttribute("expendList",expenditures);
+        model.addAttribute("incomeList",incomes);
+        return "qxs/finance/financeDetails";
     }
 }
