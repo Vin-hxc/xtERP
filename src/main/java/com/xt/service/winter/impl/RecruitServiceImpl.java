@@ -42,12 +42,12 @@ public class RecruitServiceImpl implements RecruitServiceI {
     /**
      * 根据编号删除招聘信息
      * @param deleteFlag
-     * @param id
+     * @param recruitId
      * @return
      */
     @Override
-    public boolean deleteRecruit(int deleteFlag,int id) {
-        return recruitMapper.deleteRecruit(deleteFlag,id);
+    public boolean deleteRecruit(int deleteFlag,int recruitId) {
+        return recruitMapper.deleteRecruit(deleteFlag,recruitId);
     }
 
     /**
@@ -83,11 +83,11 @@ public class RecruitServiceImpl implements RecruitServiceI {
     /**
      * 根据编号查询单条招聘信息
      *
-     * @param id
+     * @param recruitId
      * @return
      */
     @Override
-    public Recruit findRecruitOne(int id) {
-        return recruitMapper.findRecruitOne(id);
+    public Recruit findRecruitOne(int recruitId) {
+        return recruitMapper.findRecruitOne(recruitId);
     }
 }

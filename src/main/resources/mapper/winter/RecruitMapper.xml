@@ -5,31 +5,31 @@
 <mapper namespace="com.xt.mapper.winter.RecruitMapper">
     <!-- 添加招聘信息 -->
     <insert id="saveRecruit" parameterType="com.xt.entity.winter.Recruit">
-        insert into recruit values(#{id},
-        #{title},#{content},#{position},#{salary},
-        #{phone},#{address})
+        insert into recruit values(#{recruitId},
+        #{title},#{recruitContent},#{position},#{recruitSalary},
+        #{recruitPhone},#{address})
     </insert>
 
     <!-- 修改招聘信息 -->
     <update id="updateRecruit" parameterType="com.xt.entity.winter.Recruit">
         update recruit set title = #{title},content = #{content},
-        content = #{content},position = #{position},salary = #{salary},
-        phone = #{phone},address = #{address} where id = #{id}
+        recruit_content = #{recruitContent},position = #{position},recruit_salary = #{recruitSalary},
+        recruit_phone = #{recruitPhone},address = #{address} where recruitId = #{recruitId}
     </update>
 
     <!-- 删除招聘信息 -->
     <delete id="deleteRecruit" parameterType="com.xt.entity.winter.Recruit">
-        update recruit set deleteFlag = #{deleteFlag} where id = #{id}
+        update recruit set deleteFlag = #{deleteFlag} where recruitId = #{recruitId}
     </delete>
 
     <!-- 查询所有未删除的招聘信息 -->
     <select id="getAllNoDeleteRecruit" resultType="com.xt.entity.winter.Recruit">
-        select * from recruit where deleteFlag = 0 order by desc
+        select * from recruit where deleteFlag = 0 order by recruitId desc
     </select>
 
     <!-- 查询所有已删除的招聘信息 -->
     <select id="getAllDeleteRecruit" resultType="com.xt.entity.winter.Recruit">
-        select * from recruit where deleteFlag = 1 order by desc
+        select * from recruit where deleteFlag = 1 order by recruitId desc
     </select>
 
     <!-- 查询所有招聘信息 -->
@@ -39,6 +39,6 @@
 
     <!-- 查询单个招聘信息 -->
     <select id="findRecruitOne" resultType="com.xt.entity.winter.Recruit">
-        select * from recruit where id = #{id}
+        select * from recruit where recruitId = #{recruitId}
     </select>
 </mapper>

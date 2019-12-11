@@ -32,15 +32,15 @@
     </delete>
     <!-- 未删除的请假数据 -->
     <select id="getAllNoDeleteLeave" resultType="com.xt.entity.winter.Leave">
-        select * from leave where deleteFlag = 0 order by desc
+        select * from leave where deleteFlag = 0 order by leaveId desc
     </select>
     <!-- 已删除的请假数据 -->
     <select id="getAllDeleteLeave" resultType="com.xt.entity.winter.Leave">
-        select * from leave where deleteFlag = 1 order by dosc
+        select * from leave where deleteFlag = 1 order by leaveId dosc
     </select>
     <!-- 全部数据 -->
     <select id="getAllLeave" resultType="com.xt.entity.winter.Leave">
-        select * from leave order by desc
+        select * from leave order by leaveId desc
     </select>
     <!-- 查询单条请假数据 -->
     <select id="findLeaveOne" resultType="com.xt.entity.winter.Leave">

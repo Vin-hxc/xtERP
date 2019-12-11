@@ -4,15 +4,15 @@
 <mapper namespace="com.xt.mapper.winter.ApplyForMapper">
     <!-- 查询所有未删除的申请数据 -->
     <select id="getAllNoDeleteApplyFor" resultType="com.xt.entity.winter.ApplyFor">
-        select * from applyFor where deleteFlag = 0 order by desc
+        select * from applyFor where deleteFlag = 0 order by id desc
     </select>
     <!-- 查询所有已删除的申请数据 -->
     <select id="getAllDeleteApplyFor" resultType="com.xt.entity.winter.ApplyFor">
-        select * from applyFor where deleteFlag = 1 order by desc
+        select * from applyFor where deleteFlag = 1 order by id desc
     </select>
     <!-- 倒序查询申请数据 -->
     <select id="getAllApplyFor" resultType="com.xt.entity.winter.ApplyFor">
-        select * from applyfor where id = #{id} order by desc
+        select * from applyfor where id = #{id} order by id desc
     </select>
     <!-- 根据编号查询单条数据 -->
     <select id="findApplyFoyOne" resultType="com.xt.entity.winter.ApplyFor">
