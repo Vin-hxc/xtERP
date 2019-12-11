@@ -4,6 +4,7 @@ import com.xt.entity.winter.Leave;
 import com.xt.service.winter.LeaveServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -54,8 +55,14 @@ public class LeaveController {
      * @param verifyStatus
      * @return
      */
+    @RequestMapping("/updateLeaveStatus")
     public String updateLeaveStatus( int leaveId, int verifyStatus){
-        return null;
+        boolean flag = leaveService.updateLeaveStatus(leaveId,verifyStatus);
+        if (flag){
+            return "/getLeave";
+        }else {
+            return "false";
+        }
     }
 
     /**
@@ -64,23 +71,35 @@ public class LeaveController {
      * @param leaveId
      * @return
      */
+    @RequestMapping("/deleteLeave")
     public String deleteLeave(int deleteFlag,int leaveId){
-        return null;
+        boolean flag = leaveService.deleteLeave(deleteFlag,leaveId);
+        if (flag){
+            return "/getLeave";
+        }else {
+            return "false";
+        }
     }
 
     /**
      * 未被删除的请假数据
+     * @param model 
      * @return
      */
-    public String getAllNoDeleteLeave(){
-        return null;
+    @RequestMapping("/getLeave")
+    public String getAllNoDeleteLeave(Model model){
+        List<Leave> allNoDeleteLeave = leaveService.getAllNoDeleteLeave();
+        model.addAttribute("noDeleteLeave",allNoDeleteLeave);
+        return "winter/leave/noDeleteLeave";
     }
 
     /**
      * 已被删除的请假数据
      * @return
      */
-    public String getAllDeleteLeave(){
+    public String getAllDeleteLeave(Model model){
+        List<Leave> deleteLeave = leaveService.getAllNoDeleteLeave();
+        model.addAttribute("deleteLeave",deleteLeave);
         return null;
     }
 
@@ -88,7 +107,9 @@ public class LeaveController {
      * 所有请假数据
      * @return
      */
-    public String getAllLeave(){
+    public String getAllLeave(Model model){
+        List<Leave> allLeave = leaveService.getAllLeave();
+        model.addAttribute("allLeave",allLeave);
         return null;
     }
 
@@ -97,7 +118,9 @@ public class LeaveController {
      * @param leaveId
      * @return
      */
-    public String findLeaveOne(int leaveId){
+    public String findLeaveOne(int leaveId,Model model){
+        Leave leaveOne = leaveService.findLeaveOne(leaveId);
+        model.addAttribute("leaveOne",leaveOne);
         return null;
     }
 }

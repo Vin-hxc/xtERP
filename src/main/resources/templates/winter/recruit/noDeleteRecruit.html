@@ -28,10 +28,10 @@
         <tr th:each="recruit,recruitStat : ${noDeleteRecruit}">
             <td th:text="${recruitStat.count}"></td>
             <td th:text="${recruit.title}"></td>
-            <td th:text="${recruit.recruitContent}"></td>
+            <td th:text="${recruit.content}"></td>
             <td th:text="${recruit.position}"></td>
-            <td th:text="${recruit.recruitSalary}"></td>
-            <td th:text="${recruit.recruitPhone}"></td>
+            <td th:text="${recruit.salary}"></td>
+            <td th:text="${recruit.phone}"></td>
             <td th:text="${recruit.address}"></td>
             <td></td>
         </tr>

@@ -6,15 +6,15 @@
     <!-- 添加招聘信息 -->
     <insert id="saveRecruit" parameterType="com.xt.entity.winter.Recruit">
         insert into recruit values(#{recruitId},
-        #{title},#{recruitContent},#{position},#{recruitSalary},
-        #{recruitPhone},#{address})
+        #{title},#{content},#{position},#{salary},
+        #{phone},#{address})
     </insert>
 
     <!-- 修改招聘信息 -->
     <update id="updateRecruit" parameterType="com.xt.entity.winter.Recruit">
         update recruit set title = #{title},content = #{content},
-        recruit_content = #{recruitContent},position = #{position},recruit_salary = #{recruitSalary},
-        recruit_phone = #{recruitPhone},address = #{address} where recruitId = #{recruitId}
+        content = #{content},position = #{position},salary = #{salary},
+        phone = #{phone},address = #{address} where recruitId = #{recruitId}
     </update>
 
     <!-- 删除招聘信息 -->

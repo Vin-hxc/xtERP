@@ -21,5 +21,10 @@ public class Sale implements Serializable {
     private Integer productId;//产品编号
     private Integer depotId;//仓库编号
     private Integer state;//状态
+    private Integer number;//数量
+    private double discounts;//优惠率
+    private double money;//总金额
+    private double reality;//实际付款金额
     private Integer deleteFlag;//删除标记
+    //数量 优惠率 总金额 实际付款金额
 }
