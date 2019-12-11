@@ -18,22 +18,23 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
+@RequestMapping("product/")
 public class ProductController {
     @Resource
     private ProductServiceI productServiceI;
 
 
-    @RequestMapping("/getAllProduct")
+    @RequestMapping("getAllProduct")
     public String getAllProduct(HttpServletRequest request){
         List<HashMap> listproducthash = productServiceI.getAllProduct();
-        request.setAttribute("product",listproducthash);
+        request.setAttribute("listproducthash",listproducthash);
         for (HashMap pro : listproducthash){
             System.out.println(pro);
         }
         return  "vin/product";
     }
 
-    @RequestMapping("/getProductModel")
+    @RequestMapping("getProductModel")
     public String getProductModel(HttpServletRequest request){
         List<Product_model> product_models = productServiceI.getProductModel();
         request.setAttribute("productModel",product_models);
@@ -43,7 +44,7 @@ public class ProductController {
         return "vin/product";
     }
 
-    @RequestMapping("/getProductById")
+    @RequestMapping("getProductById")
     public String getProductById(HttpServletRequest request,long id){
         Product product = productServiceI.getProductById(id);
         if (product!=null){
@@ -52,10 +53,9 @@ public class ProductController {
         return "vin/product";
     }
 
-    @RequestMapping("/insert_Product")
+    @RequestMapping("insert_Product")
     public String insertProduct(Product product, Model model){
         List<Product_model> product_models = productServiceI.getProductModel();
-
         model.addAttribute("product_models",product_models);
         for (Product_model list : product_models){
             System.out.println(list);
@@ -63,7 +63,7 @@ public class ProductController {
         return "vin/insertProduct";
     }
 
-    @RequestMapping("/queryByModelName")
+    @RequestMapping("queryByModelName")
     @ResponseBody
     public Product_type queryByModelName(Integer model_id){
         System.out.println(model_id);
@@ -74,8 +74,15 @@ public class ProductController {
         return product_type;
     }
 
-    @RequestMapping("/insertProduct")
-    public String insertProduct(){
-        return "";
+    @RequestMapping("insertProduct")
+    public String insertProduct(Product product){
+        System.out.println("============================================================================================");
+        System.out.println(product);
+        boolean insertProduct = productServiceI.insertProduct(product);
+        if (insertProduct){
+            return "vin/product";
+        }else {
+            return "";
+        }
     }
 }
