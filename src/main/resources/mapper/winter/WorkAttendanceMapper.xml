@@ -2,16 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xt.mapper.winter.WorkAttendanceMapper">
+    <!-- 多对一 多个考勤对一个用户  一对多标签 <collection ofType="com.xt.entity.winter.WordAttendance" autoMapping="true">-->
+    <!--<resultMap id="workToUser" type="com.xt.entity.winter.WorkAttendance" autoMapping="true">
+        <id property="id" column="id"></id>
+        <association property="userId" javaType="com.xt.entity..UserInfo" autoMapping="true">
+            <id property="id" column="id"></id>
+        </association>
+    </resultMap>-->
+    <!-- 添加考勤 -->
     <insert id="saveWorkAttendance" parameterType="com.xt.entity.winter.WorkAttendance">
       insert into workAttendance values(#{id},#{userId},#{attendanceDate},#{week},#{startTime},#{endTime},#{allHour},#{state})
     </insert>
+    <!--修改考勤-->
     <update id="updateWorkAttendance" parameterType="com.xt.entity.winter.WorkAttendance">
       update workAttendance set userId = #{userId},attendanceDate = #{attendanceDate},week = #{week},startTime = #{startTime},endTime = #{endTime},allHour = #{allHour},state = #{state} where id = #{id}
     </update>
+    <!--修改考勤状态-->
     <update id="updateWorkAttendanceState" parameterType="com.xt.entity.winter.WorkAttendance">
       update workAttendance set start = #{start} where id = #{id}
     </update>
+    <!--修改考勤时间-->
+    <update id="updateWorkAttendanceDate" parameterType="com.xt.entity.winter.WorkAttendance">
+      update workAttendance set startTime = #{startTime},endTime = #{endTime},allHour = #{allHour} where id = #{id}
+    </update>
+    <!--查看该员工的考勤信息-->
     <select id="getEmployeeAttendance" resultType="com.xt.entity.winter.WorkAttendance">
-        select * from workAttendance where userId = #{userId}
+        select * from workAttendance w left join userInfo u u.id = w.userId where userId = #{userId} order by desc
     </select>
 </mapper>

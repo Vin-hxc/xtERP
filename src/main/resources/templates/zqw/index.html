@@ -1,31 +1,79 @@
 <!DOCTYPE html>
-<html lang="zh" class="no-js">
+<html >
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>js点击按钮动画粒子特效</title>
-	<link rel="stylesheet" type="text/css" href="/static/zqw/css/base.css" />
+  <meta charset="UTF-8">
+  <title>CSS-only Material Inputs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="/static/zqw/css/style.css">
+  <link rel="stylesheet" href="/static/zqw/css/style1.css">
+
+
 </head>
-<body class="demo-1">
-		<main>
-			</div>
-			<div >
-				<div class="grid__item theme-1">
-					<button class="action"><svg class="icon icon--rewind"><use xlink:href="#icon-rewind"></use></svg></button>
-					<button class="particles-button"><a href="pdsele">添加</a></button>
-				</div>
-			</div>
-		</main>
-		<script src='/static/zqw/js/anime.min.js'></script>
-	    <script src='/static/zqw/js/particles.js'></script>
-	    <script src='/static/zqw/js/demo.js'></script>
-		<script>
-			$(function () {
-				$(".particles-button").click(function () {
-					window.setTimeout(1000);
-                })
-            })
-		</script>
-	</body>
+
+<body>
+
+<div class="wrapper">
+  <form>
+    <h1>添加生产计划</h1>
+    <!--<hr class="sep"/>-->
+    <div class="group">
+      <textarea ></textarea><span class="highlight"></span><span class="bar"></span>
+      <div class="center-on-page">
+        <div class="select">
+          <select name="slct" id="slct" >
+            <option>产品名称</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="group">
+      <input type="date" value=" " /><span class="highlight"></span><span class="bar"></span>
+      <label>开始时间</label>
+    </div>
+    <div class="group">
+      <input type="date" value=" " /><span class="highlight"></span><span class="bar"></span>
+      <label>预计结束时间</label>
+    </div>
+    <div class="group">
+      <textarea></textarea><span class="highlight"></span><span class="bar"></span>
+      <div class="center-on-page">
+        <div class="select">
+          <select name="slct" id="slct">
+            <option>所需物料</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="group">
+      <textarea type="textarea" required="required"></textarea><span class="highlight"></span><span class="bar"></span>
+      <label>负责人</label>
+    </div>
+    <!--复选框-->
+
+    <!--<div class="group">
+      <textarea type="textarea" rows="5" required="required"></textarea><span class="highlight"></span><span class="bar"></span>
+      <label>Message</label>
+    </div>
+-->
+
+    <div class="btn-box">
+
+     <!-- <button class="btn btn-cancel" type="button">cancel</button>-->
+      <button class="btn btn-submit" type="submit">submit</button>
+      <h5>*these buttons do nothing <span class="emoji">&#x1F609;</span></h5>
+    </div>
+  </form>
+</div>
+
+
+
+</body>
 </html>

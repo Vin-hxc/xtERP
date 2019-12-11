@@ -8,6 +8,7 @@ import com.xt.service.qxs.finance.FinancialSettlementServiceI;
 import com.xt.service.qxs.finance.IncomeServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,7 +37,7 @@ public class FinanceController {
     }
 
     /**
-     * 查询所有汇总记录
+     * 查询所有汇总记录,图形报表数据绑定
      * @return
      */
     @RequestMapping("queryNotDeleteFs")
@@ -67,5 +68,17 @@ public class FinanceController {
         map.put(1,expenditures);
         map.put(2,incomes);
         return map;
+    }
+
+    /**
+     * 查询汇总详情，进行页面跳转
+     * @return
+     */
+    @RequestMapping("pageDetailsFs")
+    public String pageDetailsFs(Model model){
+        System.out.println("url:pageDetailsFs");
+        List<FinancialSettlement> fs = financialSettlementServiceI.queryNotDeleteFs();
+        model.addAttribute("fsList",fs);
+        return "qxs/finance/FinancialSettlement";
     }
 }

@@ -24,4 +24,6 @@ public class Product {
     private int product_state;//产品状态
     private String serial_number;//产品序列号
     private String delete_Flag;//删除标记（0==未删除,1==删除)
+    private String status;//产品审核 0未审核，1已审核，默认0
+    private Data createtime;//产品创建时间
 }

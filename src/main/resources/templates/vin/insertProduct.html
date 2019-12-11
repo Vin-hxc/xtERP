@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/css/jquery-1.8.3.min.js"></script>
+    <!--<script src="../../static/js/jquery.min.js"></script>-->
+    <script src="../../static/css/jquery.dataTables.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/css/bootstrap.css"></script>
+</head>
+<body>
+    <table border="1px red ">
+        <tr>
+           <td>产品名称：</td>
+           <td><input type="text" name="product_name" id="product_name" required="required"></td>
+        </tr>
+        <tr>
+            <td>产品型号：</td>
+            <td>
+                <select id="select_model">
+                    <option th:each="models:${product_models}" th:value="${models.id}" height="40px" class="text-c">
+                       <!-- <span th:text="${models.model_name}"></span>-->[[${models.model_name}]]
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>产品类别：</td>
+            <td id="product_type_name"></td>
+        </tr>
+        <tr>
+            <td>产品单位:</td>
+            <td><input type="text" name="product_unit" id="product_unit" required="required"></td>
+        </tr>
+        <tr>
+            <td>产品库存:</td>
+            <td><input type="text" name="product_stock" id="product_stock" required="required"></td>
+        </tr>
+        <tr>
+            <td>零售价:</td>
+            <td><input type="text" name="retail_price" id="retail_price" required="required"></td>
+        </tr>
+        <tr>
+            <td>最低售价:</td>
+            <td><input type="text" name="min_price" id="min_price" required="required"></td>
+        </tr>
+        <tr>
+            <td>预计成本价格:</td>
+            <td><input type="text" name="cost_price" id="cost_price" required="required"></td>
+        </tr>
+        <tr>
+            <td>销售价格:</td>
+            <td><input type="text" name="trade_price" id="trade_price" required="required"></td>
+        </tr>
+        <tr>
+            <td>产品状态:</td>
+            <td><input type="text" name="product_state" id="product_state" required="required"></td>
+        </tr>
+        <tr>
+            <td>创建时间：</td>
+            <td><input  type="date" name="createtime" id="createtime" /></td>
+        </tr>
+        <tr>
+            <td>产品序列号:</td>
+            <td><input type="text" name="serial_number" id="serial_number" required="required"></td>
+        </tr>
+        <tr>
+            <!--<td colspan="2"><input type="button" th:action="@{/}"></td>-->
+        </tr>
+    </table>
+</body>
+<script>
+        var time = new Date();
+        var day = ("0" + time.getDate()).slice(-2);
+        var month = ("0" + (time.getMonth() + 1)).slice(-2);
+        var today = time.getFullYear() + "-" + (month) + "-" + (day);
+        $('#createtime').val(today);
+
+
+
+        $("#select_model").change(function () {
+            var model_id = $("#select_model").val();
+            $.ajax({
+                url:"queryByModelName",
+                dateType:"json",
+                type:"post",
+                data:{"model_id":model_id},
+                success:function (resp) {
+                    debugger;
+                        if(resp!=null){
+                            // var s = "<td></td>";
+                            var typename = resp.type_name;
+                            $("#product_type_name").html(typename);
+                        }else {
+                            $("#product_type_name").html("");
+                        }
+                }
+            })
+        });
+
+</script>
+</html>

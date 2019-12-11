@@ -12,17 +12,19 @@ public class Productionplan {
   private Date endTime;//预计结束时间
   private long personCharge;//负责人id
   private long productionAudit;//生产审核是否通过 0-通过 1-不通过
+  private long deleteProd;//删除标记
 
-  @Override
-  public String toString() {
-    return "Productionplan{" +
-            "id=" + id +
-            ", productId=" + productId +
-            ", startTime=" + startTime +
-            ", endTime=" + endTime +
-            ", personCharge=" + personCharge +
-            ", productionAudit=" + productionAudit +
-            '}';
+  public Productionplan() {
+  }
+
+  public Productionplan(long id, long productId, Date startTime, Date endTime, long personCharge, long productionAudit, long deleteProd) {
+    this.id = id;
+    this.productId = productId;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.personCharge = personCharge;
+    this.productionAudit = productionAudit;
+    this.deleteProd = deleteProd;
   }
 
   public long getId() {
@@ -73,15 +75,24 @@ public class Productionplan {
     this.productionAudit = productionAudit;
   }
 
-  public Productionplan() {
+  public long getDeleteProd() {
+    return deleteProd;
   }
 
-  public Productionplan(long id, long productId, Date startTime, Date endTime, long personCharge, long productionAudit) {
-    this.id = id;
-    this.productId = productId;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.personCharge = personCharge;
-    this.productionAudit = productionAudit;
+  public void setDeleteProd(long deleteProd) {
+    this.deleteProd = deleteProd;
+  }
+
+  @Override
+  public String toString() {
+    return "Productionplan{" +
+            "id=" + id +
+            ", productId=" + productId +
+            ", startTime=" + startTime +
+            ", endTime=" + endTime +
+            ", personCharge=" + personCharge +
+            ", productionAudit=" + productionAudit +
+            ", deleteProd=" + deleteProd +
+            '}';
   }
 }

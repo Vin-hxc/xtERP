@@ -13,6 +13,10 @@ public class Assemble {
   private Date assembyendTime;//组装结束时间
   private String assembledProducts;//组装成品
   private long qualityTesting;//质检审核是否通过 0-通过 1-不通过
+  private long deleteAsse;//删除标记
+
+  public Assemble() {
+  }
 
   @Override
   public String toString() {
@@ -24,6 +28,7 @@ public class Assemble {
             ", assembyendTime=" + assembyendTime +
             ", assembledProducts='" + assembledProducts + '\'' +
             ", qualityTesting=" + qualityTesting +
+            ", deleteAsse=" + deleteAsse +
             '}';
   }
 
@@ -83,10 +88,15 @@ public class Assemble {
     this.qualityTesting = qualityTesting;
   }
 
-  public Assemble() {
+  public long getDeleteAsse() {
+    return deleteAsse;
   }
 
-  public Assemble(long id, long productId, long pickingId, Date assembyTime, Date assembyendTime, String assembledProducts, long qualityTesting) {
+  public void setDeleteAsse(long deleteAsse) {
+    this.deleteAsse = deleteAsse;
+  }
+
+  public Assemble(long id, long productId, long pickingId, Date assembyTime, Date assembyendTime, String assembledProducts, long qualityTesting, long deleteAsse) {
     this.id = id;
     this.productId = productId;
     this.pickingId = pickingId;
@@ -94,5 +104,6 @@ public class Assemble {
     this.assembyendTime = assembyendTime;
     this.assembledProducts = assembledProducts;
     this.qualityTesting = qualityTesting;
+    this.deleteAsse = deleteAsse;
   }
 }

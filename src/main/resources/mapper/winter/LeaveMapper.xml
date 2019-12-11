@@ -3,14 +3,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 请假操作语句 -->
 <mapper namespace="com.xt.mapper.winter.LeaveMapper">
-    <!-- 添加数据 -->
+    <!-- 添加请假数据 -->
     <insert id="saveLeave" parameterType="com.xt.entity.winter.Leave">
-      insert into leave values()
+      insert into leave values
+      (#{leaveId},#{userId},#{reason},
+      #{startTime},#{endTime},#{allHour},#{verifyStatus})
     </insert>
-
-    <!-- 修改数据 -->
-
-    <!-- 修改状态 -->
+    <!-- 修改请假数据 -->
+    <update id="updateLeave" parameterType="com.xt.entity.winter.Leave">
+        update leave set userId = #{userId},
+        reason = #{reason},startTime = #{startTime},
+        endTime = #{endTime},allHour = #{allHour},verifyStatus = #{verifyStatus}
+        where leaveId = #{leaveId}
+    </update>
+    <!-- 修改请假状态 -->
     <update id="updateLeaveStatus" parameterType="com.xt.entity.winter.Leave">
         update leave
         <set>
@@ -20,8 +26,24 @@
         </set>
         where leaveId = #{leaveId}
     </update>
-    <!-- 删除数据 -->
+    <!-- 删除请假数据 -->
     <delete id="deleteLeave" parameterType="com.xt.entity.winter.Leave">
-        delete from leave where leaveId = #{leaveId}
+        update leave set deleteFlag = #{deleteFlag} where leaveId = #{leaveId}
     </delete>
+    <!-- 未删除的请假数据 -->
+    <select id="getAllNoDeleteLeave" resultType="com.xt.entity.winter.Leave">
+        select * from leave where deleteFlag = 0 order by desc
+    </select>
+    <!-- 已删除的请假数据 -->
+    <select id="getAllDeleteLeave" resultType="com.xt.entity.winter.Leave">
+        select * from leave where deleteFlag = 1 order by dosc
+    </select>
+    <!-- 全部数据 -->
+    <select id="getAllLeave" resultType="com.xt.entity.winter.Leave">
+        select * from leave order by desc
+    </select>
+    <!-- 查询单条请假数据 -->
+    <select id="findLeaveOne" resultType="com.xt.entity.winter.Leave">
+        select * from leave where leaveId = #{leaveId}
+    </select>
 </mapper>

@@ -1,7 +1,10 @@
 package com.xt.mapper.winter;
 
 import com.xt.entity.winter.WorkAttendance;
+import org.apache.ibatis.annotations.Param;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,7 +33,21 @@ public interface WorkAttendanceMapper {
      * @param id
      * @return
      */
-    boolean updateWorkAttendanceState(int state,int id);
+    boolean updateWorkAttendanceState(@Param("state") int state,
+                                      @Param("id") int id);
+
+    /**
+     * 修改考勤时间
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @param allHour 总时长
+     * @param id 编号
+     * @return
+     */
+    boolean updateWorkAttendanceDate(@Param("startTime") Time startTime,
+                                     @Param("endTime") Time endTime,
+                                     @Param("allHour") Time allHour,
+                                     @Param("id") int id);
 
     /**
      * 查看该员工的考勤信息
@@ -38,5 +55,4 @@ public interface WorkAttendanceMapper {
      * @return
      */
     List<WorkAttendance> getEmployeeAttendance(int userId);
-    //根据员工编号查询考勤信息
 }

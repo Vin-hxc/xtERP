@@ -23,8 +23,8 @@ public class Product_model {
     private String size;//尺寸
     private String color;//颜色
     private Double weight;//裸机重量
-    private String model_type;//产品类别
-    private String deleteFlag;//删除标记（0==未删除,1==删除)
-
+    private String model_type;//型号类别
+    private String delete_Flag;//删除标记（0==未删除,1==删除)
+    private long product_type;//产品类别
 //    private Product productModel;
 }
