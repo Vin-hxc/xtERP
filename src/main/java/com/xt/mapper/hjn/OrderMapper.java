@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.core.annotation.Order;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,6 +27,10 @@ public interface OrderMapper {
     List<Order> queryAllOrder();
 
     /**
+     * 条件查询采购订单
+     */
+    List<Order> findOrder(String orderid, Date createtime);
+    /**
      * 新增采购订单
      *
      * @return
@@ -40,6 +45,14 @@ public interface OrderMapper {
      */
     @Insert("insert into Detailed values(null,#{orderid},#{storehouseid},#{goodsid},#{number},#{tax},#{price},#{remarks}")
     int addDetailed(Detailed detailed);
+
+    /**
+     * 查询采购订单的明细顶到怕
+     *
+     * @return
+     */
+    @Select("select * from Detailed  where orderid = #{orderid}")
+    List<Detailed> queryDetailed(int orderid);
 
     /**
      * 审核订单
