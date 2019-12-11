@@ -1,35 +1,29 @@
-package com.xt.mapper.qxs.warehouse;
+package com.xt.service.qxs.warehouse;
 
 import com.xt.entity.qxs.warehouse.Depot;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+
 import java.util.List;
 
 /**
- * 仓库数据操作
+ * 仓库业务实现
  */
-public interface DepotMapper {
-
+public interface DepotServiceI {
     /**
      * 查询所有未删除的仓库
      * @return
      */
-    @Select("select * from depot where delete_Flag!=1 order by sort desc")
     List<Depot> queryNotDeleteDepot();
 
     /**
      * 查询所有数据包括删除的数据
      * @return
      */
-    @Select("select * from depot order by sort desc")
     List<Depot> queryAllDepot();
 
     /**
      * 查询所有被删除的仓库
      * @return
      */
-    @Select("select * from depot where delete_Flag=1 order by sort desc")
     List<Depot> queryDelete();
 
     /**
@@ -37,7 +31,6 @@ public interface DepotMapper {
      * @param name
      * @return
      */
-    @Select("select * from depot where name=#{name} and delete_flag!='1' ")
     Depot getDepotName(String name);
 
     /**
@@ -45,7 +38,6 @@ public interface DepotMapper {
      * @param id
      * @return
      */
-    @Select("select * from depot where id=#{id} and delete_flag!='1' ")
     Depot getOneDepot(Integer id);
 
     /**
@@ -53,8 +45,6 @@ public interface DepotMapper {
      * @param depot
      * @return
      */
-    @Update("update depot name=#{name},address=#{address},truckage=#{truckage},type=#{type}," +
-            "remark=#{remark},principal=#{principal} where id=#{id} ")
     boolean updateDepot(Depot depot);
 
     /**
@@ -62,7 +52,6 @@ public interface DepotMapper {
      * @param isDefault 0 默认 1 不默认；默认为1
      * @return
      */
-    @Update("update depot set isDefault=#{isDefault} where id=#{id}")
     boolean defaultDepot(Integer isDefault, Integer id);
 
     /**
@@ -71,7 +60,6 @@ public interface DepotMapper {
      * @param id 删除条件
      * @return
      */
-    @Update("update depot set delete_Flag=#{deleteFlag} where id=#{id}")
     boolean deleteDepot(String deleteFlag,Integer id);
 
     /**
@@ -79,7 +67,5 @@ public interface DepotMapper {
      * @param depot
      * @return
      */
-    @Insert("insert into depot values(null,#{name},#{address},#{truckage},#{type},#{sort}," +
-            "#{remark},#{principal},0,1)")
     boolean addDepot(Depot depot);
 }

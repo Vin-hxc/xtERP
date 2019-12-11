@@ -30,11 +30,11 @@
     var my = echarts.init(document.getElementById('myChart'));
     my.setOption({
         title : {
-            text: '政务年度结算报表'
+            text: '收入 支出对比图'
         },
         series : [
             {
-                name: '政务年度结算报表',
+                name: '收入 支出对比图',
                 type: 'pie',
                 // 扇形图半径
                 radius: '95%',
@@ -70,18 +70,22 @@
         dataType:"json",
         type:"post",
         success:function (resp) {
-            //debugger;
+            debugger;
             if(resp!=null){
+                var z=0;
+                var s=0;
                 for (var i=0;i<resp.length;i++){
                     if(resp[i].type==1){
-                        zc.push(resp[i].total_Money);
+                        z+=resp[i].total_Money;
                         zcType = '支出';
                     }
                     if(resp[i].type==2){
-                        sr.push(resp[i].total_Money);
+                        s+=resp[i].total_Money
                         srType = '收入';
                     }
                 }
+                zc.push(z);
+                sr.push(s);
                 //隐藏加载动画
                 my.hideLoading();
                 //加载数据图表
@@ -212,17 +216,59 @@
                 skin: 'layui-layer-lan ', //样式类名
                 closeBtn: 1, //显示关闭按钮
                 anim: 2,
-                area:['60%','45%'],
+                area:['70%','60%'],
                 resize:true,
                 id: '1', //防止重复弹出
                 shadeClose: true, //开启遮罩关闭
                 shade:[0.5], //透明度，背景颜色
                 content: ['/finance/pageDetailsFs'],
                 offset:'auto',
-                btn:['确认']
+                btn:['确认','取消'],
+                yes:function () {
+                    location.href='/finance/pageFinance';
+                },
+                cancel:function (index, layero) {
+                    if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                        layer.close(index);
+                        location.href='/finance/pageFinance';
+                    }
+                    return false;
+                }
             });
         });
     });
+
+    //打开详情页面
+    $("#main").click(function () {
+        layui.use('layer',function () {
+            var layer = layui.layer; //独立版的layer无需执行这一句
+            layer.open({
+                title:'财务详情',
+                type:2,
+                skin: 'layui-layer-lan ', //样式类名
+                closeBtn: 1, //显示关闭按钮
+                anim: 2,
+                area:['90%','80%'],
+                resize:true,
+                id: '1', //防止重复弹出
+                shadeClose: true, //开启遮罩关闭
+                shade:[0.5], //透明度，背景颜色
+                content: ['/finance/pageFinanceDetails'],
+                offset:'100px',
+                btn:['确认','取消'],
+                yes:function () {
+                    location.href='/finance/pageFinance';
+                },
+                cancel:function (index, layero) {
+                    if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                        layer.close(index);
+                        location.href='/finance/pageFinance';
+                    }
+                    return false;
+                }
+            });
+        });
+    })
 </script>
 </body>
 </html>
