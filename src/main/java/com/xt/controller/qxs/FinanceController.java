@@ -105,4 +105,53 @@ public class FinanceController {
         model.addAttribute("incomeList",incomes);
         return "qxs/finance/financeDetails";
     }
+
+    /**
+     * 是否确定收款
+     * @param confirm_receipt 审批字段
+     * @param id
+     * @param type 判断是收款或付款
+     * @return
+     */
+    @RequestMapping("affirm")
+    @ResponseBody
+    public boolean affirm(Integer confirm_receipt,Integer id,String type){
+        System.err.println(confirm_receipt+"=="+id+"=="+type);
+        if("支出".equals(type)){
+            return expenditureServiceI.confirmation(confirm_receipt, id);
+        }else if("收入".equals(type)){
+            return incomeServiceI.confirmation(confirm_receipt,id);
+        }
+        return false;
+    }
+
+    /**
+     * 收支记录删除
+     * @param flag 标记删除字段
+     * @param id 条件
+     * @param type 判断 收入/支出
+     * @return
+     */
+    @RequestMapping("expurgate")
+    @ResponseBody
+    public boolean expurgate(Integer flag,Integer id,String type){
+        System.err.println(flag+"=="+id+"=="+type);
+        if("支出".equals(type)){
+            return expenditureServiceI.deleteExpenditure(flag,id);
+        }else if("收入".equals(type)){
+            return incomeServiceI.deleteIncome(flag,id);
+        }
+        return false;
+    }
+
+    /**
+     * 查询整个项目的支出/收入
+     * @param type 判断   支出 / 收入
+     * @return
+     */
+    public String addReady(Integer type){
+
+        return "";
+    }
+
 }

@@ -2,13 +2,16 @@ package com.xt.service.qxs.finance.impl;
 
 import com.xt.entity.qxs.finance.FinancialSettlement;
 import com.xt.entity.qxs.finance.Income;
+import com.xt.mapper.hjn.OrderMapper;
 import com.xt.mapper.qxs.finance.FinancialSettlementMapper;
 import com.xt.mapper.qxs.finance.IncomeMapper;
 import com.xt.service.qxs.finance.IncomeServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class IncomeServiceImpl implements IncomeServiceI {
@@ -17,6 +20,8 @@ public class IncomeServiceImpl implements IncomeServiceI {
     private IncomeMapper incomeMapper;
     @Autowired
     private FinancialSettlementMapper financialSettlementMapper;
+    @Autowired
+    private OrderMapper orderMapper;
 
     /**
      * 查询所有未删除的数据
@@ -122,8 +127,31 @@ public class IncomeServiceImpl implements IncomeServiceI {
         return false;
     }
 
+    /**
+     * 新增记录
+     * @param income
+     * @return
+     */
     @Override
     public boolean addIncome(Income income) {
-        return false;
+        return incomeMapper.addIncome(income);
+    }
+
+    /**
+     * 查询整个项目的支出/收入
+     * @param type 判断   0:支出 / 1:收入
+     * @return
+     */
+    @Override
+    public Map addReady(Integer type) {
+        Map<Object, Object> map = new HashMap<Object, Object>();
+        if(type==0){
+            //查询采购支出费用
+            List<HashMap> hashMaps = orderMapper.incurExpense();
+            map.put(1,hashMaps);
+        }else if (type==1){
+
+        }
+        return map;
     }
 }

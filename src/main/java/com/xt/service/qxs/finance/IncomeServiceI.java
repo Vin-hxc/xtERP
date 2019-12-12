@@ -4,6 +4,7 @@ import com.xt.entity.qxs.finance.FinancialSettlement;
 import com.xt.entity.qxs.finance.Income;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 财务收入业务实现
@@ -79,4 +80,10 @@ public interface IncomeServiceI {
      */
     boolean addIncome(Income income);
 
+    /**
+     * 查询整个项目的支出/收入
+     * @param type 判断   支出 / 收入
+     * @return
+     */
+    Map addReady(Integer type);
 }

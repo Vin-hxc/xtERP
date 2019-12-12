@@ -2,6 +2,7 @@ package com.xt.mapper.hjn;
 
 import com.xt.entity.hjn.Cost;
 import com.xt.entity.hjn.Detailed;
+import com.xt.entity.hjn.Orders;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.core.annotation.Order;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -111,4 +113,13 @@ public interface OrderMapper {
     //@Update("(update  cost set costprice=#{costprice},costtype=#{costtype}  where id=#{id} )")
     int delectCost(int id,String costtype,int costprice);
 
+    /**
+     * 查询所有审核状态为 2 的订单费用
+     * @return
+     */
+    @Select("select o.orderid,sl.supplier,sl.accountNumber,o.purchaserid,o.total,o.amount_paid,ct.costtype,ct.costprice " +
+                " from orders o LEFT JOIN cost ct ON o.costid=ct.id " +
+                " LEFT JOIN supplier sl on o.supplierid=sl.id " +
+                " where o.orderstate=2 and sl.type='供应商' ")
+    List<HashMap> incurExpense();
 }
