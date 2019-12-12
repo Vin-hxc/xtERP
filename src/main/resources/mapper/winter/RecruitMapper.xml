@@ -5,9 +5,7 @@
 <mapper namespace="com.xt.mapper.winter.RecruitMapper">
     <!-- 添加招聘信息 -->
     <insert id="saveRecruit" parameterType="com.xt.entity.winter.Recruit">
-        insert into recruit values(#{recruitId},
-        #{title},#{content},#{position},#{salary},
-        #{phone},#{address})
+        insert into recruit values(#{recruitId},#{title},#{content},#{position},#{salary},#{phone},#{address},#{deleteFlag})
     </insert>
 
     <!-- 修改招聘信息 -->

@@ -1,7 +1,10 @@
 package com.xt.controller.winter;
 
+import com.alibaba.fastjson.JSONObject;
 import com.xt.entity.winter.Recruit;
 import com.xt.service.winter.RecruitServiceI;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,19 +19,28 @@ import java.util.List;
  */
 @Controller
 public class RecruitController {
+    private Logger logger = LoggerFactory.getLogger(RecruitController.class);
     @Autowired
     private RecruitServiceI recruitService;
 
+    /**
+     * 跳转至添加页面
+     * @return
+     */
+    @RequestMapping("/addRecruit")
+    public String addRecruit(){
+        return "winter/recruit/saveRecruit";
+    }
     /**
      * 添加招聘数据
      * @param recruit
      * @return
      */
-    @RequestMapping("/addRecruit")
+    @RequestMapping("/saveRecruit")
     public String saveRecruit(Recruit recruit){
         boolean flag = recruitService.saveRecruit(recruit);
         if (flag){
-            return "/getRecruit";
+            return "forward:/getRecruit";
         }else{
             return "false";
         }

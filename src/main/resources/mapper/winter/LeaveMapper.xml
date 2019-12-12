@@ -5,20 +5,20 @@
 <mapper namespace="com.xt.mapper.winter.LeaveMapper">
     <!-- 添加请假数据 -->
     <insert id="saveLeave" parameterType="com.xt.entity.winter.Leave">
-      insert into leave values
+      insert into `leave` values
       (#{leaveId},#{userId},#{reason},
       #{startTime},#{endTime},#{allHour},#{verifyStatus})
     </insert>
     <!-- 修改请假数据 -->
     <update id="updateLeave" parameterType="com.xt.entity.winter.Leave">
-        update leave set userId = #{userId},
+        update `leave` set userId = #{userId},
         reason = #{reason},startTime = #{startTime},
         endTime = #{endTime},allHour = #{allHour},verifyStatus = #{verifyStatus}
         where leaveId = #{leaveId}
     </update>
     <!-- 修改请假状态 -->
     <update id="updateLeaveStatus" parameterType="com.xt.entity.winter.Leave">
-        update leave
+        update `leave`
         <set>
             <if test="verifyStatus != null">
                 verifyStatus = #{verifyStatus}
@@ -28,22 +28,22 @@
     </update>
     <!-- 删除请假数据 -->
     <delete id="deleteLeave" parameterType="com.xt.entity.winter.Leave">
-        update leave set deleteFlag = #{deleteFlag} where leaveId = #{leaveId}
+        update `leave` set deleteFlag = #{deleteFlag} where leaveId = #{leaveId}
     </delete>
     <!-- 未删除的请假数据 -->
     <select id="getAllNoDeleteLeave" resultType="com.xt.entity.winter.Leave">
-        select * from leave where deleteFlag = 0 order by leaveId desc
+        select * from `leave` where deleteFlag = 0 order by leaveId desc
     </select>
     <!-- 已删除的请假数据 -->
     <select id="getAllDeleteLeave" resultType="com.xt.entity.winter.Leave">
-        select * from leave where deleteFlag = 1 order by leaveId dosc
+        select * from `leave` where deleteFlag = 1 order by leaveId dosc
     </select>
     <!-- 全部数据 -->
     <select id="getAllLeave" resultType="com.xt.entity.winter.Leave">
-        select * from leave order by leaveId desc
+        select * from `leave` order by leaveId desc
     </select>
     <!-- 查询单条请假数据 -->
     <select id="findLeaveOne" resultType="com.xt.entity.winter.Leave">
-        select * from leave where leaveId = #{leaveId}
+        select * from `leave` where leaveId = #{leaveId}
     </select>
 </mapper>

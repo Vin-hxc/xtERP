@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>所有未删除的招聘信息</title>
+    <title>请假</title>
     <link rel="stylesheet" href="static/css/H-ui.min.css">
     <link href="static/layui/layui/css/layui.css" />
     <script src="static/css/jquery-1.8.3.min.js"></script>
@@ -15,25 +15,25 @@
         <thead>
         <tr class="text-c">
             <th>编号</th>
-            <th>标题</th>
-            <th>内容描述</th>
-            <th>职位</th>
-            <th>工资金额</th>
-            <th>联系电话</th>
-            <th>联系地址</th>
+            <th>用户姓名</th>
+            <th>请假原因</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>总时长</th>
+            <th>审核</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="recruit,recruitStat : ${noDeleteRecruit}">
-            <td th:text="${recruitStat.count}"></td>
-            <td th:text="${recruit.title}"></td>
-            <td th:text="${recruit.content}"></td>
-            <td th:text="${recruit.position}"></td>
-            <td th:text="${recruit.salary}"></td>
-            <td th:text="${recruit.phone}"></td>
-            <td th:text="${recruit.address}"></td>
-            <td><a href="addRecruit">添加</a></td>
+        <tr th:each="leave,leaveStat : ${noDeleteLeave}">
+            <td th:text="${leaveStat.count}"></td>
+            <td th:text="${leave.userId}"></td>
+            <td th:text="${leave.reason}"></td>
+            <td th:text="${leave.startTime}"></td>
+            <td th:text="${leave.endTime}"></td>
+            <td th:text="${leave.allHour}"></td>
+            <td th:text="${leave.verifyStatus}"></td>
+            <td></td>
         </tr>
         </tbody>
     </table>
