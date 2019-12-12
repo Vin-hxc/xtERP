@@ -104,4 +104,14 @@ public interface ProductMapper {
      */
     @Select("SELECT * from product_type where id =#{id} and delete_Flag = 0")
     public Product_type queryByModelName(long id);
+
+    /**
+     * 根据产品类型获取类型名称
+     * @param product_type
+     * @return
+     */
+    @Select("SELECT pt.type_name,pt.id from product as p" +
+            " INNER JOIN product_type as pt ON p.product_type = pt.id" +
+            " where p.id = 25 and p.delete_Flag ='0'")
+    public Product queryByProductType(long product_type);
 }
