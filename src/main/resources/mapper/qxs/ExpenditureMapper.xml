@@ -5,9 +5,9 @@
     <update id="updateExpenditure" parameterType="Expenditure">
         update expenditure
         <set>
-            <if test="balance_payment != 0.00 ">
+            <if test="balancePayment != 0.00 ">
                 <!-- 清算尾款 -->
-                balance_payment=#{balance_payment},
+                balancePayment=#{balancePayment},
             </if>
             <if test="account !=null">
                 <!-- 修改收款方 -->

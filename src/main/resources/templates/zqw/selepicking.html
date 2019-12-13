@@ -9,28 +9,33 @@
 
 </head>
 <body>
+
 <table  id = "tbo"
         class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
     <tr class="text-c">
-        <th width="100">生产名称</th>
-        <th width="100">开始时间</th>
-        <th width="100">预计结束时间</th>
-        <th width="100">负责人</th>
-        <th width="100">所需原料详情</th>
+        <th width="100">主板</th>
+        <th width="100">cpu</th>
+        <th width="100">内存条</th>
+        <th width="100">显卡</th>
+        <th width="100">硬盘</th>
+        <th width="100">固态硬盘</th>
         <th width="100">操作</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="seleuser:${pdsele}" height="40px" class="text-c">
-        <td th:text="${seleuser.product_name}"></td>
-        <td th:text="${seleuser.startTime}"></td>
-        <td th:text="${seleuser.endTime}"></td>
-        <td th:text="${seleuser.userName}"></td>
-        <td><a>原料详情</a></td>
-        <td></td>
+
+    <tr th:each="sele:${selepml}" height="40px" class="text-c">
+        <td th:text="${sele.motherboard}"></td>
+        <td th:text="${sele.cpu}"></td>
+        <td th:text="${sele.memories}"></td>
+        <td th:text="${sele.video_card}"></td>
+        <td th:text="${sele.disks}"></td>
+        <td th:text="${sele.ssd}"></td>
+        <td ><a th:href="@{/inserpick/(pickingNo=${sele.id})}">添加</a></td>
     </tr>
     </tbody>
+
 </table>
 <script>
     $(function(){

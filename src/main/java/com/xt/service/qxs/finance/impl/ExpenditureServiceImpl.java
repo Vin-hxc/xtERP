@@ -116,7 +116,7 @@ public class ExpenditureServiceImpl implements ExpenditureServiceI {
             // 修改结算状态
             boolean stateClose = expenditureMapper.updateStateClose(1);
             if(stateClose){
-                fs.setTotal_Money(sumExpenditure);
+                fs.setTotalMoney(sumExpenditure);
                 fs.setType(1);
                 System.out.println("fs对象："+fs);
                 return financialSettlementMapper.addFinancialSettlement(fs);

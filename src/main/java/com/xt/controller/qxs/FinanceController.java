@@ -165,10 +165,25 @@ public class FinanceController {
     public boolean addExpenditure(Expenditure expenditure,Integer orderId){
         System.err.println(orderId+"支出对象:"+expenditure);
         //设置创建时间
-        expenditure.setDate_receopt(new Date());
+        expenditure.setDateReceopt(new Date());
         //计算尾款
-        expenditure.setBalance_payment(expenditure.getPayment_amount()-expenditure.getActual_payment());
+        expenditure.setBalancePayment(expenditure.getPaymentAmount()-expenditure.getActualPayment());
         return expenditureServiceI.addExpenditure(expenditure,orderId);
     }
 
+    /**
+     * 新增收入记录
+     * @param income
+     * @param id
+     * @return
+     */
+    @RequestMapping("addIncome")
+    @ResponseBody
+    public boolean addIncome(Income income,Integer id){
+        //计算尾款
+        income.setBalancePayment(income.getPayable()-income.getActualPayment());
+        //获取当前时间
+        income.setDateRecorded(new Date());
+        return incomeServiceI.addIncome(income,id);
+    }
 }

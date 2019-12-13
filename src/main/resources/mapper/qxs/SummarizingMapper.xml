@@ -5,8 +5,8 @@
     <update id="updateSummarizing" parameterType="Summarizing">
         update summarizing
         <set>
-            <if test="collect_date != null">
-                collect_date=#{collect_date},
+            <if test="collectDate != null">
+                collectDate=#{collectDate},
             </if>
             <if test="describe != null">
                 describe=#{describe}

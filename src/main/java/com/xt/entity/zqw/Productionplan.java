@@ -13,18 +13,20 @@ public class Productionplan {
   private long personCharge;//负责人id
   private long productionAudit;//生产审核是否通过 0-通过 1-不通过
   private long deleteProd;//删除标记
+  private long prquantity;//生产数量
 
-  public Productionplan() {
-  }
-
-  public Productionplan(long id, long productId, Date startTime, Date endTime, long personCharge, long productionAudit, long deleteProd) {
-    this.id = id;
-    this.productId = productId;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.personCharge = personCharge;
-    this.productionAudit = productionAudit;
-    this.deleteProd = deleteProd;
+  @Override
+  public String toString() {
+    return "Productionplan{" +
+            "id=" + id +
+            ", productId=" + productId +
+            ", startTime=" + startTime +
+            ", endTime=" + endTime +
+            ", personCharge=" + personCharge +
+            ", productionAudit=" + productionAudit +
+            ", deleteProd=" + deleteProd +
+            ", prquantity=" + prquantity +
+            '}';
   }
 
   public long getId() {
@@ -83,16 +85,25 @@ public class Productionplan {
     this.deleteProd = deleteProd;
   }
 
-  @Override
-  public String toString() {
-    return "Productionplan{" +
-            "id=" + id +
-            ", productId=" + productId +
-            ", startTime=" + startTime +
-            ", endTime=" + endTime +
-            ", personCharge=" + personCharge +
-            ", productionAudit=" + productionAudit +
-            ", deleteProd=" + deleteProd +
-            '}';
+  public long getPrquantity() {
+    return prquantity;
+  }
+
+  public void setPrquantity(long prquantity) {
+    this.prquantity = prquantity;
+  }
+
+  public Productionplan() {
+  }
+
+  public Productionplan(long id, long productId, Date startTime, Date endTime, long personCharge, long productionAudit, long deleteProd, long prquantity) {
+    this.id = id;
+    this.productId = productId;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.personCharge = personCharge;
+    this.productionAudit = productionAudit;
+    this.deleteProd = deleteProd;
+    this.prquantity = prquantity;
   }
 }
