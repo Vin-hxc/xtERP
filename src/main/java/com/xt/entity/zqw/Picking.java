@@ -6,25 +6,23 @@ import java.util.Date;
 
 public class Picking {
   private long id;//主键id
-  private String pickingNo;//领料编号
-  private long monitor;//负责人id
-  private String materialParts;//物料零件
+  private long pickingNo;//领料编号
   private String materialNumber;//物料数量
   private Date startTime;//出库时间
   private long productionAudit;//物料审核是否通过 0-通过 1-不通过
   private long deletePick;//删除标记
+  private long productionid;//生产编号
 
   @Override
   public String toString() {
     return "Picking{" +
             "id=" + id +
-            ", pickingNo='" + pickingNo + '\'' +
-            ", monitor=" + monitor +
-            ", materialParts='" + materialParts + '\'' +
+            ", pickingNo=" + pickingNo +
             ", materialNumber='" + materialNumber + '\'' +
             ", startTime=" + startTime +
             ", productionAudit=" + productionAudit +
             ", deletePick=" + deletePick +
+            ", productionid=" + productionid +
             '}';
   }
 
@@ -36,28 +34,12 @@ public class Picking {
     this.id = id;
   }
 
-  public String getPickingNo() {
+  public long getPickingNo() {
     return pickingNo;
   }
 
-  public void setPickingNo(String pickingNo) {
+  public void setPickingNo(long pickingNo) {
     this.pickingNo = pickingNo;
-  }
-
-  public long getMonitor() {
-    return monitor;
-  }
-
-  public void setMonitor(long monitor) {
-    this.monitor = monitor;
-  }
-
-  public String getMaterialParts() {
-    return materialParts;
-  }
-
-  public void setMaterialParts(String materialParts) {
-    this.materialParts = materialParts;
   }
 
   public String getMaterialNumber() {
@@ -92,17 +74,24 @@ public class Picking {
     this.deletePick = deletePick;
   }
 
+  public long getProductionid() {
+    return productionid;
+  }
+
+  public void setProductionid(long productionid) {
+    this.productionid = productionid;
+  }
+
   public Picking() {
   }
 
-  public Picking(long id, String pickingNo, long monitor, String materialParts, String materialNumber, Date startTime, long productionAudit, long deletePick) {
+  public Picking(long id, long pickingNo, String materialNumber, Date startTime, long productionAudit, long deletePick, long productionid) {
     this.id = id;
     this.pickingNo = pickingNo;
-    this.monitor = monitor;
-    this.materialParts = materialParts;
     this.materialNumber = materialNumber;
     this.startTime = startTime;
     this.productionAudit = productionAudit;
     this.deletePick = deletePick;
+    this.productionid = productionid;
   }
 }

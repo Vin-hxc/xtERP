@@ -1,6 +1,10 @@
 package com.xt.service.zqw.impl;
 
+import com.xt.entity.vin.Product_model;
+import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
+import com.xt.entity.zqw.Userinfo;
+import com.xt.mapper.zqw.PickingMapper;
 import com.xt.mapper.zqw.ProductionplanMapper;
 import com.xt.service.zqw.ProductionplanServiceI;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -16,16 +20,14 @@ import java.util.List;
 @Service
 public class ProductionplanServiceImpl implements ProductionplanServiceI {
     @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
-
+    private ProductionplanMapper productionplanMapper;
     /**
      * 查询生产计划
      * @return
      */
     @Override
     public List<HashMap> seleProuct() {
-        ProductionplanMapper mapper = sqlSessionTemplate.getMapper(ProductionplanMapper.class);
-        return mapper.seleProuct();
+        return productionplanMapper.seleProuct();
     }
 
     /**
@@ -35,8 +37,7 @@ public class ProductionplanServiceImpl implements ProductionplanServiceI {
      */
     @Override
     public boolean inserProuct(Productionplan productionplan) {
-        ProductionplanMapper mapper = sqlSessionTemplate.getMapper(ProductionplanMapper.class);
-        return mapper.inserProuct(productionplan);
+        return productionplanMapper.inserProuct(productionplan);
     }
 
     /**
@@ -46,8 +47,7 @@ public class ProductionplanServiceImpl implements ProductionplanServiceI {
      */
     @Override
     public boolean updatePeouct(Productionplan productionplan) {
-        ProductionplanMapper mapper = sqlSessionTemplate.getMapper(ProductionplanMapper.class);
-        return mapper.updatePeouct(productionplan);
+        return productionplanMapper.updatePeouct(productionplan);
     }
 
     /**
@@ -57,7 +57,49 @@ public class ProductionplanServiceImpl implements ProductionplanServiceI {
      */
     @Override
     public boolean deletePeouct(int id) {
-        ProductionplanMapper mapper = sqlSessionTemplate.getMapper(ProductionplanMapper.class);
-        return mapper.deletePeouct(id);
+        return productionplanMapper.deletePeouct(id);
     }
+
+    /**
+     * /根生产表查询产品信息
+     * @return
+     */
+    @Override
+    public List<HashMap> dgselepro() {
+        return productionplanMapper.dgselepro();
+    }
+
+    /**
+     * 查询产品信息
+     * @return
+     */
+    @Override
+    public List<HashMap> selepm() {
+        return productionplanMapper.selepm();
+    }
+
+    /**
+     * 添加领料信息
+     * @param picking
+     * @return
+     */
+    @Override
+    public boolean inserpick(Picking picking) {
+        return productionplanMapper.inserpick(picking);
+    }
+
+    @Override
+    public List<Product_model> selepmll() {
+        return productionplanMapper.selepmll();
+    }
+
+    /**
+     * 查询用户姓名
+     * @return
+     */
+    @Override
+    public List<Userinfo> seleuser() {
+        return productionplanMapper.seleuser();
+    }
+
 }
