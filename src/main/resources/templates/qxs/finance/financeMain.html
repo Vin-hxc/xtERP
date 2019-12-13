@@ -10,12 +10,12 @@
     <style>
         #myChart{
             position: absolute;
-            top: 10%;
+            top: 20%;
             left: 8%;
         }
         #main{
             position: absolute;
-            top: 10%;
+            top: 20%;
             right: 8%;
         }
     </style>
@@ -76,11 +76,11 @@
                 var s=0;
                 for (var i=0;i<resp.length;i++){
                     if(resp[i].type==1){
-                        z+=resp[i].total_Money;
+                        z+=resp[i].totalMoney;
                         zcType = '支出';
                     }
                     if(resp[i].type==2){
-                        s+=resp[i].total_Money
+                        s+=resp[i].totalMoney
                         srType = '收入';
                     }
                 }
@@ -169,13 +169,13 @@
             if(resp!=null){
                 for (var i=0;i<resp[1].length;i++){
                     //获取支出
-                    fk.push(resp[1][i].actual_payment);
-                    fkDates.push(resp[1][i].date_receopt);
+                    fk.push(resp[1][i].actualPayment);
+                    fkDates.push(resp[1][i].dateReceopt);
                     }
                     for (var j=0;j<resp[2].length;j++){
                         //获取收入
                         sk.push(resp[2][j].payable);
-                        skDates.push(resp[2][j].date_recorded);
+                        skDates.push(resp[2][j].dateRecorded);
                     }
                 //隐藏加载动画
                 myChart.hideLoading();

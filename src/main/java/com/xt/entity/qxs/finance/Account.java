@@ -17,7 +17,7 @@ public class Account {
     private Integer id;//主键
     private Integer supplier;//客户/供应商编号
     private String cardNumber;//卡号
-    private Date date_Created;//创建日期
+    private Date dateCreated;//创建日期
     private String remark;// 描述
     private Integer deleteFlag;//标记删除 0：未删除；1：已删除； 默认 0
 }

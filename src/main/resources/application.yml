@@ -37,7 +37,6 @@ mybatis:
   configuration:
     # 打印数据库语句 用于测试
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
 #静态资源路径配置
 #spring.mvc.static-path-pattern=/static/**
 
