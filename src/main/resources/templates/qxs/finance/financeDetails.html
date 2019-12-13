@@ -60,7 +60,7 @@
                                 <samp th:if="${ex.confirmPayment==1}">已付款</samp>
                             </td>
                             <td>
-                                <button th:onclick="|zcUpdate('${ex.expenditureId} ')|" type="button" class="layui-btn layui-btn-sm">
+                                <button th:onclick="toChange([[${ex.expenditureId}]])" type="button" class="layui-btn layui-btn-sm">
                                     <i class="layui-icon">&#xe642;</i>编辑
                                 </button>
                                 <button th:onclick="|expurgate('${ex.expenditureId} ',0)|" type="button" class="layui-btn layui-btn-sm">
@@ -113,7 +113,7 @@
                             <samp th:if="${in.confirmReceipt==1}">已收款</samp>
                         </td>
                         <td>
-                            <button th:onclick="|skUpdate('${in.incomeId} ')|" type="button" class="layui-btn layui-btn-sm">
+                            <button th:onclick="toChange([[${in.incomeId}]])" type="button" class="layui-btn layui-btn-sm">
                                 <i class="layui-icon">&#xe642;</i>编辑
                             </button>
                             <button th:onclick="|expurgate('${in.incomeId} ',1)|" type="button" class="layui-btn layui-btn-sm">

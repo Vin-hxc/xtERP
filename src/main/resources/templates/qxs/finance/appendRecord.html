@@ -152,7 +152,7 @@
                             var remark = $("input[name='remark']").val();//描述
                             //alert(clientId + "=" + payable + "=" + actual_payment + "=" + paymentMethod)
                             $.ajax({
-                                url:'',
+                                url:'/finance/addIncome',
                                 dataType:'json',
                                 type:'post',
                                 data:{'clientId':clientId,'payable':payable,'actualPayment':actual_payment,
