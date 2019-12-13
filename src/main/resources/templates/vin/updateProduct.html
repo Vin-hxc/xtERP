@@ -145,8 +145,8 @@
         var single = [[${product.product_model}]];
         var product_type = [[${product.product_type}]];
         var serialNumber = [[${product.serial_number}]];
+        debugger;
         $("#serial_number option[value="+serialNumber+"]").attr('selected', true);
-
         $("#select_model option[value= " + single + "]").prop("selected",true);
 
         $.ajax({
