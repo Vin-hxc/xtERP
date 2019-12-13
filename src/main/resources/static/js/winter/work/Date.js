@@ -8,6 +8,7 @@ function yearToDate(date) {
 //将后台获取的类型转换 时分秒
 function hourMinuteSecond(date) {
     currentTime();
+    debugger;
     var hour = new Date(date).Format("HH:mm:ss");
     return hour;
 }
