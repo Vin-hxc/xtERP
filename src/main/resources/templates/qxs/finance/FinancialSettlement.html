@@ -27,8 +27,8 @@
            <tbody>
                 <tr th:each="fs : ${fsList}" class="text-c">
                     <td th:text="${fs.id}"></td>
-                    <td th:text="${fs.total_Money}"></td>
-                    <td th:text="${fs.balance_Date}"></td>
+                    <td th:text="${fs.totalMoney}"></td>
+                    <td th:text="${fs.balanceDate}"></td>
                     <td th:text="${fs.type==1?'支出':'收入'}"></td>
                     <td th:text="${fs.userId}"></td>
                     <td th:text="${fs.deleteFlag==0?'正常':'已删除'}"></td>

@@ -17,7 +17,7 @@ public interface DepotHeadMapper {
      * 查询所有未删除的单据主表
      * @return
      */
-    @Select("select * from depotHead where delete_Flag!='1' order by createTime desc")
+    @Select("select * from depotHead where deleteFlag!='1' order by createTime desc")
     List<Depothead> queryNotDeleteDepotHead();
 
     /**
@@ -32,14 +32,14 @@ public interface DepotHeadMapper {
      * @param number
      * @return
      */
-    @Select("select * from depotHead where number=#{number} and delete_Flag='1' ")
+    @Select("select * from depotHead where number=#{number} and deleteFlag='1' ")
     Depothead getOneDepotHead(String number);
 
     /**
      * 查询被删除的数据
      * @return
      */
-    @Select("select * from depotHead where delete_Flag='1' order by createTime desc")
+    @Select("select * from depotHead where deleteFlag='1' order by createTime desc")
     List<Depothead> queryDelete();
 
     /**
@@ -47,7 +47,7 @@ public interface DepotHeadMapper {
      * @param id
      * @return
      */
-    @Select("select * from depotHead where id=#{id} and delete_Flag='1' ")
+    @Select("select * from depotHead where id=#{id} and deleteFlag='1' ")
     Depothead getDepotHeadID(Integer id);
 
     /**
@@ -84,7 +84,7 @@ public interface DepotHeadMapper {
      * @param id 条件
      * @return
      */
-    @Update("update depotHead set delete_flag=#{deleteFlag} where id=#{id}")
+    @Update("update depotHead set deleteFlag=#{deleteFlag} where id=#{id}")
     boolean deleteDepotHead(String deleteFlag,Integer id);
 
     /**

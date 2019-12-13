@@ -37,7 +37,7 @@ public interface DepotMapper {
      * @param name
      * @return
      */
-    @Select("select * from depot where name=#{name} and delete_flag!='1' ")
+    @Select("select * from depot where name=#{name} and deleteFlag!='1' ")
     Depot getDepotName(String name);
 
     /**
@@ -45,7 +45,7 @@ public interface DepotMapper {
      * @param id
      * @return
      */
-    @Select("select * from depot where id=#{id} and delete_flag!='1' ")
+    @Select("select * from depot where id=#{id} and deleteFlag!='1' ")
     Depot getOneDepot(Integer id);
 
     /**
@@ -71,7 +71,7 @@ public interface DepotMapper {
      * @param id 删除条件
      * @return
      */
-    @Update("update depot set delete_Flag=#{deleteFlag} where id=#{id}")
+    @Update("update depot set deleteFlag=#{deleteFlag} where id=#{id}")
     boolean deleteDepot(String deleteFlag,Integer id);
 
     /**

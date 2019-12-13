@@ -16,21 +16,21 @@ public interface SummarizingMapper {
      * 查询所有未删除的记录
      * @return
      */
-    @Select("select * from summarizing where deleteFlag != 1 order by collect_date desc")
+    @Select("select * from summarizing where deleteFlag != 1 order by collectDate desc")
     List<Summarizing> queryNotDeleteSummarizing();
 
     /**
      * 查询所有已删除数据
      * @return
      */
-    @Select("select * from summarizing where deleteFlag=1 order by collect_date desc")
+    @Select("select * from summarizing where deleteFlag=1 order by collectDate desc")
     List<Summarizing> queryDeleteSummarizing();
 
     /**
      * 查询所有记录，包括已删除的
      * @return
      */
-    @Select("select * from summarizing order by collect_date desc")
+    @Select("select * from summarizing order by collectDate desc")
     List<Summarizing> queryAllSummarizing();
 
     /**
@@ -62,7 +62,7 @@ public interface SummarizingMapper {
      * @param summarizing
      * @return
      */
-    @Insert("insert into summarizing values(null,#{financialSettlement},#{collect_date},#{principal}," +
+    @Insert("insert into summarizing values(null,#{financialSettlement},#{collectDate},#{principal}," +
             "#{describe},0)")
     boolean addSummarizing(Summarizing summarizing);
 }

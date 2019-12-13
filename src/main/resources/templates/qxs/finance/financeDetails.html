@@ -45,19 +45,19 @@
                         <tr class="text-c" th:each="ex : ${expendList}">
                             <td th:text="${ex.expenditureId}"></td>
                             <td th:text="${ex.type}"></td>
-                            <td th:text="${ex.payment_amount}"></td>
-                            <td th:text="${ex.actual_payment}"></td>
-                            <td th:text="${ex.balance_payment}"></td>
-                            <td th:text="${ex.date_receopt}"></td>
+                            <td th:text="${ex.paymentAmount}"></td>
+                            <td th:text="${ex.actualPayment}"></td>
+                            <td th:text="${ex.balancePayment}"></td>
+                            <td th:text="${ex.dateReceopt}"></td>
                             <td th:text="${ex.account}"></td>
                             <td th:text="${ex.principal}"></td>
                             <td th:text="${ex.remark}"></td>
                             <td th:text="${ex.deleteFlag==0?'正常':'已删除'}"></td>
                             <td>
-                                <button th:onclick="|affirm('${ex.expenditureId} ',0)|" id="fk" th:if="${ex.confirm_payment==0}" class="layui-btn layui-btn-radius layui-btn-warm">
+                                <button th:onclick="|affirm('${ex.expenditureId} ',0)|" id="fk" th:if="${ex.confirmPayment==0}" class="layui-btn layui-btn-radius layui-btn-warm">
                                         确定付款
                                 </button>
-                                <samp th:if="${ex.confirm_payment==1}">已付款</samp>
+                                <samp th:if="${ex.confirmPayment==1}">已付款</samp>
                             </td>
                             <td>
                                 <button th:onclick="|zcUpdate('${ex.expenditureId} ')|" type="button" class="layui-btn layui-btn-sm">
@@ -100,17 +100,17 @@
                         <td th:text="${in.clientId}"></td>
                         <td th:text="${in.payable}"></td>
                         <td th:text="${in.paymentMethod}"></td>
-                        <td th:text="${in.actual_payment}"></td>
-                        <td th:text="${in.balance_payment}"></td>
-                        <td th:text="${in.date_recorded}"></td>
+                        <td th:text="${in.actualPayment}"></td>
+                        <td th:text="${in.balancePayment}"></td>
+                        <td th:text="${in.dateRecorded}"></td>
                         <td th:text="${in.principal}"></td>
                         <td th:text="${in.remark}"></td>
                         <td th:text="${in.deleteFlag==0?'正常':'已删除'}"></td>
                         <td>
-                            <button th:onclick="|affirm('${in.incomeId} ',1)|" id="sk" th:if="${in.confirm_receipt==0}" class="layui-btn layui-btn-radius layui-btn-warm">
+                            <button th:onclick="|affirm('${in.incomeId} ',1)|" id="sk" th:if="${in.confirmReceipt==0}" class="layui-btn layui-btn-radius layui-btn-warm">
                                 确定收款
                             </button>
-                            <samp th:if="${in.confirm_receipt==1}">已收款</samp>
+                            <samp th:if="${in.confirmReceipt==1}">已收款</samp>
                         </td>
                         <td>
                             <button th:onclick="|skUpdate('${in.incomeId} ')|" type="button" class="layui-btn layui-btn-sm">

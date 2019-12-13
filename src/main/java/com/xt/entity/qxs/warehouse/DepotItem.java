@@ -20,7 +20,7 @@ public class DepotItem {
     private String img;//样品图
     private Integer depot;//仓库id
     private String mType;//类型:成品/材料
-    private String delete_Flag;//标记删除
+    private String deleteFlag;//标记删除
 
     public DepotItem(Integer id, Integer header, Integer materialId,
                      String mUnit, Integer basicNumber, Double unitPrice,
@@ -38,6 +38,6 @@ public class DepotItem {
         this.img = img;
         this.depot = depot;
         this.mType = mType;
-        this.delete_Flag = deleteFlag;
+        this.deleteFlag = deleteFlag;
     }
 }
