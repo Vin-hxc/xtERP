@@ -1,5 +1,6 @@
 package com.xt.controller.winter;
 
+import com.alibaba.fastjson.JSON;
 import com.xt.entity.winter.WorkAttendance;
 import com.xt.service.winter.WorkAttendanceServiceI;
 import org.slf4j.Logger;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -69,16 +73,36 @@ public class WorkAttendanceController {
     }
 
     /**
+     * 跳转到日程页面
+     * @return
+     */
+    @RequestMapping("/workDay")
+    public String getWork(){
+        return "winter/work/workDay";
+    }
+    /**
      * 查看该员工的考勤信息
      * 日历上的
-     * @param userId
-     * @param model
      * @return
      */
     @RequestMapping("/work")
-    public String getWorkAttendance(Model model){
+    public List<WorkAttendance> getWorkAttendance(HttpServletResponse response){
         List<WorkAttendance> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
-        model.addAttribute("work",employeeAttendance);
-        return "winter/work/workDay";
+       /* model.addAttribute("work",employeeAttendance);*/
+        String result = JSON.toJSONString(employeeAttendance);
+        try {
+            sendJsonData(response,result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    protected void sendJsonData(HttpServletResponse response, String param) throws Exception{
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println(param);
+        out.flush();
+        out.close();
     }
 }

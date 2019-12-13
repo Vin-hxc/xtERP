@@ -1,17 +1,17 @@
-//获取当前年月日
-function YearToDate() {
+//将后台获取的类型转换 年月日
+function yearToDate(date) {
     currentTime();
     //调用时
-    var year = new Date().Format("yyyy-MM-dd");
+    var year = new Date(date).Format("yyyy-MM-dd");
     return year;
 }
-//获取当前时分秒
-function hourMinuteSecond() {
+//将后台获取的类型转换 时分秒
+function hourMinuteSecond(date) {
     currentTime();
-    var hour = new Date().Format("HH:mm:ss");
+    var hour = new Date(date).Format("HH:mm:ss");
     return hour;
 }
-//获取当天星期几
+//获取当前星期几
 function  week() {
     var date = new Date();
     return date.getDate();

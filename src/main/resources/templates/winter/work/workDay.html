@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<html  lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="打卡日程">
@@ -19,9 +19,10 @@
     <script src='static/fullcalendar/js/jquery-1.9.1.min.js'></script>
     <script src='static/fullcalendar/js/jquery-ui-1.10.2.custom.min.js'></script>
     <script src='static/fullcalendar/js/fullcalendar.min.js'></script>
+    <script src="static/js/winter/work/Date.js"></script>
     <script type="text/javascript">
         $(function() {
-
+            var userId = $("#userId").val();
             var date = new Date();
             var d = date.getDate();
             var m = date.getMonth();
@@ -46,108 +47,96 @@
                     day: '日'
                 },
                 firstDay: 1,
-                editable: true, //支持Event日程拖动修改，默认false
+                editable: false, //支持Event日程拖动修改，默认false
                 timeFormat: 'H:mm',
                 axisFormat: 'H:mm',
-                /*events:function(start, end, timezone, callback) {
+                events:function(start, end, timezone, callback) {
+                    currentTime();
                     $.ajax({
-                        url: contextPath + "/advance/allAdvert.html",
-                        data:{positionId:vm.positionId},
+                        url: "work",
+                        data:{'userId':1},
+                        dataType:'json',
                         cache:false,
                         success:function(doc) {
-                            eval("var j=" + doc);
-                            var events = [];
-                            var info = j.dataList;
-                            for (var i = 0; i < info.length; i++) {
-                                var ev = info[i];
-
-                                var defaultStart = new Date(Date.parse(ev.startTime));
-                                var defaultEnd = new Date(Date.parse(ev.endTime));
-
-                                if(ev.priority==3){
-                                    events.push({
-                                        title:'默认广告',
-                                        start:defaultStart,
-                                        end:defaultEnd,
-                                        id:1,
-                                        className:'label-info',
+                            var eventServer  = [];
+                            var obj = doc;
+                            console.log(obj);
+                            for (var key in obj) {
+                                var list = obj[key];
+                                //var attendanceDate = list.attendanceDate;
+                                var start = list.startTime;
+                                debugger;
+                                var startTime = hourMinuteSecond(startTime);
+                                var endTime = list.endTime;
+                                var id = list.id;
+                                console.log(startTime)
+                                /*$(list).each(function() {
+                                    eventServer.push({
+                                        title: '上班签到',
+                                        start: startTime,
+                                        id: id,
+                                        className: 'label-info',
                                         allDay: false
                                     });
-                                }
-                                if(ev.priority==1){
-                                    events.push({
-                                        title:'紧急广告',
-                                        start:defaultStart,
-                                        end:defaultEnd,
-                                        id:2,
-                                        className:'label-warning',
-                                        allDay: false
-                                    });
-                                }
-                                if(ev.priority==2){
-                                    events.push({
-                                        title:'普通广告',
-                                        start:defaultStart,
-                                        end:defaultEnd,
-                                        id:3,
-                                        className:'label-error',
-                                        allDay: false
-                                    });
-                                }
-
+                                })*/
+                                /* events.push({
+                                     title: '上班签到',
+                                     start: startTime,
+                                     id: id,
+                                     className: 'label-info',
+                                     allDay: false
+                                 });*/
                             }
-                            callback(events);
+                            callback(eventServer);
                         },
                         error:function() {
-                            $.dlg.alert('出错啦！！请联系管理员！！');
+                            alert('出错啦！！请联系管理员！！');
                         }
                     })
-                }*/
-                /*events: function(start, end, callback) {
-                        var events = [];
-                        var now = new Date();
-                        for(var i = -10; i < 60; i++) {
-                            var evtstart = new Date(now.getFullYear(), now.getMonth(), (now.getDate() - i), now.getHours() - 5, now.getMinutes(), now.getSeconds(), now.getMilliseconds());
-
-                            var evtend = new Date(now.getFullYear(), now.getMonth(), (now.getDate() - i), now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
-
-                            events.push({
-                                sid: 1,
-                                uid: 1,
-                                title: 'Daily Scrum meeting',
-                                start: evtstart,
-                                end: evtend,
-                                fullname: 'terry li',
-                                confname: 'Meeting 1',
-                                confshortname: 'M1',
-                                confcolor: '#ff3f3f',
-                                confid: 'test1',
-                                allDay: false,
-                                topic: 'Daily Scrum meeting',
-                                description: 'Daily Scrum meeting',
-                                id: 1,
+                }
+                /*
+                events: function(start,end, callback) {
+                    var view = $('#calendar').fullCalendar('getView');
+                    var viewName = view.name;
+                    $.ajax({
+                        url: APP_DOMAIN+"/meetings/list_json",
+                        dataType: 'json',
+                        data: {
+                            start: start.format(),
+                            end: end.format()
+                        },
+                        success:function(doc) {
+                            var eventServer =[];
+                            $(doc).each(function() {
+                                if (viewName == 'month') {
+                                    eventServer.push({
+                                        allDay:$(this).attr('allDay'),
+                                        className:$(this).attr('className'),
+                                        title:$(this).attr('title'),
+                                        start:$(this).attr('start'),
+                                        url:$(this).attr('url')
+                                    });
+                                }else{
+                                    eventServer.push({
+                                        allDay:$(this).attr('allDay'),
+                                        className:$(this).attr('className'),
+                                        title:$(this).attr('title'),
+                                        start:$(this).attr('start'),
+                                        end:$(this).attr('end'),
+                                        url:$(this).attr('url')
+                                    });
+                                };
                             });
+                            callback(eventServer);
                         }
-                        callback(events);
-                    },*/
-                events: [
-                    {
-                        "title": "打卡上班",
-                        "time": "7:40--18:30",
-                        "antualTime": "9:40--18:40",
-                        "start": "2019-11-27"
-                    }
-                ]
+                    });
+                },*/
             });
         });
     </script>
 </head>
 
 <body>
-<!--<div id="header">
-    <div id="logo">
-        <h1><a href="http://www.helloweba.net" title="返回helloweba首页">helloweba</a></h1></div>
-</div>-->
 <div id="main" style="width:80%">
     <h2 class="top_title"><a href="#">打卡考勤</a></h2>
     <div class="button">
@@ -156,6 +145,7 @@
             法定下班时间为18:00:00，早于该时间即为早退）;</p>
         <p>2.下班后还未进行上班打卡的员工，则视为旷工，当天则不允许打卡，
             如果当天忘记打卡，需第二天向领导进行申诉申请，并说明原因</p>
+        <input type="hidden" name="userId" id="userId" value="1"/><!--th:value="${user.id}"-->
     </div>
     <div id='calendar'></div>
 </div>
