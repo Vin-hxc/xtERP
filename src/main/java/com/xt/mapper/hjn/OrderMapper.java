@@ -38,7 +38,7 @@ public interface OrderMapper {
      * @return
      */
     //@Insert("insert into order values(null,#{orderid},#{supplierid},#{purchaserid},#{rebate},#{paytype},#{total},#{amount_paid},#{total_tax},#{orderstate},#{preferential},#{costid})")
-    int addOrder(Order order);
+    int addOrder(Orders order);
 
     /**
      * 新增采购明细
@@ -117,9 +117,18 @@ public interface OrderMapper {
      * 查询所有审核状态为 2 的订单费用
      * @return
      */
-    @Select("select o.orderid,sl.supplier,sl.accountNumber,o.purchaserid,o.total,o.amount_paid,ct.costtype,ct.costprice " +
-                " from orders o LEFT JOIN cost ct ON o.costid=ct.id " +
-                " LEFT JOIN supplier sl on o.supplierid=sl.id " +
-                " where o.orderstate=2 and sl.type='供应商' ")
+    @Select("select o.orderid as id,sl.supplier as sName,sl.accountNumber as accoun," +
+            " o.purchaserid as pid,o.total as total,o.amount_paid as amount,ct.costtype as costType,ct.costprice as costPrice " +
+            " from orders o LEFT JOIN cost ct ON o.costid=ct.id " +
+            " LEFT JOIN supplier sl on o.supplierid=sl.id" +
+            " where o.orderstate=2 and sl.type='供应商' and sl.delete_Flag=0 and o.finance=0 ")
     List<HashMap> incurExpense();
+
+    /**
+     * 修改财务记录添加状态
+     * @param id
+     * @return
+     */
+    @Update("update orders set finance=1 where orderid=#{id}")
+    boolean updateFinance(Integer id);
 }

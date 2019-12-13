@@ -14,7 +14,7 @@ public class Expenditure {
 
     private Integer expenditureId;//支出编号
     private String type;//支出类型；1：采购；2：仓库存储费/搬运费；3：员工工资；0：默认
-    private Double payment_amount;//支付金额
+    private Double payment_amount;//应付金额
     private Double actual_payment;//实付金额
     private Double balance_payment;//尾款
     private Date date_receopt;//出账时间；再确认付款以后填写

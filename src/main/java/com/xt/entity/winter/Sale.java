@@ -20,11 +20,13 @@ public class Sale implements Serializable {
     private Integer clientId;//客户编号
     private Integer productId;//产品编号
     private Integer depotId;//仓库编号
-    private Integer state;//状态 0审核；1审核中；2转销售出库；3销售退货；4转生产
+    private Integer state;//状态
     private Integer number;//数量
     private double discounts;//优惠率
     private double money;//总金额
     private double reality;//实际付款金额
-    private double commission;//销售提成
     private Integer deleteFlag;//删除标记
+    private Double commission;//提成
+    private Integer finance;//财务记录添加状态
+    //数量 优惠率 总金额 实际付款金额
 }

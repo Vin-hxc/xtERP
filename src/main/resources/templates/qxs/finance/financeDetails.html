@@ -73,7 +73,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <button onclick="addzc()" type="button" class="layui-btn layui-btn-fluid">添加记录</button>
+                <button onclick="add(0)" type="button" class="layui-btn layui-btn-fluid">添加记录</button>
             </div>
             <!-- 收入 -->
             <div id="sr" class="layui-tab-item">
@@ -126,7 +126,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <button onclick="addsk()" type="button" class="layui-btn layui-btn-fluid">添加记录</button>
+                <button onclick="add(1)" type="button" class="layui-btn layui-btn-fluid">添加记录</button>
             </div>
         </div>
     </div>
@@ -134,31 +134,14 @@
     //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
     layui.use('element', function(){
         var element = layui.element;
-        var layer = layui.layer;
-
-        //修改支出记录，清算尾款
-        function zcUpdate(id) {
-
-        }
-        //新增支出记录
-        function addzc() {
-
-        }
-        <!-- ---------- -->
-        //修改收款记录，清算尾款
-        function skUpdate(id) {
-
-        }
-        function addsk() {
-
-        }
     });
+
     $("table").DataTable({
         aLengthMenu:[3,5,10]
     });
     // 确认收付款
     function affirm(id,price) {
-        debugger;
+        //debugger;
         var affirmId = id;
         //alert(id+"===="+price)
         if(price==0){
@@ -207,7 +190,6 @@
     //删除收支记录
     function expurgate(id,price) {
         var expurgate = id;
-        alert(id+"===="+price)
         if(price==0){
             //支出
             if(confirm('是否确定删除当前记录!')){
@@ -249,6 +231,31 @@
                 });
             }
         }
+    }
+    //点击添加，查询当前项目的支出信息与收入信息
+    function add(type) {
+        location.href='/finance/addReady?type='+type;
+        layui.use('layer',function () {
+            var layer = layui.layer;
+            layer.open({
+                title:'添加记录',
+                type:2,
+                //skin: 'layui-layer-lan ', //样式类名
+                closeBtn: 0, //显示关闭按钮
+                anim: 2,
+                area:['70%','60%'],
+                resize:true,
+                //id: '1', //防止重复弹出
+                shadeClose: true, //开启遮罩关闭
+                shade:[0.5], //透明度，背景颜色
+                content: ['/finance/addReady'],
+                offset:'auto',
+                btn:['确认','取消'],
+                yes:function () {
+                    location.href='/finance/pageFinanceDetails';
+                }
+            })
+        })
     }
 </script>
 </body>

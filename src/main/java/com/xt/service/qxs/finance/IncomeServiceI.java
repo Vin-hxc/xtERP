@@ -78,12 +78,11 @@ public interface IncomeServiceI {
      * @param income
      * @return
      */
-    boolean addIncome(Income income);
+    boolean addIncome(Income income,Integer id);
 
     /**
      * 查询整个项目的支出/收入
-     * @param type 判断   支出 / 收入
      * @return
      */
-    Map addReady(Integer type);
+    Map addReady();
 }

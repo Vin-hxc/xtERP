@@ -146,12 +146,29 @@ public class FinanceController {
 
     /**
      * 查询整个项目的支出/收入
-     * @param type 判断   支出 / 收入
      * @return
      */
-    public String addReady(Integer type){
+    @RequestMapping("addReady")
+    public String addReady(Model model){
+        Map map = incomeServiceI.addReady();
+        model.addAttribute("readys",map);
+        return "qxs/finance/appendRecord";
+    }
 
-        return "";
+    /**
+     * 新增支出记录
+     * @param expenditure
+     * @return
+     */
+    @RequestMapping("addExpenditure")
+    @ResponseBody
+    public boolean addExpenditure(Expenditure expenditure,Integer orderId){
+        System.err.println(orderId+"支出对象:"+expenditure);
+        //设置创建时间
+        expenditure.setDate_receopt(new Date());
+        //计算尾款
+        expenditure.setBalance_payment(expenditure.getPayment_amount()-expenditure.getActual_payment());
+        return expenditureServiceI.addExpenditure(expenditure,orderId);
     }
 
 }

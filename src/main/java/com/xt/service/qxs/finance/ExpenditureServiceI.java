@@ -62,7 +62,7 @@ public interface ExpenditureServiceI {
      * @param expenditure
      * @return
      */
-    boolean addExpenditure(Expenditure expenditure);
+    boolean addExpenditure(Expenditure expenditure,Integer id);
 
     /**
      * 结算总支出

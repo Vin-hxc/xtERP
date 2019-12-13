@@ -2,7 +2,10 @@ package com.xt.mapper.winter;
 
 import com.xt.entity.winter.Sale;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -67,4 +70,21 @@ public interface SaleMapper {
      * @return
      */
     Sale findSaleOne(int id);
+
+    /**
+     * 查询所有销售收款
+     * @return
+     */
+    @Select(" select s.id saleId,s.userid userId,su.id suId,su.supplier suName," +
+            " su.accountNumber account,s.money money,s.reality reality,s.commission commission from sale s " +
+            " LEFT JOIN supplier su on s.clientId=su.id" +
+            " where s.state=2 and su.type='客户' and su.delete_flag=0  and s.deleteFlag=0 and s.finance=0")
+    List<HashMap> salesProceeds();
+
+    /**
+     * 修改财务添加状态
+     * @return
+     */
+    @Update("update sale set finance=1 where id=#{id}")
+    boolean updateFinance(Integer id);
 }
