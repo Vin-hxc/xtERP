@@ -16,8 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @Data
 public class Recruit implements Serializable {
-    private static final long serialVersionUID = 6046198028015255556L;
-    private Integer id;//编号
+    private Integer recruitId;//编号
     private String title;//标题
     private String content;//内容描述
     private String position;//职位

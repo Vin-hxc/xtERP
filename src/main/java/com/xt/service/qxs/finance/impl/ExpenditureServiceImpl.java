@@ -2,6 +2,7 @@ package com.xt.service.qxs.finance.impl;
 
 import com.xt.entity.qxs.finance.Expenditure;
 import com.xt.entity.qxs.finance.FinancialSettlement;
+import com.xt.mapper.hjn.OrderMapper;
 import com.xt.mapper.qxs.finance.ExpenditureMapper;
 import com.xt.mapper.qxs.finance.FinancialSettlementMapper;
 import com.xt.service.qxs.finance.ExpenditureServiceI;
@@ -16,6 +17,8 @@ public class ExpenditureServiceImpl implements ExpenditureServiceI {
     private ExpenditureMapper expenditureMapper;
     @Autowired
     private FinancialSettlementMapper financialSettlementMapper;
+    @Autowired
+    private OrderMapper orderMapper;
 
     /**
      * 查询所有未删除的数据
@@ -92,8 +95,12 @@ public class ExpenditureServiceImpl implements ExpenditureServiceI {
      * @return
      */
     @Override
-    public boolean addExpenditure(Expenditure expenditure) {
-        return expenditureMapper.addExpenditure(expenditure);
+    public boolean addExpenditure(Expenditure expenditure,Integer id) {
+        boolean b = orderMapper.updateFinance(id);
+        if(b){
+            return expenditureMapper.addExpenditure(expenditure);
+        }
+        return false;
     }
 
     /**

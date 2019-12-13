@@ -13,8 +13,8 @@ import java.util.Date;
 public class Expenditure {
 
     private Integer expenditureId;//支出编号
-    private Integer type;//支出类型；1：采购；2：仓库存储费/搬运费；3：员工工资；0：默认
-    private Double payment_amount;//支付金额
+    private String type;//支出类型；1：采购；2：仓库存储费/搬运费；3：员工工资；0：默认
+    private Double payment_amount;//应付金额
     private Double actual_payment;//实付金额
     private Double balance_payment;//尾款
     private Date date_receopt;//出账时间；再确认付款以后填写
@@ -25,7 +25,7 @@ public class Expenditure {
     private Integer deleteFlag;//标记删除；0：未删除；1：已删除
     private Integer stateClose;//结算状态 0 未结算 1 已结算
 
-    public Expenditure(Integer expenditureId, Integer type,
+    public Expenditure(Integer expenditureId, String type,
                        Double payment_amount, Double actual_payment,
                        Date date_payment, String account,
                        Integer confirm_payment, String remark, Integer principal, Integer deleteFlag, Integer stateClose) {

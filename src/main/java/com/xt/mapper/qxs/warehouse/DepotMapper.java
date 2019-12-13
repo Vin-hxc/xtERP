@@ -33,7 +33,7 @@ public interface DepotMapper {
     List<Depot> queryDelete();
 
     /**
-     * 获取仓库名
+     * 根据仓库名查询
      * @param name
      * @return
      */

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间-->
+<mapper namespace="com.xt.mapper.hjn.OrderMapper.java">
+    <select id="findOrder" parameterType="int" resultType="com.xt.mapper.hjn.OrderMapper">
+        select * from Order
+        <where>
+            <if test="orderid !=null">
+                orderid like #{orderid}
+            </if>
+            <if test="createtime!=null">
+                createtime>=#{createtime}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

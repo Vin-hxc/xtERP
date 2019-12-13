@@ -74,15 +74,24 @@ public interface DepotItemMapper {
      * @return
      */
     @Update("update depotItem set delete_Flag=#{flag} where id=#{id}")
-    boolean deleteFlagDepotItem(String flag,Insert id);
+    boolean deleteFlagDepotItem(String flag,Integer id);
 
     /**
      * 查询物品是否存在
      * 存在则行数量修改，不存在进行添加
-     * @param depotItem
+     * @param materialId
      * @return
      */
-    @Select("select basicNumber from depotItem where materialId=#{materialId} and depot=#{depot} and deleteFlag !=1")
-    Double queryDepotItemRecord(DepotItem depotItem);
+    @Select("select * from depotItem where materialId=#{materialId} and deleteFlag !=1")
+    DepotItem queryDepotItemRecord(Integer materialId);
+
+    /**
+     * 修改数量
+     * @param amount
+     * @param materialID
+     * @return
+     */
+    @Update("update depotItem set basicNumber=#{amount} where materialId=#{materialID}")
+    boolean updateAmount(Integer amount,Integer materialID);
 
 }

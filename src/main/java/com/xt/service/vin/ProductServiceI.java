@@ -4,6 +4,7 @@ import com.xt.entity.qxs.warehouse.Depothead;
 import com.xt.entity.vin.Product;
 import com.xt.entity.vin.Product_model;
 import com.xt.entity.vin.Product_type;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.HashMap;
 import java.util.List;
@@ -76,4 +77,18 @@ public interface ProductServiceI {
      * @return boolean
      */
     public boolean updateProductState(long id);
+
+
+    /**
+     * 根据产品型号获取产品类型
+     * @return Product_type
+     */
+    public Product_type queryByModelName(long id);
+
+    /**
+     * 根据产品类型获取类型名称
+     * @param product_type
+     * @return
+     */
+    public Product queryByProductType(long product_type);
 }

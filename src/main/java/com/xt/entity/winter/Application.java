@@ -17,7 +17,7 @@ import java.util.Date;
 @Data
 public class Application implements Serializable {
     private Integer id;//编号
-    private WorkAttendance workId;//考勤编号
+    private Integer workId;//考勤编号
     private String cause;//申请原因 如忘打卡
     private Integer proposer;//申请人编号
     private Date applicationTime;//申请人时间

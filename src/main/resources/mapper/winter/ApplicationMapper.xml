@@ -4,11 +4,11 @@
 <mapper namespace="com.xt.mapper.winter.ApplicationMapper">
     <!-- 根据申请人查询该申请人所有的申请数据 -->
     <select id="getAllApplicationProposer" resultType="int">
-        select * from application where proposer = #{proposer} order by desc
+        select * from application where proposer = #{proposer} order by id desc
     </select>
     <!-- 根据审批人查询该审批人可审批的所有申请数据 -->
     <select id="getAllApplicationAuditor" resultType="int">
-        select * from application where auditor = #{auditor} order by desc
+        select * from application where auditor = #{auditor} order by id desc
     </select>
     <!-- 修改审批时间 -->
     <update id="updateApplicationAuditTime" parameterType="com.xt.entity.winter.Application">
@@ -20,7 +20,8 @@
     </update>
     <!-- 添加审批数据 -->
     <insert id="saveApplication" parameterType="com.xt.entity.winter.Application">
-        insert into application values(#{id},#{workId.id},#{cause},#{proposer},#{applicationTime},#{approval},#{auditor},#{auditTime},#{deleteFlag});
+        insert into application values(#{id},#{workId},#{cause},
+        #{proposer},#{applicationTime},#{approval},#{auditor},#{auditTime},#{deleteFlag});
     </insert>
     <!-- 删除申请数据 删除标记修改 -->
     <delete id="deleteApplication" parameterType="int">

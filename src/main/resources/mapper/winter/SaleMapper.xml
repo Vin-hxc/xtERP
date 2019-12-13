@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xt.entity.winter.Sale">
+    <!--添加销售信息-->
+    <insert id="saveSale" parameterType="com.xt.entity.winter.Sale">
+        insert into sale values(#{id},#{userId},#{clientId},#{productId},#{depotId},#{state},#{deleteFlag})
+    </insert>
+    <!--修改销售状态-->
+    <update id="updateSaleState" parameterType="com.xt.entity.winter.Sale">
+        update sale set state = #{state} where id = #{id}
+    </update>
+    <!--修改所有销售信息-->
+    <update id="updateSale" parameterType="com.xt.entity.winter.Sale">
+        update sale set
+        userId = #{userId},clientId = #{clientId},productId = #{productId},
+        depotId = #{depotId},state = #{state},deleteFlag = #{deleteFlag}
+        where id = #{id}
+    </update>
+    <!--删除标记销售信息-->
+    <delete id="deleteSale">
+        update sale set deleteFlag = #{deleteFlag}
+        where id = #{id}
+    </delete>
+
+    <!-- 未删除标记销售信息 -->
+    <select id="getAllNoDeleteSale" resultType="com.xt.entity.winter.Sale">
+        select * from sale where deleteFlag = 0 order by id desc
+    </select>
+
+    <!-- 查询已删除标记销售信息 -->
+    <select id="getAllDeleteSale" resultType="com.xt.entity.winter.Sale">
+        select * from sale where deleteFlag = 1 order by id desc
+    </select>
+
+    <!-- 查询已删除标记销售信息 -->
+    <select id="getAllSale" resultType="com.xt.entity.winter.Sale">
+        select * from sale order by id desc
+    </select>
+
+    <!-- 查询单条销售数据 -->
+    <select id="findSaleOne" resultType="com.xt.entity.winter.Sale">
+        select * from sale where id = #{id}
+    </select>
+</mapper>
