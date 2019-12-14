@@ -4,9 +4,11 @@
     <meta charset="utf-8">
     <meta name="keywords" content="打卡日程">
     <meta name="description" content="Helloweba，在线演示HTML、CSS、jquery、PHP示例DEMO。">
-    <title>打卡日程</title>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="static/layui/layui/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="static/fullcalendar/css/main.css">
     <link rel="stylesheet" type="text/css" href="static/fullcalendar/css/fullcalendar.css">
+    <link rel="stylesheet" href="static/css/H-ui.min.css" />
     <style type="text/css">
         #calendar {
             width: 900px;
@@ -19,8 +21,12 @@
     <script src='static/fullcalendar/js/jquery-1.9.1.min.js'></script>
     <script src='static/fullcalendar/js/jquery-ui-1.10.2.custom.min.js'></script>
     <script src='static/fullcalendar/js/fullcalendar.min.js'></script>
+    <script src="static/layui/layui/layui.js"></script>
     <script src="static/js/winter/work/Date.js"></script>
     <script type="text/javascript">
+        function callback(arr){
+            console.log(arr);
+        }
         $(function() {
             var userId = $("#userId").val();
             var date = new Date();
@@ -50,7 +56,7 @@
                 editable: false, //支持Event日程拖动修改，默认false
                 timeFormat: 'H:mm',
                 axisFormat: 'H:mm',
-                events:function(start, end, timezone, callback) {
+                events:function(start, end, callback) {
                     currentTime();
                     $.ajax({
                         url: "work",
@@ -58,97 +64,83 @@
                         dataType:'json',
                         cache:false,
                         success:function(doc) {
-                            var eventServer  = [];
+                            var events = [];
                             var obj = doc;
                             console.log(obj);
                             for (var key in obj) {
                                 var list = obj[key];
-                                //var attendanceDate = list.attendanceDate;
-                                var start = list.startTime;
+                                var attendanceDate = yearToDate(list.attendanceDate);
                                 debugger;
-                                var startTime = hourMinuteSecond(startTime);
-                                var endTime = list.endTime;
+                                var startTime = hourMinuteSecond(list.startTime);
+                                var start = attendanceDate+" "+startTime;
+                                var endTime = hourMinuteSecond(list.endTime);
+                                var end = attendanceDate+" "+endTime;
                                 var id = list.id;
                                 console.log(startTime)
-                                /*$(list).each(function() {
-                                    eventServer.push({
-                                        title: '上班签到',
-                                        start: startTime,
-                                        id: id,
-                                        className: 'label-info',
-                                        allDay: false
-                                    });
-                                })*/
-                                /* events.push({
+                                events.push({
                                      title: '上班签到',
-                                     start: startTime,
+                                     start: start,
                                      id: id,
                                      className: 'label-info',
-                                     allDay: false
-                                 });*/
+                                     allDay: false,
+                                    backgroundColor:"#FFB90F"
+                                 });
+                                events.push({
+                                    title:'下班签退',
+                                    start:end,
+                                    id:id,
+                                    className:'labl-info',
+                                    allDay:false,
+                                    backgroundColor:"#8DEEEE"
+                                })
                             }
-                            callback(eventServer);
+                            console.log(events);
+                            callback(events);
                         },
                         error:function() {
                             alert('出错啦！！请联系管理员！！');
                         }
                     })
                 }
-                /*
-                events: function(start,end, callback) {
-                    var view = $('#calendar').fullCalendar('getView');
-                    var viewName = view.name;
-                    $.ajax({
-                        url: APP_DOMAIN+"/meetings/list_json",
-                        dataType: 'json',
-                        data: {
-                            start: start.format(),
-                            end: end.format()
-                        },
-                        success:function(doc) {
-                            var eventServer =[];
-                            $(doc).each(function() {
-                                if (viewName == 'month') {
-                                    eventServer.push({
-                                        allDay:$(this).attr('allDay'),
-                                        className:$(this).attr('className'),
-                                        title:$(this).attr('title'),
-                                        start:$(this).attr('start'),
-                                        url:$(this).attr('url')
-                                    });
-                                }else{
-                                    eventServer.push({
-                                        allDay:$(this).attr('allDay'),
-                                        className:$(this).attr('className'),
-                                        title:$(this).attr('title'),
-                                        start:$(this).attr('start'),
-                                        end:$(this).attr('end'),
-                                        url:$(this).attr('url')
-                                    });
-                                };
-                            });
-                            callback(eventServer);
-                        }
-                    });
-                },*/
             });
+        });
+        //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+        layui.use('element', function() {
+            var element = layui.element;
         });
     </script>
 </head>
 
 <body>
-<div id="main" style="width:80%">
-    <h2 class="top_title"><a href="#">打卡考勤</a></h2>
-    <div class="button">
-        <button>上班打卡</button>
-        <p>1.（法定上班时间为08:30:00，晚于该时间即为迟到。
-            法定下班时间为18:00:00，早于该时间即为早退）;</p>
-        <p>2.下班后还未进行上班打卡的员工，则视为旷工，当天则不允许打卡，
-            如果当天忘记打卡，需第二天向领导进行申诉申请，并说明原因</p>
-        <input type="hidden" name="userId" id="userId" value="1"/><!--th:value="${user.id}"-->
+
+<div class="layui-tab layui-tab-card">
+    <ul class="layui-tab-title">
+        <li class="layui-this">打卡日历</li>
+        <li>考勤管理</li>
+        <li>考勤申请</li>
+        <li>请假管理</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <div id="main" style="width:80%">
+                <h2 class="top_title"><a href="#">打卡考勤</a></h2>
+                <div class="button">
+                    <button>上班打卡</button>
+                    <p>1.（法定上班时间为08:30:00，晚于该时间即为迟到。
+                        法定下班时间为18:00:00，早于该时间即为早退）;</p>
+                    <p>2.下班后还未进行上班打卡的员工，则视为旷工，当天则不允许打卡，
+                        如果当天忘记打卡，需第二天向领导进行申诉申请，并说明原因</p>
+                    <input type="hidden" name="userId" id="userId" value="1"/><!--th:value="${user.id}"-->
+                </div>
+                <div id='calendar' style="width:60%"></div>
+            </div>
+        </div>
+        <div class="layui-tab-item">2</div>
+        <div class="layui-tab-item">3</div>
+        <div class="layui-tab-item">4</div>
     </div>
-    <div id='calendar'></div>
 </div>
+
 </body>
 
 </html>
