@@ -84,4 +84,11 @@ public interface ProductServiceI {
      * @return Product_type
      */
     public Product_type queryByModelName(long id);
+
+    /**
+     * 根据产品类型获取类型名称
+     * @param product_type
+     * @return
+     */
+    public Product queryByProductType(long product_type);
 }

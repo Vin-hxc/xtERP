@@ -16,21 +16,21 @@ public interface ExpenditureMapper {
      * 查询所有未删除的支出信息
      * @return
      */
-    @Select("select * from expenditure where deleteFlag !=1 order by date_receopt desc")
+    @Select("select * from expenditure where deleteFlag !=1 and confirmPayment=1 order by dateReceopt desc")
     List<Expenditure> queryNotExpenditure();
 
     /**
      * 查询所有已删除的支出信息
      * @return
      */
-    @Select("select * from expenditure where deleteFlag =1 order by date_receopt desc")
+    @Select("select * from expenditure where deleteFlag =1 order by dateReceopt desc")
     List<Expenditure> queryDeleteExpenditure();
 
     /**
      * 查询所有数据
      * @return
      */
-    @Select("select * from expenditure order by date_receopt desc")
+    @Select("select * from expenditure order by dateReceopt desc")
     List<Expenditure> queryAllExpenditure();
 
     /**
@@ -53,7 +53,7 @@ public interface ExpenditureMapper {
      * @param state 状态；0：未付款；1：已付款；3：取消付款 默认0
      * @return
      */
-    @Update("update expenditure set confirm_payment=#{state} where expenditureId=#{id}")
+    @Update("update expenditure set confirmPayment=#{state} where expenditureId=#{id}")
     boolean confirmation(Integer state,Integer id);
 
     /**
@@ -69,8 +69,8 @@ public interface ExpenditureMapper {
      * 结算总支出
      * @return
      */
-    @Select("select sum(actual_payment) from expenditure where deleteFlag !=1 " +
-            "and confirm_payment =1 and stateClose=0 ")
+    @Select("select sum(actualPayment) from expenditure where deleteFlag !=1 " +
+            "and confirmPayment =1 and stateClose=0 ")
     Double sumExpenditure();
 
     /**
@@ -78,8 +78,8 @@ public interface ExpenditureMapper {
      * @param expenditure
      * @return
      */
-    @Insert("insert into expenditure values(null,#{type},#{payment_amount},#{actual_payment}," +
-            "#{balance_payment},#{date_receopt},#{account},0,#{remark},#{principal},0,0)")
+    @Insert("insert into expenditure values(null,#{type},#{paymentAmount},#{actualPayment}," +
+            "#{balancePayment},#{dateReceopt},#{account},0,#{remark},#{principal},0,0)")
     boolean addExpenditure(Expenditure expenditure);
 
     /**
@@ -90,4 +90,12 @@ public interface ExpenditureMapper {
      */
     @Update("update expenditure set stateClose=#{stateClose} ")
     boolean updateStateClose(Integer stateClose);
+
+    /**
+     * 清算尾款
+     * @param expenditure
+     * @return
+     */
+    @Update("update expenditure actualPayment=#{actualPayment},balancePayment=#{balancePayment} where expenditureId=#{expenditureId}")
+    boolean liquidationExpenditure(Expenditure expenditure);
 }

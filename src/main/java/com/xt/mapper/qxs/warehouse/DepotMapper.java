@@ -15,7 +15,7 @@ public interface DepotMapper {
      * 查询所有未删除的仓库
      * @return
      */
-    @Select("select * from depot where delete_Flag!=1 order by sort desc")
+    @Select("select * from depot where deleteFlag!=1 order by sort desc")
     List<Depot> queryNotDeleteDepot();
 
     /**
@@ -29,15 +29,15 @@ public interface DepotMapper {
      * 查询所有被删除的仓库
      * @return
      */
-    @Select("select * from depot where delete_Flag=1 order by sort desc")
+    @Select("select * from depot where deleteFlag=1 order by sort desc")
     List<Depot> queryDelete();
 
     /**
-     * 获取仓库名
+     * 根据仓库名查询
      * @param name
      * @return
      */
-    @Select("select * from depot where name=#{name} and delete_flag!='1' ")
+    @Select("select * from depot where name=#{name} and deleteFlag!='1' ")
     Depot getDepotName(String name);
 
     /**
@@ -45,7 +45,7 @@ public interface DepotMapper {
      * @param id
      * @return
      */
-    @Select("select * from depot where id=#{id} and delete_flag!='1' ")
+    @Select("select * from depot where id=#{id} and deleteFlag!='1' ")
     Depot getOneDepot(Integer id);
 
     /**
@@ -71,7 +71,7 @@ public interface DepotMapper {
      * @param id 删除条件
      * @return
      */
-    @Update("update depot set delete_Flag=#{deleteFlag} where id=#{id}")
+    @Update("update depot set deleteFlag=#{deleteFlag} where id=#{id}")
     boolean deleteDepot(String deleteFlag,Integer id);
 
     /**

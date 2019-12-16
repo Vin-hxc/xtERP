@@ -8,7 +8,7 @@ package com.xt.entity.hjn;
  **/
 public class Orders {
     private int id;//主键id
-    private String orderid;//采购订单编号
+    private Integer orderid;//采购订单编号
     private int  supplierid;//外键,供应商
     private int purchaserid;//外键,采购员
     private int rebate;//折扣率(%)
@@ -19,4 +19,5 @@ public class Orders {
     private int  orderstate;//外键,订单审核
     private int preferential;//优惠金额
     private int costid; //外键,采购支出表
+    private Integer finance;//财务记录添加状态
 }

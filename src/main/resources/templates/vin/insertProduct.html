@@ -12,22 +12,25 @@
 <body>
     <table border="1px red ">
         <tr>
-           <td>产品名称：</td>
-           <td><input type="text" name="product_name" id="product_name" required="required"></td>
+            <td>产品名称：</td>
+            <td><input type="text" name="product_name" id="product_name" required="required"></td>
         </tr>
         <tr>
             <td>产品型号：</td>
             <td>
                 <select id="select_model">
+                    <option>请选择</option>
                     <option th:each="models:${product_models}" th:value="${models.id}" height="40px" class="text-c">
-                       <!-- <span th:text="${models.model_name}"></span>-->[[${models.model_name}]]
+                        <!-- <span th:text="${models.model_name}"></span>-->[[${models.model_name}]]
                     </option>
                 </select>
             </td>
         </tr>
         <tr>
             <td>产品类别：</td>
-            <td id="product_type_name"></td>
+            <td id="product_type_name">
+
+            </td>
         </tr>
         <tr>
             <td>产品单位:</td>
@@ -54,19 +57,18 @@
             <td><input type="text" name="trade_price" id="trade_price" required="required"></td>
         </tr>
         <tr>
-            <td>产品状态:</td>
-            <td><input type="text" name="product_state" id="product_state" required="required"></td>
-        </tr>
-        <tr>
-            <td>创建时间：</td>
-            <td><input  type="date" name="createtime" id="createtime" /></td>
-        </tr>
-        <tr>
             <td>产品序列号:</td>
-            <td><input type="text" name="serial_number" id="serial_number" required="required"></td>
+            <td>
+                <select name="serial_number" id="serial_number">
+                    <option value="0">无</option>
+                    <option value="1">有</option>
+                </select>
+            </td>
         </tr>
         <tr>
-            <!--<td colspan="2"><input type="button" th:action="@{/}"></td>-->
+            <td colspan="2" align="center">
+                <input type="submit"   value="保存"  id="sub">
+            </td>
         </tr>
     </table>
 </body>
@@ -78,9 +80,11 @@
         $('#createtime').val(today);
 
 
-
+        /**
+         * 根据产品型号获取产品类别
+         */
         $("#select_model").change(function () {
-            var model_id = $("#select_model").val();
+            var model_id = $("#select_model option:selected").val();
             $.ajax({
                 url:"queryByModelName",
                 dateType:"json",
@@ -91,12 +95,50 @@
                         if(resp!=null){
                             // var s = "<td></td>";
                             var typename = resp.type_name;
-                            $("#product_type_name").html(typename);
+                            var typeid = resp.id;
+                            $("#product_type_name").html(typename).val(typeid);
                         }else {
                             $("#product_type_name").html("");
                         }
                 }
             })
+        });
+        $("#sub").click(function () {
+            debugger;
+            var product_name = $("#product_name").val();
+            var product_model = $("#select_model option:selected").val();
+            var product_type = $("#product_type_name").val();
+            var product_unit = $("#product_unit").val();
+            var product_stock = $("#product_stock").val();
+            var retail_price = $("#retail_price").val();
+            var min_price = $("#min_price").val();
+            var cost_price = $("#cost_price").val();
+            var trade_price = $("#trade_price").val();
+            var serial_number = $("#serial_number option:selected").val();
+            $.ajax({
+                url:"insertProduct",
+                dateType:"json",
+                type:"post",
+                data:{
+                    "product_name":product_name,
+                    "product_model":product_model,
+                    "product_type":product_type,
+                    "product_unit":product_unit,
+                    "product_stock":product_stock,
+                    "retail_price":retail_price,
+                    "min_price":min_price,
+                    "cost_price":cost_price,
+                    "trade_price":trade_price,
+                    "serial_number":serial_number
+                },
+                success:function (resp) {
+                    if (resp!=null){
+                        alert("添加成功")
+                    }else {
+                        alert("添加失败")
+                    }
+                }
+            });
         });
 
 </script>

@@ -1,6 +1,7 @@
 package com.xt.mapper.qxs.warehouse;
 
 import com.xt.entity.qxs.warehouse.Depothead;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -16,7 +17,7 @@ public interface DepotHeadMapper {
      * 查询所有未删除的单据主表
      * @return
      */
-    @Select("select * from depotHead where delete_Flag!='1' order by createTime desc")
+    @Select("select * from depotHead where deleteFlag!='1' order by createTime desc")
     List<Depothead> queryNotDeleteDepotHead();
 
     /**
@@ -31,15 +32,23 @@ public interface DepotHeadMapper {
      * @param number
      * @return
      */
-    @Select("select * from depotHead where number=#{number} and delete_Flag='1'")
+    @Select("select * from depotHead where number=#{number} and deleteFlag='1' ")
     Depothead getOneDepotHead(String number);
 
     /**
      * 查询被删除的数据
      * @return
      */
-    @Select("select * from depotHead where delete_Flag='1' order by createTime desc")
+    @Select("select * from depotHead where deleteFlag='1' order by createTime desc")
     List<Depothead> queryDelete();
+
+    /**
+     * 根据id查询数据
+     * @param id
+     * @return
+     */
+    @Select("select * from depotHead where id=#{id} and deleteFlag='1' ")
+    Depothead getDepotHeadID(Integer id);
 
     /**
      * 新增主表数据
@@ -48,7 +57,7 @@ public interface DepotHeadMapper {
      */
     @Insert("insert into depotHead values(null,#{type},#{number},#{operPersonName},#{createTime}," +
             "#{operTime},#{organId},#{handsPersonId},#{account},#{changeAmount},#{totalPrice},#{payType}," +
-            "#{remark},#{accountDay},0,0)")
+            "#{remark},#{accountDay},0,0,#{materialId},#{amount})")
     boolean addDepotHead(Depothead depothead);
 
     /**
@@ -58,7 +67,7 @@ public interface DepotHeadMapper {
      */
     @Update("update depotHead set operTime=#{operTime},organId=#{organId},handsPersonId=#{handsPersonId}," +
             "account=#{account},changeAmount=#{changeAmount},totalPrice=#{totalPrice},payType=#{payType}," +
-            "remark=#{remark},accountDay=#{accountDay} where id=#{id}")
+            "remark=#{remark},accountDay=#{accountDay},amount=#{amount} where id=#{id}")
     boolean updateDepotHead(Depothead depothead);
 
     /**
@@ -67,7 +76,7 @@ public interface DepotHeadMapper {
      * @return
      */
     @Update("update depotHead set status=#{status} where id=#{id}")
-    boolean depotHeadExamin(String status,Integer id);
+    boolean depotHeadExamin(Integer status,Integer id);
 
     /**
      * 标记删除
@@ -75,5 +84,14 @@ public interface DepotHeadMapper {
      * @param id 条件
      * @return
      */
+    @Update("update depotHead set deleteFlag=#{deleteFlag} where id=#{id}")
     boolean deleteDepotHead(String deleteFlag,Integer id);
+
+    /**
+     * 子表数据加入失败，执行
+     * @param number
+     * @return
+     */
+    @Delete("delete from depotHead where number=#{number}")
+    boolean deDepotHeadNumber(String number);
 }

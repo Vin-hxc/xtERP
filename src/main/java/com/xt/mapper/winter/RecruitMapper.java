@@ -29,11 +29,12 @@ public interface RecruitMapper {
 
     /**
      * 删除招聘信息
-     * @param id
+     * @param deleteFlag
+     * @param recruitId
      * @return
      */
     boolean deleteRecruit(@Param("deleteFlag") int deleteFlag,
-                          @Param("id") int id);
+                          @Param("recruitId") int recruitId);
 
     /**
      * 查询所有未删除的招聘信息
@@ -55,8 +56,8 @@ public interface RecruitMapper {
 
     /**
      * 根据编号查询单条招聘信息
-     * @param id
+     * @param recruitId
      * @return
      */
-    Recruit findRecruitOne(int id);
+    Recruit findRecruitOne(int recruitId);
 }

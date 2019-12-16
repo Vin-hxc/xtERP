@@ -5,13 +5,13 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 public class Dispatchedworker {
-
   private long id;//主键id
   private long dispatchedNo;//派工编号
   private long monitor;//负责人id
   private Date dispatchingTime;//派工时间
   private long dispatchedAudits;//派工审核是否通过 0-通过 1-不通过
   private long deleteDw;//删除标记
+  private long pickingid;//领料id
 
   @Override
   public String toString() {
@@ -22,6 +22,7 @@ public class Dispatchedworker {
             ", dispatchingTime=" + dispatchingTime +
             ", dispatchedAudits=" + dispatchedAudits +
             ", deleteDw=" + deleteDw +
+            ", pickingid=" + pickingid +
             '}';
   }
 
@@ -73,15 +74,24 @@ public class Dispatchedworker {
     this.deleteDw = deleteDw;
   }
 
+  public long getPickingid() {
+    return pickingid;
+  }
+
+  public void setPickingid(long pickingid) {
+    this.pickingid = pickingid;
+  }
+
   public Dispatchedworker() {
   }
 
-  public Dispatchedworker(long id, long dispatchedNo, long monitor, Date dispatchingTime, long dispatchedAudits, long deleteDw) {
+  public Dispatchedworker(long id, long dispatchedNo, long monitor, Date dispatchingTime, long dispatchedAudits, long deleteDw, long pickingid) {
     this.id = id;
     this.dispatchedNo = dispatchedNo;
     this.monitor = monitor;
     this.dispatchingTime = dispatchingTime;
     this.dispatchedAudits = dispatchedAudits;
     this.deleteDw = deleteDw;
+    this.pickingid = pickingid;
   }
 }

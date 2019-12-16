@@ -13,23 +13,21 @@
         class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
     <tr class="text-c">
-        <th width="100">id</th>
-        <th width="100">productId</th>
-        <th width="100">startTime</th>
-        <th width="100">endTime</th>
-        <th width="100">personCharge</th>
-        <th width="100">productionAudit</th>
+        <th width="100">生产名称</th>
+        <th width="100">开始时间</th>
+        <th width="100">预计结束时间</th>
+        <th width="100">负责人</th>
+        <th width="100">所需原料详情</th>
         <th width="100">操作</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="seleuser:${pdsele}" height="40px" class="text-c">
-        <td th:text="${seleuser.id}"></td>
-        <td th:text="${seleuser.productId}"></td>
+        <td th:text="${seleuser.product_name}"></td>
         <td th:text="${seleuser.startTime}"></td>
         <td th:text="${seleuser.endTime}"></td>
-        <td th:text="${seleuser.personCharge}"></td>
-        <td th:text="${seleuser.productionAudit}"></td>
+        <td th:text="${seleuser.userName}"></td>
+        <td><a>原料详情</a></td>
         <td></td>
     </tr>
     </tbody>

@@ -2,13 +2,18 @@ package com.xt.service.qxs.finance.impl;
 
 import com.xt.entity.qxs.finance.FinancialSettlement;
 import com.xt.entity.qxs.finance.Income;
+import com.xt.mapper.hjn.OrderMapper;
 import com.xt.mapper.qxs.finance.FinancialSettlementMapper;
 import com.xt.mapper.qxs.finance.IncomeMapper;
+import com.xt.mapper.winter.SaleMapper;
 import com.xt.service.qxs.finance.IncomeServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class IncomeServiceImpl implements IncomeServiceI {
@@ -17,6 +22,10 @@ public class IncomeServiceImpl implements IncomeServiceI {
     private IncomeMapper incomeMapper;
     @Autowired
     private FinancialSettlementMapper financialSettlementMapper;
+    @Autowired
+    private OrderMapper orderMapper;
+    @Autowired
+    private SaleMapper saleMapper;
 
     /**
      * 查询所有未删除的数据
@@ -83,8 +92,8 @@ public class IncomeServiceImpl implements IncomeServiceI {
      * @return
      */
     @Override
-    public boolean liquidationIncome(Double balance_payment, Integer id) {
-        return incomeMapper.liquidationIncome(balance_payment,id);
+    public boolean liquidationIncome(Double actualPayment,Double balance_payment, Integer id) {
+        return incomeMapper.liquidationIncome(actualPayment,balance_payment,id);
     }
 
     /**
@@ -103,27 +112,55 @@ public class IncomeServiceImpl implements IncomeServiceI {
      * @return
      */
     @Override
-    public boolean sumIncome(FinancialSettlement fs) {
+    public int sumIncome(FinancialSettlement fs) {
         //调用结算方法
         Double income = incomeMapper.sumIncome();
-        System.out.println("总收入："+income);
-        if(income > 0.00){
+        if(income!=null && income > 0){
+            System.out.println("总收入："+income);
             //调用修改结算状态方法
             boolean stateClose = incomeMapper.updateStateClose(1);
             if(stateClose){
                 //给FinancialSettlement 对象赋值
-                fs.setTotal_Money(income);
+                fs.setBalanceDate(new Date());
+                fs.setTotalMoney(income);
                 fs.setType(2);
-                //调用 财政结算的新增方法
+                //调用 财政汇总的新增方法
                 boolean b = financialSettlementMapper.addFinancialSettlement(fs);
-                return b;
+                if(b){
+                    return 0;
+                }
             }
+        }
+        return 1;
+    }
+
+    /**
+     * 新增记录
+     * @param income
+     * @return
+     */
+    @Override
+    public boolean addIncome(Income income,Integer id) {
+        boolean b = saleMapper.updateFinance(id);
+        if(b){
+            return incomeMapper.addIncome(income);
         }
         return false;
     }
 
+    /**
+     * 查询整个项目的支出/收入
+     * @return
+     */
     @Override
-    public boolean addIncome(Income income) {
-        return false;
+    public Map addReady() {
+        Map<Integer, Object> map = new HashMap<Integer, Object>();
+        //查询支出
+        List<HashMap> orderMap = orderMapper.incurExpense();
+        map.put(1,orderMap);
+        //查询所有收款
+        List<HashMap> saleMap = saleMapper.salesProceeds();
+        map.put(2,saleMap);
+        return map;
     }
 }

@@ -18,22 +18,33 @@ import java.util.HashMap;
 import java.util.List;
 
 @Controller
+@RequestMapping("product/")
 public class ProductController {
     @Resource
     private ProductServiceI productServiceI;
 
 
-    @RequestMapping("/getAllProduct")
+    /**
+     * 获取所有产品信息
+     * @param request
+     * @return
+     */
+    @RequestMapping("getAllProduct")
     public String getAllProduct(HttpServletRequest request){
         List<HashMap> listproducthash = productServiceI.getAllProduct();
-        request.setAttribute("product",listproducthash);
+        request.setAttribute("listproducthash",listproducthash);
         for (HashMap pro : listproducthash){
             System.out.println(pro);
         }
         return  "vin/product";
     }
 
-    @RequestMapping("/getProductModel")
+    /**
+     * 获取所有产品型号信息
+     * @param request
+     * @return
+     */
+    @RequestMapping("getProductModel")
     public String getProductModel(HttpServletRequest request){
         List<Product_model> product_models = productServiceI.getProductModel();
         request.setAttribute("productModel",product_models);
@@ -43,19 +54,33 @@ public class ProductController {
         return "vin/product";
     }
 
-    @RequestMapping("/getProductById")
-    public String getProductById(HttpServletRequest request,long id){
+    /**
+     * 根据id获取产品产品信息
+     * @param id
+     * @param model
+     * @return
+     */
+    @RequestMapping("getProductById")
+    public String getProductById(long id,Model model){
+        List<Product_model> product_models = productServiceI.getProductModel();
         Product product = productServiceI.getProductById(id);
+        model.addAttribute("product_models",product_models);
+        model.addAttribute("product",product);
         if (product!=null){
             System.out.println(product);
         }
-        return "vin/product";
+        return "vin/updateProduct";
     }
 
-    @RequestMapping("/insert_Product")
+    /**
+     * 获取产品型号信息
+     * @param product
+     * @param model
+     * @return
+     */
+    @RequestMapping("insert_Product")
     public String insertProduct(Product product, Model model){
         List<Product_model> product_models = productServiceI.getProductModel();
-
         model.addAttribute("product_models",product_models);
         for (Product_model list : product_models){
             System.out.println(list);
@@ -63,7 +88,7 @@ public class ProductController {
         return "vin/insertProduct";
     }
 
-    @RequestMapping("/queryByModelName")
+    @RequestMapping("queryByModelName")
     @ResponseBody
     public Product_type queryByModelName(Integer model_id){
         System.out.println(model_id);
@@ -74,8 +99,68 @@ public class ProductController {
         return product_type;
     }
 
-    @RequestMapping("/insertProduct")
-    public String insertProduct(){
-        return "";
+    /**
+     * 新增产品信息
+     * @param product
+     * @return
+     */
+    @RequestMapping("insertProduct")
+    public String insertProduct(Product product){
+        System.out.println("============================================================================================");
+        System.out.println(product);
+        boolean insertProduct = productServiceI.insertProduct(product);
+        if (insertProduct){
+            return "vin/product";
+        }else {
+            return "";
+        }
     }
+
+    /**
+     * 删除产品信息（修改删除标记）
+     * @param id
+     * @return
+     */
+    @RequestMapping("deleteProduct")
+    public String deleteProduct(Long id){
+        System.out.println("============================================================================================");
+        System.out.println(id);
+        boolean deleteProduct = productServiceI.deleteProduct(id);
+        if(deleteProduct){
+            return "redirect:getAllProduct";
+        }else {
+            return "";
+        }
+    }
+
+    /**
+     * 修改产品信息
+     * @param product
+     * @return
+     */
+    @RequestMapping("updateProduct")
+    public String updateProduct(Product product){
+        System.out.println("---------------------------------------------------------------------------------------------");
+        System.out.println(product);
+        boolean updateProduct = productServiceI.updateProduct(product);
+        if (updateProduct){
+            return "redirect:getAllProduct";
+        }else {
+            return "";
+        }
+    }
+
+    /**
+     * 根据产品id获取产品类型信息
+     * @param product_type
+     * @return
+     */
+    @RequestMapping("queryByProductType")
+    @ResponseBody
+    public Product_type queryByProductType(Long product_type){
+        System.out.println(product_type);
+        Product_type productType = productServiceI.queryByModelName(product_type);
+        return productType;
+    }
+
 }

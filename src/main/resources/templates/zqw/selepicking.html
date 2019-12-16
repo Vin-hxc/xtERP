@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/css/H-ui.min.css">
+    <script src="/static/css/jquery-1.8.3.min.js"></script>
+    <script src="/static/css/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+
+<table  id = "tbo"
+        class="table table-border table-bordered table-hover table-bg table-sort">
+    <thead>
+    <tr class="text-c">
+        <th width="100">主板</th>
+        <th width="100">cpu</th>
+        <th width="100">内存条</th>
+        <th width="100">显卡</th>
+        <th width="100">硬盘</th>
+        <th width="100">固态硬盘</th>
+        <th width="100">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="sele:${selepml}" height="40px" class="text-c">
+        <td th:text="${sele.motherboard}"></td>
+        <td th:text="${sele.cpu}"></td>
+        <td th:text="${sele.memories}"></td>
+        <td th:text="${sele.video_card}"></td>
+        <td th:text="${sele.disks}"></td>
+        <td th:text="${sele.ssd}"></td>
+        <td ><a th:href="@{/inserpick/(pickingNo=${sele.id})}">添加</a></td>
+    </tr>
+    </tbody>
+
+</table>
+<script>
+    $(function(){
+        $('#tbo').DataTable({
+            "aLengthMenu":[4,6]  , //每页显示数
+        });
+    });
+
+</script>
+</body>
+</html>

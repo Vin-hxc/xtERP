@@ -16,7 +16,7 @@ public interface DepotItemMapper {
      * 查询所有未删除的单据子表
      * @return
      */
-    @Select("select * from depotItem where delete_Flag!='1' ")
+    @Select("select * from depotItem where deleteFlag!='1' ")
     List<DepotItem> queryNotDeleteDepotItem();
 
     /**
@@ -31,14 +31,14 @@ public interface DepotItemMapper {
      * @param id
      * @return
      */
-    @Select("select * from depotItem where header=#{id} and delete_Flag!='1'")
+    @Select("select * from depotItem where header=#{id} and deleteFlag!='1'")
     DepotItem getOnDepotHeadID(Integer id);
 
     /**
      * 查询被删除的数据
      * @return
      */
-    @Select("select * from depotItem where delete_Flag='1' ")
+    @Select("select * from depotItem where deleteFlag='1' ")
     List<DepotItem> queryDelete();
 
     /**
@@ -46,7 +46,7 @@ public interface DepotItemMapper {
      * @param id
      * @return
      */
-    @Select("select * from depotItem where id=#{id} and delete_Flag!='1'")
+    @Select("select * from depotItem where id=#{id} and deleteFlag!='1'")
     DepotItem getOneDepotItem(Integer id);
 
     /**
@@ -73,16 +73,25 @@ public interface DepotItemMapper {
      * @param id   条件
      * @return
      */
-    @Update("update depotItem set delete_Flag=#{flag} where id=#{id}")
-    boolean deleteFlagDepotItem(String flag,Insert id);
+    @Update("update depotItem set deleteFlag=#{flag} where id=#{id}")
+    boolean deleteFlagDepotItem(String flag,Integer id);
 
     /**
      * 查询物品是否存在
      * 存在则行数量修改，不存在进行添加
-     * @param depotItem
+     * @param materialId
      * @return
      */
-    @Select("select basicNumber from depotItem where materialId=#{materialId} and depot=#{depot} and deleteFlag !=1")
-    Double queryDepotItemRecord(DepotItem depotItem);
+    @Select("select * from depotItem where materialId=#{materialId} and deleteFlag !=1")
+    DepotItem queryDepotItemRecord(Integer materialId);
+
+    /**
+     * 修改数量
+     * @param amount
+     * @param materialID
+     * @return
+     */
+    @Update("update depotItem set basicNumber=#{amount} where materialId=#{materialID}")
+    boolean updateAmount(Integer amount,Integer materialID);
 
 }

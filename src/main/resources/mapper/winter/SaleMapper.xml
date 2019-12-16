@@ -25,17 +25,17 @@
 
     <!-- 未删除标记销售信息 -->
     <select id="getAllNoDeleteSale" resultType="com.xt.entity.winter.Sale">
-        select * from sale where deleteFlag = 0 order by desc
+        select * from sale where deleteFlag = 0 order by id desc
     </select>
 
     <!-- 查询已删除标记销售信息 -->
     <select id="getAllDeleteSale" resultType="com.xt.entity.winter.Sale">
-        select * from sale where deleteFlag = 1 order by desc
+        select * from sale where deleteFlag = 1 order by id desc
     </select>
 
     <!-- 查询已删除标记销售信息 -->
     <select id="getAllSale" resultType="com.xt.entity.winter.Sale">
-        select * from sale order by desc
+        select * from sale order by id desc
     </select>
 
     <!-- 查询单条销售数据 -->

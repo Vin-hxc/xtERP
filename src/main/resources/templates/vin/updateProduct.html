@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../static/css/jquery-1.8.3.min.js"></script>
+    <!--<script src="../../static/js/jquery.min.js"></script>-->
+    <script src="../../static/css/jquery.dataTables.min.js"></script>
+    <script src="../../static/js/bootstrap.min.js"></script>
+    <script src="../../static/css/bootstrap.css"></script>
+</head>
+<body>
+<table border="1px red ">
+    <tr>
+        <td>产品名称：</td>
+        <td><input type="text" name="product_name" id="product_name" required="required" th:value="${product.product_name}"></td>
+    </tr>
+    <tr>
+        <td>产品型号：</td>
+        <td>
+            <select id="select_model"  name="select_model">
+                <option th:each="models:${product_models}"  th:value="${models.id}" th:text="${models.model_name}" height="40px" class="text-c">
+                    <!--&lt;!&ndash; <span th:text="${models.model_name}"></span>&ndash;&gt;[[${models.model_name}]]-->
+                </option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>产品类别：</td>
+        <td id="product_type_name">
+
+        </td>
+    </tr>
+    <tr>
+        <td>产品单位:</td>
+        <td><input type="text" name="product_unit" id="product_unit" required="required" th:value="${product.product_unit}"></td>
+    </tr>
+    <tr>
+        <td>产品库存:</td>
+        <td><input type="text" name="product_stock" id="product_stock" required="required" th:value="${product.product_unit}"></td>
+    </tr>
+    <tr>
+        <td>零售价:</td>
+        <td><input type="text" name="retail_price" id="retail_price" required="required" th:value="${product.product_unit}"></td>
+    </tr>
+    <tr>
+        <td>最低售价:</td>
+        <td><input type="text" name="min_price" id="min_price" required="required" th:value="${product.product_unit}"></td>
+    </tr>
+    <tr>
+        <td>预计成本价格:</td>
+        <td><input type="text" name="cost_price" id="cost_price" required="required" th:value="${product.product_unit}"></td>
+    </tr>
+    <tr>
+        <td>销售价格:</td>
+        <td><input type="text" name="trade_price" id="trade_price" required="required" th:value="${product.product_unit}"></td>
+    </tr>
+    <tr>
+        <td>产品序列号:</td>
+        <td>
+            <select name="serial_number" id="serial_number">
+                <option value="0">有</option>
+                <option value="1">无</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+            <input type="submit"   value="修改"  id="sub">
+        </td>
+    </tr>
+</table>
+</body>
+<script>
+    var time = new Date();
+    var day = ("0" + time.getDate()).slice(-2);
+    var month = ("0" + (time.getMonth() + 1)).slice(-2);
+    var today = time.getFullYear() + "-" + (month) + "-" + (day);
+    $('#createtime').val(today);
+
+
+    /**
+     * 根据产品型号获取产品类别
+     */
+    $("#select_model").change(function () {
+        var model_id = $("#select_model option:selected").val();
+        $.ajax({
+            url:"queryByModelName",
+            dateType:"json",
+            type:"post",
+            data:{"model_id":model_id},
+            success:function (resp) {
+                if(resp!=null){
+                    // var s = "<td></td>";
+                    var typename = resp.type_name;
+                    var typeid = resp.id;
+                    $("#product_type_name").html(typename).val(typeid);
+                }else {
+                    $("#product_type_name").html("");
+                }
+            }
+        })
+    });
+    $("#sub").click(function () {
+        debugger;
+        var id = [[${product.id}]];
+        var product_name = $("#product_name").val();
+        var product_model = $("#select_model option:selected").val();
+        var product_type = $("#product_type_name").val();
+        var product_unit = $("#product_unit").val();
+        var product_stock = $("#product_stock").val();
+        var retail_price = $("#retail_price").val();
+        var min_price = $("#min_price").val();
+        var cost_price = $("#cost_price").val();
+        var trade_price = $("#trade_price").val();
+        var serial_number = $("#serial_number option:selected").val();
+        $.ajax({
+            url:"updateProduct",
+            dateType:"json",
+            type:"post",
+            data:{
+                "id":id,
+                "product_name":product_name,
+                "product_model":product_model,
+                "product_type":product_type,
+                "product_unit":product_unit,
+                "product_stock":product_stock,
+                "retail_price":retail_price,
+                "min_price":min_price,
+                "cost_price":cost_price,
+                "trade_price":trade_price,
+                "serial_number":serial_number
+            },
+            success:function (resp) {
+                if (resp!=null){
+                    alert("修改成功")
+                    location.href="getAllProduct";
+                }else {
+                    alert("修改失败")
+                }
+            }
+        });
+    });
+    $().ready(function() {
+        var single = [[${product.product_model}]];
+        var product_type = [[${product.product_type}]];
+        var serialNumber = [[${product.serial_number}]];
+        debugger;
+        $("#serial_number option[value="+serialNumber+"]").attr('selected', true);
+        $("#select_model option[value= " + single + "]").prop("selected",true);
+
+        $.ajax({
+            url:"queryByProductType",
+            dateType:"json",
+            type:"post",
+            data:{"product_type":product_type},
+            success:function (resp) {
+                if (resp!=null){
+                    var typeName = resp.type_name;
+                    var typeId = resp.id;
+                    $("#product_type_name").html(typeName).val(typeId);
+                }else {
+                    $("#product_type_name").html("").val("");
+                }
+            }
+        })
+    });
+
+
+</script>
+</html>

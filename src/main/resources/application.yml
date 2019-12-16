@@ -18,6 +18,11 @@ spring:
     username: root
     password: root
 
+  # 日期类型转换
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
 # 日志
 logging:
   file:
@@ -32,7 +37,6 @@ mybatis:
   configuration:
     # 打印数据库语句 用于测试
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
 #静态资源路径配置
 #spring.mvc.static-path-pattern=/static/**
 

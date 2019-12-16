@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <title>财务主页</title>
     <script src="../static/layui/layui/layui.js"></script>
-    <link href="../static/layui/layui/css/layui.css" />
+    <link rel="stylesheet" href="../static/layui/layui/css/layui.css" />
     <script src="../static/js/echarts.js"></script>
     <script src="../static/js/jquery-3.4.1.min.js"></script>
     <style>
         #myChart{
             position: absolute;
-            top: 10%;
+            top: 20%;
             left: 8%;
         }
         #main{
             position: absolute;
-            top: 10%;
+            top: 20%;
             right: 8%;
         }
     </style>
@@ -30,11 +30,11 @@
     var my = echarts.init(document.getElementById('myChart'));
     my.setOption({
         title : {
-            text: '政务年度结算报表'
+            text: '收入 支出对比图'
         },
         series : [
             {
-                name: '政务年度结算报表',
+                name: '收入 支出对比图',
                 type: 'pie',
                 // 扇形图半径
                 radius: '95%',
@@ -70,18 +70,22 @@
         dataType:"json",
         type:"post",
         success:function (resp) {
-            //debugger;
+            debugger;
             if(resp!=null){
+                var z=0;
+                var s=0;
                 for (var i=0;i<resp.length;i++){
                     if(resp[i].type==1){
-                        zc.push(resp[i].total_Money);
+                        z+=resp[i].totalMoney;
                         zcType = '支出';
                     }
                     if(resp[i].type==2){
-                        sr.push(resp[i].total_Money);
+                        s+=resp[i].totalMoney
                         srType = '收入';
                     }
                 }
+                zc.push(z);
+                sr.push(s);
                 //隐藏加载动画
                 my.hideLoading();
                 //加载数据图表
@@ -165,13 +169,13 @@
             if(resp!=null){
                 for (var i=0;i<resp[1].length;i++){
                     //获取支出
-                    fk.push(resp[1][i].actual_payment);
-                    fkDates.push(resp[1][i].date_receopt);
+                    fk.push(resp[1][i].actualPayment);
+                    fkDates.push(resp[1][i].dateReceopt);
                     }
                     for (var j=0;j<resp[2].length;j++){
                         //获取收入
                         sk.push(resp[2][j].payable);
-                        skDates.push(resp[2][j].date_recorded);
+                        skDates.push(resp[2][j].dateRecorded);
                     }
                 //隐藏加载动画
                 myChart.hideLoading();
@@ -212,17 +216,114 @@
                 skin: 'layui-layer-lan ', //样式类名
                 closeBtn: 1, //显示关闭按钮
                 anim: 2,
-                area:['60%','45%'],
+                area:['70%','60%'],
                 resize:true,
                 id: '1', //防止重复弹出
                 shadeClose: true, //开启遮罩关闭
                 shade:[0.5], //透明度，背景颜色
                 content: ['/finance/pageDetailsFs'],
                 offset:'auto',
-                btn:['确认']
+                btn:['确认','取消'],
+                yes:function () {
+                    location.href='/finance/pageFinance';
+                },
+                cancel:function (index, layero) {
+                    if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                        layer.close(index);
+                        location.href='/finance/pageFinance';
+                    }
+                    return false;
+                }
             });
         });
     });
+
+    //打开详情页面
+    $("#main").click(function () {
+        layui.use('layer',function () {
+            var layer = layui.layer; //独立版的layer无需执行这一句
+            layer.open({
+                title:'财务详情',
+                type:2,
+                skin: 'layui-layer-lan ', //样式类名
+                closeBtn: 1, //显示关闭按钮
+                anim: 2,
+                area:['95%','85%'],
+                resize:true,
+                //id: '1', //防止重复弹出
+                shadeClose: true, //开启遮罩关闭
+                shade:[0.5], //透明度，背景颜色
+                content: ['/finance/pageFinanceDetails'],
+                offset:'80px',
+                btn:['确认','结算','取消'],
+                yes:function () {
+                    location.href='/finance/pageFinance';
+                },
+                cancel:function (index, layero) {
+                    if(confirm('确定要关闭么')){ //只有当点击confirm框的确定时，该层才会关闭
+                        layer.close(index);
+                        location.href='/finance/pageFinance';
+                    }
+                    return false;
+                },
+                btn2:function () {
+                    debugger;
+                    if(confirm('是否对所有记录进行结算')){
+                        var dom = "<div><table class='layui-table' lay-size='sm'><thead>" +
+                            "<tr><th>操作人</th>" +
+                            "<th>描述</th></tr></thead><tbody>" +
+                            "<tr><td>" +
+                            "<input required placeholder='请输入操作人编号' name='userId' autocomplete='off' class='layui-input'/>" +
+                            "</td><td>" +
+                            "<textarea name='remark' required placeholder='请输入' class='layui-textarea'></textarea>" +
+                            "</td></tr>" +
+                            "</tbody></table></div>";
+                        layer.open({
+                            title:'记录结算',
+                            type:1,
+                            //skin: 'layui-layer-lan ', //样式类名
+                            closeBtn: 1, //显示关闭按钮
+                            anim: 2,
+                            area:['30%','30%'],
+                            resize:true,
+                            //id: '1', //防止重复弹出
+                            shadeClose: true, //开启遮罩关闭
+                            shade:[0.5], //透明度，背景颜色
+                            content: dom,
+                            btn:['确定','取消'],
+                            yes:function () {
+                               var userId = $("input[name='userId']").val();
+                               var remark = $("textarea[name='remark']").val();
+                                $.ajax({
+                                    url:'/finance/sum',
+                                    dataType:'json',
+                                    type:'post',
+                                    data:{'userId':userId,'remark':remark},
+                                    success:function (resp) {
+                                        if(resp==0){
+                                            alert('数据已进行结算...');
+                                            parent.location.reload();
+                                            location.href='/finance/pageFinanceDetails';
+                                        }else if(resp==1){
+                                            alert('支出数据已进行结算。。');
+                                            parent.location.reload();
+                                            location.href='/finance/pageFinanceDetails';
+                                        }else if(resp==2){
+                                            alert('收入数据已进行结算。。')
+                                            parent.location.reload();
+                                            location.href='/finance/pageFinanceDetails';
+                                        }else {
+                                            alert('当前没有数据可结算。。')
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    })
 </script>
 </body>
 </html>

@@ -1,6 +1,9 @@
 package com.xt.service.zqw;
 
+import com.xt.entity.vin.Product_model;
+import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
+import com.xt.entity.zqw.Userinfo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,4 +37,34 @@ public interface ProductionplanServiceI {
      * @return
      */
     boolean deletePeouct(int id);
+    /**
+     * 根据申请表查询产品名称
+     * @return
+     */
+    List<HashMap> dgselepro();
+
+    /**
+     * 查询产品信息
+     * @return
+     */
+    List<HashMap> selepm();
+
+    /**
+     * 添加领料信息
+     * @param picking
+     * @return
+     */
+    boolean inserpick(Picking picking);
+
+    /**
+     * 查询产品信息
+     * @return
+     */
+    List<Product_model> selepmll();
+
+    /**
+     * 查询用户姓名
+     * @return
+     */
+    List<Userinfo> seleuser();
 }
