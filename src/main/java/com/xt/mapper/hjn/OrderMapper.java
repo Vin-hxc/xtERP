@@ -2,11 +2,11 @@ package com.xt.mapper.hjn;
 
 import com.xt.entity.hjn.Cost;
 import com.xt.entity.hjn.Detailed;
+import com.xt.entity.hjn.Orders;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.springframework.core.annotation.Order;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -24,20 +24,20 @@ public interface OrderMapper {
      *
      * @return
      */
-    @Select("select * from Order")
-    List<Order> queryAllOrder();
+    @Select("select * from Orders")
+    List<Orders> queryAllOrders();
 
     /**
      * 条件查询采购订单
      */
-    List<Order> findOrder(String orderid, Date createtime);
+    List<Orders> findOrders(String orderid, Date createtime);
     /**
      * 新增采购订单
      *
      * @return
      */
-    //@Insert("insert into order values(null,#{orderid},#{supplierid},#{purchaserid},#{rebate},#{paytype},#{total},#{amount_paid},#{total_tax},#{orderstate},#{preferential},#{costid})")
-    int addOrder(Order order);
+    //@Insert("insert into orders values(null,#{orderid},#{supplierid},#{purchaserid},#{rebate},#{paytype},#{total},#{amount_paid},#{total_tax},#{orderstate},#{preferential},#{costid})")
+    int addOrders(Orders order);
 
 
     /**
@@ -45,7 +45,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    //@Update("update Order set orderstate=2 where id=#{id}")
+    //@Update("update Orders set orderstate=2 where id=#{id}")
     int updateState(int id);
 
     /**
@@ -53,7 +53,7 @@ public interface OrderMapper {
      *
      * @return
      */
-    //@Update("update Order set orderstate=3 where id=#{id}")
+    //@Update("update Orders set orderstate=3 where id=#{id}")
     int updateOrderState(int id);
 
     /**
@@ -61,8 +61,8 @@ public interface OrderMapper {
      *
      * @return
      */
-    //@Update("(update Order set supplierid=#{supplierid},purchaserid=#{purchaserid},rebate=#{rebate},amount_paid=#{amount_paid}   where id=#{id})")
-    int updateOrder(int id,int supplierid,int purchaserid,int rebate,int amount_paid);
+    //@Update("(update Orders set supplierid=#{supplierid},purchaserid=#{purchaserid},rebate=#{rebate},amount_paid=#{amount_paid}   where id=#{id})")
+    int updateOrders(int id,int supplierid,int purchaserid,int rebate,int amount_paid);
 
     /**
      * 查询所有审核状态为 2 的订单费用
