@@ -186,4 +186,93 @@ public class FinanceController {
         income.setDateRecorded(new Date());
         return incomeServiceI.addIncome(income,id);
     }
+
+    /**
+     * 跳转至修改页面
+     * @param id
+     * @param type
+     * @return
+     */
+    @RequestMapping("toChange")
+    public String toChange(Integer id,Integer type,Model model){
+        if(type==0){
+            //支出
+            Expenditure expenditure = expenditureServiceI.getOneExpenditure(id);
+            model.addAttribute("ex",expenditure);
+        }else{
+            //收入
+            Income income = incomeServiceI.getOneIncome(id);
+            model.addAttribute("in",income);
+        }
+        return "qxs/finance/updateFinance";
+    }
+
+    /**
+     *  修改支出记录
+     * @param expenditure
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("updateExpenditure")
+    public boolean updateExpenditure(Expenditure expenditure,Double number){
+        boolean b = false;
+        System.err.println(expenditure);
+        if(number>0){
+            expenditure.setActualPayment(expenditure.getActualPayment()+number);
+            expenditure.setBalancePayment(expenditure.getBalancePayment()-number);
+            b = expenditureServiceI.liquidationExpenditure(expenditure);
+        }
+        if(b){
+            return expenditureServiceI.updateExpenditure(expenditure);
+        }
+        return false;
+    }
+
+    /**
+     * 修改收入记录
+     * @param income
+     * @param number 本次结算金额
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("updateIncome")
+    public boolean updateIncome(Income income,Double number){
+        System.err.println(income);
+        System.out.println(number);
+        boolean b =false;
+        if(number>0){
+            //设置清算后的已付金额
+            income.setActualPayment(income.getActualPayment()+number);
+            //设置清算后的尾款
+            income.setBalancePayment(income.getBalancePayment()-number);
+            b = incomeServiceI.liquidationIncome(income.getActualPayment(), income.getBalancePayment(), income.getIncomeId());
+        }
+        if(b){
+            return incomeServiceI.updateIncome(income);
+        }
+        return false;
+    }
+
+    /**
+     * 收支 记录 结算
+     * @param fs
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("sum")
+    public int sum(FinancialSettlement fs){
+        System.err.println(fs);
+        //支出结算
+        int expenditure = expenditureServiceI.sumExpenditure(fs);
+        //收入结算
+        int income = incomeServiceI.sumIncome(fs);
+        if(expenditure==0 && income==0){
+            return 0;
+        }else if(expenditure==1){
+            return 1;
+        }else if(income==1){
+            return 2;
+        }
+        return 3;
+    }
 }

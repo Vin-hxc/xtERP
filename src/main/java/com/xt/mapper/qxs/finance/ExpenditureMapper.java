@@ -90,4 +90,12 @@ public interface ExpenditureMapper {
      */
     @Update("update expenditure set stateClose=#{stateClose} ")
     boolean updateStateClose(Integer stateClose);
+
+    /**
+     * 清算尾款
+     * @param expenditure
+     * @return
+     */
+    @Update("update expenditure actualPayment=#{actualPayment},balancePayment=#{balancePayment} where expenditureId=#{expenditureId}")
+    boolean liquidationExpenditure(Expenditure expenditure);
 }

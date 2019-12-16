@@ -68,7 +68,12 @@ public interface ExpenditureServiceI {
      * 结算总支出
      * @return
      */
-    boolean sumExpenditure(FinancialSettlement fs);
+    int sumExpenditure(FinancialSettlement fs);
 
-
+    /**
+     * 清算尾款
+     * @param expenditure
+     * @return
+     */
+    boolean liquidationExpenditure(Expenditure expenditure);
 }
