@@ -57,7 +57,7 @@ public interface IncomeServiceI {
      * @param id
      * @return
      */
-    boolean liquidationIncome(Double balance_payment,Integer id);
+    boolean liquidationIncome(Double actualPayment,Double balance_payment,Integer id);
 
     /**
      * 标记删除
@@ -71,7 +71,7 @@ public interface IncomeServiceI {
      * 结算总收入
      * @return
      */
-    boolean sumIncome(FinancialSettlement fs);
+    int sumIncome(FinancialSettlement fs);
 
     /**
      * 新增收入记录

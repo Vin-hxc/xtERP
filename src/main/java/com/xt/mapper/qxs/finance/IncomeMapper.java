@@ -38,7 +38,7 @@ public interface IncomeMapper {
      * @param incomeId
      * @return
      */
-    @Select("select * from income where incomeId=#{incomeId} and deleteFlag!=`1")
+    @Select("select * from income where incomeId=#{incomeId} and deleteFlag!=1")
     Income  getOneIncome(Integer incomeId);
 
     /**
@@ -47,7 +47,7 @@ public interface IncomeMapper {
      * @param id
      * @return
      */
-    @Update("update income set confirm_receipt=#{state} where incomeId=#{id}")
+    @Update("update income set confirmReceipt=#{state} where incomeId=#{id}")
     boolean confirmation(Integer state,Integer id);
 
     /**
@@ -55,9 +55,7 @@ public interface IncomeMapper {
      * @param income
      * @return
      */
-    @Update("update income set payable=#{payable},paymentMethod=#{paymentMethod}," +
-            "actualPayment=#{actualPayment},balancePayment=#{balancePayment}," +
-            "date_recorded=#{dateRecorded},remark=#{remark} where incomeId=#{incomeId}")
+    @Update("update income set remark=#{remark} where incomeId=#{incomeId}")
     boolean updateIncome(Income income);
 
     /**
@@ -66,8 +64,8 @@ public interface IncomeMapper {
      * @param id
      * @return
      */
-    @Update("update income set balancePayment=#{balancePayment} where incomeId=#{id}")
-    boolean liquidationIncome(Double balance_payment,Integer id);
+    @Update("update income set actualPayment=#{actualPayment},balancePayment=#{balance_payment} where incomeId=#{id}")
+    boolean liquidationIncome(Double actualPayment,Double balance_payment,Integer id);
 
     /**
      * 标记删除
@@ -82,8 +80,7 @@ public interface IncomeMapper {
      * 结算总收入
      * @return
      */
-    @Select("select * from income where deleteFlag !=1 and confirmReceipt =1 " +
-            "and stateClose=0")
+    @Select("select sum(actualPayment) from income where deleteFlag !=1 and confirmReceipt =1 and stateClose=0")
     Double sumIncome();
 
     /**
