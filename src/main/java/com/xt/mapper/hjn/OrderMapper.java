@@ -45,8 +45,8 @@ public interface OrderMapper {
      *
      * @return
      */
-    //@Update("update Orders set orderstate=2 where id=#{id}")
-    int updateState(int id);
+    //@Update("update Orders set orderstate=#{orderstate} where id=#{id}")
+    int updateState(int orderstate,int id);
 
     /**
      * 转采购入库
