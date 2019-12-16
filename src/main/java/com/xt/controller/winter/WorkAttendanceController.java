@@ -60,16 +60,16 @@ public class WorkAttendanceController {
 
     /**
      * 查看该员工的考勤信息
-     * 表格的
-     * @param userId
+     * 表格的 userId
+     * @param
      * @param model
      * @return
      */
     @RequestMapping("/employeeAttendance")
-    public String getEmployeeAttendance(int userId, Model model){
-        List<WorkAttendance> employeeAttendance = workAttendanceService.getEmployeeAttendance(userId);
+    public String getEmployeeAttendance( Model model){
+        List<WorkAttendance> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
         model.addAttribute("employeeAttendance",employeeAttendance);
-        return "winter/work/employeeAttendance";
+        return "winter/work/workDay";
     }
 
     /**
@@ -82,13 +82,15 @@ public class WorkAttendanceController {
     }
     /**
      * 查看该员工的考勤信息
-     * 日历上的
+     * 日历上的 userId
+     * @param response
+     * @param
      * @return
      */
     @RequestMapping("/work")
     public List<WorkAttendance> getWorkAttendance(HttpServletResponse response){
         List<WorkAttendance> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
-       /* model.addAttribute("work",employeeAttendance);*/
+
         String result = JSON.toJSONString(employeeAttendance);
         try {
             sendJsonData(response,result);

@@ -25,6 +25,13 @@ public interface WorkAttendanceServiceI {
      * @return
      */
     boolean updateWorkAttendance(WorkAttendance workAttendance);
+    /**
+     * 修改上班时间
+     * @param startTime
+     * @param id
+     * @return
+     */
+    boolean updateWorkStartTime(Time startTime, int id);
 
     /**
      * 修改考勤时间
