@@ -19,5 +19,6 @@ public class Orders {
     private int  orderstate;//外键,订单审核
     private int preferential;//优惠金额
     private int costid; //外键,采购支出表
+    private int createtime;//创建时间
     private Integer finance;//财务记录添加状态
 }

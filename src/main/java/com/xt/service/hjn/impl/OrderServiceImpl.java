@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,8 +31,8 @@ public class OrderServiceImpl implements OrderServiceI {
      * @return
      */
     @Override
-    public List<Orders> findOrders(String orderid, Date createtime) {
-        List<Orders> list=orderMapper.findOrders(orderid,createtime);
+    public List<HashMap<String, Object>>  findOrders(String orderid, Date createtime) {
+        List<HashMap<String, Object>>  list=orderMapper.findOrders(orderid,createtime);
         return list;
     }
 

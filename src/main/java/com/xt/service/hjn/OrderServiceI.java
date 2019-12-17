@@ -4,6 +4,7 @@ import com.xt.entity.hjn.Orders;
 
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public interface OrderServiceI {
      * 查询所有采购订单
      * @return
      */
-    List<Orders> findOrders(String orderid, Date createtime);
+    List<HashMap<String, Object>>  findOrders(String orderid, Date createtime);
 
     /**
      * 添加采购订单

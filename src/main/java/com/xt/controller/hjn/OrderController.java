@@ -38,10 +38,11 @@ public class OrderController {
     @RequestMapping("queryOrdersPage")
     public Map queryOrdersPage(String orderid, Date createtime){
         //查询采购订单
-        List<Orders> listOrders = orderServiceI.findOrders(orderid,createtime);
-
+        List<HashMap<String, Object>> listOrders = orderServiceI.findOrders(orderid,createtime);
         HashMap<Integer, List> map = new HashMap<Integer, List>();
         map.put(1,listOrders);
         return map;
     }
+
+
 }

@@ -26,20 +26,20 @@ public interface DetailedMapper {
      * 查询采购订单的明细
      * @return
      */
-    @Select("select * from Detailed  where orderid = #{orderid}")
+    //@Select("select * from Detailed  where orderid = #{orderid}")
     List<Detailed> queryDetailed(int orderid);
 
     /**
      * 修改采购订单的明细
      * @return
      */
-    @Select("update  Detailed set storehouseid=#{storehouseid},goodsid=#{goodsid},number=#{number},tax=#{tax},remarks=#{remarks}   where id = #{id}")
+    //@Select("update  Detailed set storehouseid=#{storehouseid},goodsid=#{goodsid},number=#{number},tax=#{tax},remarks=#{remarks}   where id = #{id}")
     int updateDetailed(Detailed detailed);
 
     /**
      * 删除采购订单的明细
      * @return
      */
-    @Select("delect from Detailed  where id = #{id}")
+    //Select("delect from Detailed  where id = #{id}")
     int updateDetailed(int id);
 }

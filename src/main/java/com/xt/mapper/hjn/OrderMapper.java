@@ -30,7 +30,7 @@ public interface OrderMapper {
     /**
      * 条件查询采购订单
      */
-    List<Orders> findOrders(String orderid, Date createtime);
+    List<HashMap<String, Object>>  findOrders(String orderid, Date createtime);
     /**
      * 新增采购订单
      *
