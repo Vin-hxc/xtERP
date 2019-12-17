@@ -3,6 +3,7 @@ package com.xt.service.qxs.warehouse;
 import com.xt.entity.qxs.warehouse.DepotItem;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,7 +21,7 @@ public interface DepotItemServiceI {
      * 查询所有数据包括已删除的数据
      * @return
      */
-    List<DepotItem> queryAllDepotItem();
+    List<HashMap> queryAllDepotItem();
 
     /**
      * 根据depotHead Id 进行查询

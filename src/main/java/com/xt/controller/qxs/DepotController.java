@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,9 +37,13 @@ public class DepotController {
     public String pageDepot(Model model){
         //查询未删除的仓库
         List<Depot> depots = depotServiceI.queryNotDeleteDepot();
-        model.addAttribute("depots",depots);
+        HashMap<Integer, Depot> map = new HashMap<Integer, Depot>();
+        for (int i=0;i<depots.size();i++){
+            map.put(i,depots.get(i));
+        }
+        model.addAttribute("depots",map);
         //查询所有单据子表
-        List<DepotItem> depotItems = depotItemServiceI.queryNotDeleteDepotItem();
+        List<HashMap> depotItems = depotItemServiceI.queryAllDepotItem();
         model.addAttribute("depotItems",depotItems);
         return "qxs/warehouse/depotMain";
     }
