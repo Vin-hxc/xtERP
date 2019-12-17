@@ -46,6 +46,19 @@ public class WorkAttendanceServiceImpl implements WorkAttendanceServiceI {
     }
 
     /**
+     * 修改上班时间
+     *
+     * @param startTime
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean updateWorkStartTime(Time startTime, int id) {
+        return workAttendanceMapper.updateWorkStartTime(startTime,id);
+    }
+
+
+    /**
      * 修改考勤时间
      *
      * @param startTime 开始时间

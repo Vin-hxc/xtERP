@@ -21,9 +21,13 @@
     <update id="updateWorkAttendanceState" parameterType="com.xt.entity.winter.WorkAttendance">
       update workAttendance set start = #{start} where id = #{id}
     </update>
+    <!-- 修改上班时间 -->
+    <update id="updateWorkStartTime" parameterType="com.xt.entity.winter.WorkAttendance">
+        update workattendance set startTime = #{startTime} where id = #{id}
+    </update>
     <!--修改考勤时间-->
     <update id="updateWorkAttendanceDate" parameterType="com.xt.entity.winter.WorkAttendance">
-      update workAttendance set startTime = #{startTime},endTime = #{endTime},allHour = #{allHour} where id = #{id}
+      update workAttendance set endTime = #{endTime},allHour = #{allHour},workState = 1 where id = #{id}
     </update>
     <!--查看该员工的考勤信息-->
     <select id="getEmployeeAttendance" resultType="com.xt.entity.winter.WorkAttendance">

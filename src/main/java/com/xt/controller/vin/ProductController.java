@@ -163,4 +163,17 @@ public class ProductController {
         return productType;
     }
 
+    @RequestMapping("deleteProducts")
+    @ResponseBody
+    public String deleteAll(Long[] proids){
+        boolean bool = false;
+        for (int i=0;i<proids.length;i++){
+          bool =   productServiceI.deleteProduct(proids[i]);
+        }
+        if (bool){
+            return "true";
+        }else {
+            return "";
+        }
+    }
 }

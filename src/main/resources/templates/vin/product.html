@@ -16,12 +16,15 @@
     <thead>
     <tr >
         <th colspan="16" height="15px" style="color: #F4F4F4">
-           <button class="layui-btn layui-btn-sm">启用</button>
-           <button class="layui-btn layui-btn-sm">禁用</button>
+            <button class="layui-btn layui-btn-sm" id="btnInsert" >增加</button>
+            <button class="layui-btn layui-btn-sm" id="btnDelete">删除</button>
+            <button class="layui-btn layui-btn-sm" id="btnOpen">启用</button>
+            <button class="layui-btn layui-btn-sm" id="btnClose">禁用</button>
+            <button class="layui-btn layui-btn-sm" id="btnOut">导出</button>
         </th>
     </tr>
     <tr class="text-c">
-        <th width="20px"><input type="checkbox" id="checkAll" name="checkAll"></th>
+        <th width="20px"><input type="checkbox" id="checkAll" name="checkAll"</th>
         <th width="100">编号</th>
         <th width="100">产品名称</th>
         <th width="100">产品型号</th>
@@ -41,7 +44,7 @@
     </thead>
     <tbody>
     <tr th:each="product:${listproducthash}" height="40px" class="text-c" id="tr1">
-        <td><input type="checkbox" name="check" id="check"></td>
+        <td><input type="checkbox" name="ckb" class="proid" th:value="${product.id}"></td>
         <td th:text="${product.id}"></td>
         <td th:text="${product.product_name}"></td>
         <td th:text="${product.model_name}"></td>
@@ -66,10 +69,69 @@
 </table>
 <script>
     $(function(){
+        var selectObj = [];
         $('#tbo').DataTable({
             "aLengthMenu":[4,6]  , //每页显示数
         });
     });
+             $().ready(function () {
+                         $("#btnDelete").click(function(){//删除多条
+                             // debugger;
+                             var checkids = [];
+                             var data = [];
+                             $("input[name='ckb']:checked").each(function(i){
+                                     checkids[i] = $(this).val();
+                                 });
+                             if(checkids.length<=0){
+                                    alert("请选择一条需要被删除的数据")
+                                 }else{
+                                         $("#tbo").find(":checkbox:checked").each(function(){
+                                             var val = $(this).parents().children().children(".proid").val();
+                                             // alert(val);
+                                             data.push(val);
+                                             $.ajax({
+                                                 url:"deleteProducts",
+                                                 dateType:"json",
+                                                 type:"post",
+                                                 data:{"proids":val},
+                                                 success:function (resp) {
+                                                     if (resp!=null||resp!=""){
+                                                         alert("成功");
+                                                         location.href = "getAllProduct";
+                                                     } else {
+                                                         alert("失败")
+                                                     }
+                                                 }
+                                             });
+                                         });
+                                 }
+                         });
+                 //全选全不选
+                 $("#checkAll").click(function(){
+                     if($(this).is(':checked')){
+                         $("input[name='ckb']").each(function(){
+                             $(this).prop("checked",true);
+                         });
+                     }else{
+                         $('input[name="ckb"]').each(function(){
+                             $(this).prop("checked",false);
+                         });
+                     }
+                 });
+
+                         //新增数据
+                 });
+
+             // function deleteCurrentRow(obj){
+             //         var tr=obj.parentNode.parentNode;
+             //         var tbody=tr.parentNode;
+             //         tbody.removeChild(tr);
+             //         //只剩行首时删除表格
+             //         if(tbody.rows.length==0) {
+             //                 tbody.parentNode.removeChild(tbody);
+             //             }
+             //     }
+
 </script>
 </body>
 </html>
