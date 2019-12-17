@@ -22,8 +22,6 @@ import java.util.List;
 public class ProductController {
     @Resource
     private ProductServiceI productServiceI;
-
-
     /**
      * 获取所有产品信息
      * @param request
@@ -110,7 +108,7 @@ public class ProductController {
         System.out.println(product);
         boolean insertProduct = productServiceI.insertProduct(product);
         if (insertProduct){
-            return "vin/product";
+            return "vin/insertProduct";
         }else {
             return "";
         }
@@ -169,6 +167,34 @@ public class ProductController {
         boolean bool = false;
         for (int i=0;i<proids.length;i++){
           bool =   productServiceI.deleteProduct(proids[i]);
+        }
+        if (bool){
+            return "true";
+        }else {
+            return "";
+        }
+    }
+
+    @RequestMapping("updateProductStateT")
+    @ResponseBody
+    public String updateProductStateT(Long[] proidsT){
+        boolean bool = false;
+        for (int i=0;i<proidsT.length;i++){
+            bool =   productServiceI.updateProductStateT(proidsT[i]);
+        }
+        if (bool){
+            return "true";
+        }else {
+            return "";
+        }
+    }
+
+    @RequestMapping("updateProductStateF")
+    @ResponseBody
+    public String updateProductStateF(Long[] proidsF){
+        boolean bool = false;
+        for (int i=0;i<proidsF.length;i++){
+            bool =   productServiceI.updateProductStateF(proidsF[i]);
         }
         if (bool){
             return "true";

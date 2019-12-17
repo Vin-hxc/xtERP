@@ -65,11 +65,6 @@ public class ProductServiceImpl implements ProductServiceI {
     }
 
     @Override
-    public boolean updateProductState(long id) {
-        return productMapper.updateProductState(id);
-    }
-
-    @Override
     public Product_type queryByModelName(long id) {
         return productMapper.queryByModelName(id);
     }
@@ -77,5 +72,15 @@ public class ProductServiceImpl implements ProductServiceI {
     @Override
     public Product queryByProductType(long product_type) {
         return productMapper.queryByProductType(product_type);
+    }
+
+    @Override
+    public boolean updateProductStateF(long id) {
+        return productMapper.updateProductStateF(id);
+    }
+
+    @Override
+    public boolean updateProductStateT(long id) {
+        return productMapper.updateProductStateT(id);
     }
 }

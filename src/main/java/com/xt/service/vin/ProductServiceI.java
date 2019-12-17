@@ -72,14 +72,6 @@ public interface ProductServiceI {
     public List<Depothead> getProductStock();
 
     /**
-     * 修改产品状态
-     * @param id
-     * @return boolean
-     */
-    public boolean updateProductState(long id);
-
-
-    /**
      * 根据产品型号获取产品类型
      * @return Product_type
      */
@@ -91,4 +83,19 @@ public interface ProductServiceI {
      * @return
      */
     public Product queryByProductType(long product_type);
+
+    /**
+     * 修改产品状态为禁用
+     * @param id
+     * @return boolean
+     */
+    public boolean updateProductStateF(long id);
+
+    /**
+     * 修改产品状态为启用
+     * @param id
+     * @return boolean
+     */
+    public boolean updateProductStateT(long id);
+
 }
