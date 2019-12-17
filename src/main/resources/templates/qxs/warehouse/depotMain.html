@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="../static/css/H-ui.min.css" />
 </head>
 <body class="layui-tab layui-tab-card" style="height: 730px">
+<script>
+    if([[errs]]!=null){
+        alert([[errs]])
+    }
+</script>
     <ul class="layui-tab-title">
         <li class="layui-this">物品管理</li>
         <li>仓库管理</li>
@@ -54,13 +59,20 @@
                         </td>
                         <td th:text="${item.flag=='0'?'正常':'已删除'}"></td>
                         <td>
-                            <input type="file" name="file" />
-                            <button type="button" class="layui-btn layui-btn-sm">
-                                <i class="layui-icon">&#xe640;</i>删除
+                            <button type="button" th:onclick="file([[${item.id}]])" class="layui-btn layui-btn-sm" id="test1">
+                                <i class="layui-icon">&#xe67c;</i>上传图片
                             </button>
-                            <button type="button" class="layui-btn layui-btn-sm">
-                                <i class="layui-icon">&#xe602;</i>
-                            </button>
+                            <div class="layui-btn-group">
+                                <button type="button" th:onclick="addMaterials()" class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe654;</i>新增材料类型
+                                </button>
+                                <button type="button" th:onclick="deleteDepot([[${item.id}]],0)" class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe640;</i>删除
+                                </button>
+                                <button type="button" class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe602;</i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
@@ -71,7 +83,7 @@
         </div>
 </div>
 </body>
-<script>
+<script type="text/javascript">
     //注意：选项卡 依赖 element 模块，否则无法进行功能性操作
     layui.use('element', function(){
         var element = layui.element;
@@ -81,7 +93,7 @@
         aLengthMenu:[3,5,10]
     });
     // layui文件上传
-    layui.form.on('select(typeFilter)',function (data) {
+    /*layui.form.on('select(typeFilter)',function (data) {
         if(data.value==1){
             //控制第一个页面展示代码
             //给按钮加layui.upload.render()代码 即上述代码
@@ -99,7 +111,117 @@
                 });
             });
         }
-    })
+    })*/
 
+    //文件上传
+    function file(id) {
+        layui.use('layer',function () {
+            var layer = layui.layer;
+            var dom = "<div><form class='layui-form' enctype='multipart/form-data' method='post' action='/depot/itemFile'>" +
+                "<input type='hidden' name='id' value='"+id+"'/> <br/> " +
+                "<div class='layui-btn-container'><input type='file' name='file' /></div> <br/> " +
+                "<input type='submit' class='layui-btn' name='提交' />" +
+                "</form></div>";
+            layer.open({
+                title:'上传样图',
+                type:1,
+                skin: 'layui-layer-lan ', //样式类名
+                closeBtn: 1, //显示关闭按钮
+                anim: 2,
+                area:['30%','30%'],
+                resize:true,
+                //id: '1', //防止重复弹出
+                shadeClose: true, //开启遮罩关闭
+                shade:[0.5], //透明度，背景颜色
+                content: dom,
+                btn:['取消']
+            })
+        })
+    }
+
+    //删除数据
+    function deleteDepot(id,a) {
+        if(confirm('是否确定删除')){
+            if(a==0){
+                $.ajax({
+                    url:'/depot/deleteItem',
+                    dateType:'json',
+                    type:'post',
+                    data:{'id':id},
+                    success:function (resp) {
+                        if(resp){
+                            alert('数据已删除');
+                            prototype.location.reload();
+                            location.href='/depot/pageDepot';
+                        }else {
+                            alert('数据删除失败...')
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    //新增材料类别
+    function addMaterials() {
+        layui.use('layer',function () {
+            var layer = layui.layer;
+            var dom = "<div><table class='layui-table'><thead>" +
+                "<tr class='text-c'>" +
+                "<th>名称</th>" +
+                "<th>类型</th>" +
+                "<th>计量单位</th>" +
+                "<th>描述</th>" +
+                "</tr></thead>" +
+                "<tbody><tr class='text-c'>" +
+                "<td><input type='text' name='mName' placeholder='请输入名称' required class='layui-input' autocomplete='off' /></td>" +
+                "<td><input type='radio' name='mType' required lay-skin='primary' autocomplete='off' value='成品' />成品  " +
+                "<input type='radio' name='mType' required lay-skin='primary' autocomplete='off' value='零件' checked />零件</td>" +
+                "<td><input name='mUnit' placeholder='请输入计量单位' type='text' required class='layui-input' autocomplete='off' /></td>" +
+                "<td><textarea name='remark' required class='layui-textarea' placeholder='请输入'></textarea></td>" +
+                "</tr></tbody>" +
+                "</table></div>"
+            layer.open({
+                title:'新增材料类别',
+                type:1,
+                skin: 'layui-layer-lan ', //样式类名
+                closeBtn: 1, //显示关闭按钮
+                anim: 2,
+                area:['60%','35%'],
+                resize:true,
+                //id: '1', //防止重复弹出
+                shadeClose: true, //开启遮罩关闭
+                shade:[0.5], //透明度，背景颜色
+                content: dom,
+                btn:['确定','取消'],
+                yes:function () {
+                    var mName = $("input[name='mName']").val();
+                    var mType = $("input[name='mType']:checked").val();
+                    var mUnit = $("input[name='mUnit']").val();
+                    var remark = $("input[name='remark']").val();
+                    //alert(mName+"=="+mType);
+                    if(mName!=null && mName!="" && mUnit!=null && mUnit!="" && remark!=null && remark!=""){
+                        $.ajax({
+                           url:'/depot/addMaterials',
+                           dateType:'json',
+                           type:'post',
+                           data:{'mName':mName,'mType':mType,'mUnit':mUnit,'remark':remark},
+                           success:function (resp) {
+                               if(resp){
+                                   alert('数据添加成功...');
+                                   prototype.location.reload();
+                                   location.href='/depot/pageDepot';
+                               }else {
+                                   alert('数据添加失败...')
+                               }
+                           }
+                        });
+                    }else {
+                        alert("请填写数据");
+                    }
+                }
+            })
+        })
+    }
 </script>
 </html>

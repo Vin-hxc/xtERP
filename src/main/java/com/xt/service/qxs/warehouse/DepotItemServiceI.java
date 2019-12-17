@@ -80,4 +80,12 @@ public interface DepotItemServiceI {
      * @return
      */
     boolean updateAmount(Integer amount,Integer materialID);
+
+    /**
+     * 上传图片
+     * @param img
+     * @param id
+     * @return
+     */
+    boolean updateImg(String img,Integer id);
 }

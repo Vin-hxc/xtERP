@@ -98,4 +98,12 @@ public interface DepotItemMapper {
     @Update("update depotItem set basicNumber=#{amount} where materialId=#{materialID}")
     boolean updateAmount(Integer amount,Integer materialID);
 
+    /**
+     * 上传图片
+     * @param img
+     * @param id
+     * @return
+     */
+    @Update("update depotItem set img=#{img} where id=#{id}")
+    boolean updateImg(String img,Integer id);
 }

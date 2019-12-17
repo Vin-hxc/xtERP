@@ -122,4 +122,9 @@ public class DepotItemServiceImpl implements DepotItemServiceI {
 
         return depotItemMapper.updateAmount(amount, materialID);
     }
+
+    @Override
+    public boolean updateImg(String img, Integer id) {
+        return depotItemMapper.updateImg(img, id);
+    }
 }
