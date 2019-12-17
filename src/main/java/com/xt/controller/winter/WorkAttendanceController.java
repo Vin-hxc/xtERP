@@ -67,7 +67,7 @@ public class WorkAttendanceController {
      */
     @RequestMapping("/employeeAttendance")
     public String getEmployeeAttendance( Model model){
-        List<WorkAttendance> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
+        List<HashMap> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
         model.addAttribute("employeeAttendance",employeeAttendance);
         return "winter/work/workDay";
     }
@@ -88,8 +88,8 @@ public class WorkAttendanceController {
      * @return
      */
     @RequestMapping("/work")
-    public List<WorkAttendance> getWorkAttendance(Model model,HttpServletResponse response){
-        List<WorkAttendance> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
+    public List<HashMap> getWorkAttendance(Model model,HttpServletResponse response){
+        List<HashMap> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
         model.addAttribute("employeeAttendance",employeeAttendance);
         String result = JSON.toJSONString(employeeAttendance);
         try {

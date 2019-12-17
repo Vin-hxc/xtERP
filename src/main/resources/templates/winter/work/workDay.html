@@ -142,8 +142,9 @@
                                 }else if(state == 5){
                                     states = "未打早卡"
                                 }
+                                var keys = parseInt(key)+1;
                                 str = "<tr class='text-c'>" +
-                                    "<td>"+key+"</td>" +
+                                    "<td>"+keys+"</td>" +
                                     "<td>"+userName+"</td>" +
                                     "<td>"+attendanceDate+"</td>" +
                                     "<td>"+week+"</td>" +
@@ -151,8 +152,8 @@
                                     "<td>"+endTime+"</td>" +
                                     "<td>"+allHour+"</td>" +
                                     "<td>"+states+"</td>" +
-                                    "<td><button class ='addWork'>"+添加+"</button></td>" +
                                     "</tr>"
+                                //"<td><button class ='addWork'>"+添加+"</button></td>" +
                                 $("#workDay").append(str);
                             }
                         }

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -61,7 +62,7 @@ public interface WorkAttendanceMapper {
      * @param userId
      * @return
      */
-    List<WorkAttendance> getEmployeeAttendance(int userId);
+    List<HashMap> getEmployeeAttendance(int userId);
 
     /**
      * 查询单条员工考勤数据
