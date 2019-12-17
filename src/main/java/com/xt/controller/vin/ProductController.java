@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -137,12 +138,15 @@ public class ProductController {
      * @return
      */
     @RequestMapping("updateProduct")
+    @ResponseBody
     public String updateProduct(Product product){
+        System.out.println(product);
+        product.setCreatetime(new Date());
         System.out.println("---------------------------------------------------------------------------------------------");
         System.out.println(product);
         boolean updateProduct = productServiceI.updateProduct(product);
         if (updateProduct){
-            return "redirect:getAllProduct";
+            return "getAllProduct";
         }else {
             return "";
         }

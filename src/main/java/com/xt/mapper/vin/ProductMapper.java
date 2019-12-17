@@ -61,7 +61,7 @@ public interface ProductMapper {
      * @param product
      * @return boolean
      */
-    @Update("UPDATE product SET product_name=#{product_name},product_model=#{product_model},product_type=#{product_type},product_unit=#{product_unit},product_stock=#{product_stock},retail_price=#{retail_price},min_price=#{min_price},cost_price=#{cost_price},trade_price=#{trade_price},serial_number=#{serial_number} WHERE id=#{id} and delete_Flag='0'")
+    @Update("UPDATE product SET product_name=#{product_name},product_model=#{product_model},product_type=#{product_type},product_unit=#{product_unit},retail_price=#{retail_price},min_price=#{min_price},cost_price=#{cost_price},trade_price=#{trade_price},serial_number=#{serial_number} WHERE id=#{id} and delete_Flag='0'")
     public boolean updateProduct(Product product);
 
     /**

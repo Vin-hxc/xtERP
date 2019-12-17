@@ -159,6 +159,8 @@
                     debugger;
                     if (resp!=null){
                         layer.msg("新增产品信息成功，待审核");
+                        var index = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(index);
                     }else {
                         layer.msg("添加失败")
                     }
