@@ -33,4 +33,9 @@
     <select id="getEmployeeAttendance" resultType="com.xt.entity.winter.WorkAttendance">
         select * from workAttendance w left join userInfo u on u.id = w.userId where userId = #{userId} order by attendanceDate desc
     </select>
+
+    <!-- 查询单条员工记录 -->
+    <select id="findWorkAttendance" resultType="com.xt.entity.winter.WorkAttendance">
+        select * from workattendance where id = #{id}
+    </select>
 </mapper>

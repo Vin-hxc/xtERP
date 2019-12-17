@@ -88,9 +88,9 @@ public class WorkAttendanceController {
      * @return
      */
     @RequestMapping("/work")
-    public List<WorkAttendance> getWorkAttendance(HttpServletResponse response){
+    public List<WorkAttendance> getWorkAttendance(Model model,HttpServletResponse response){
         List<WorkAttendance> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
-
+        model.addAttribute("employeeAttendance",employeeAttendance);
         String result = JSON.toJSONString(employeeAttendance);
         try {
             sendJsonData(response,result);

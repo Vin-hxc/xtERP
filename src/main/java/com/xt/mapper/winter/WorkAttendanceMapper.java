@@ -62,4 +62,11 @@ public interface WorkAttendanceMapper {
      * @return
      */
     List<WorkAttendance> getEmployeeAttendance(int userId);
+
+    /**
+     * 查询单条员工考勤数据
+     * @param id
+     * @return
+     */
+    WorkAttendance findWorkAttendance(int id);
 }
