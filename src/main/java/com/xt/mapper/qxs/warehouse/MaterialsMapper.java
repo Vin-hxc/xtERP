@@ -33,6 +33,6 @@ public interface MaterialsMapper {
      * @param materials
      * @return
      */
-    @Update("insert into materials values(null,#{mName},#{remark})")
+    @Update("insert into materials values(null,#{mName},#{remark},#{mType},#{mUnit})")
     boolean addMaterials(Materials materials);
 }

@@ -48,11 +48,12 @@ public class DepotController {
     public String pageDepot(Model model){
         //查询未删除的仓库
         List<Depot> depots = depotServiceI.queryNotDeleteDepot();
-        HashMap<Integer, Depot> map = new HashMap<Integer, Depot>();
+        //HashMap<Integer, Depot> map = new HashMap<Integer, Depot>();
+        /*System.out.println(depots.size());
         for (int i=0;i<depots.size();i++){
             map.put(i,depots.get(i));
-        }
-        model.addAttribute("depots",map);
+        }*/
+        model.addAttribute("depots",depots);
         //查询所有单据子表
         List<HashMap> depotItems = depotItemServiceI.queryAllDepotItem();
         model.addAttribute("depotItems",depotItems);
@@ -111,10 +112,10 @@ public class DepotController {
      * @param materials
      * @return
      */
+    @ResponseBody
     @RequestMapping("addMaterials")
-    public String addMaterials(Materials materials){
-        materialsServiceI.addMaterials(materials);
-        return "redirect:/depot/pageDepot";
+    public boolean addMaterials(Materials materials){
+        return materialsServiceI.addMaterials(materials);
     }
 
 }
