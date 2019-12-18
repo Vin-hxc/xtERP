@@ -13,7 +13,7 @@ public class Productionplan {
   private long personCharge;//负责人id
   private long productionAudit;//生产审核是否通过 0-通过 1-不通过
   private long deleteProd;//删除标记
-  private long prquantity;//生产数量
+  private long pickingid;//领料编号
 
   @Override
   public String toString() {
@@ -25,7 +25,7 @@ public class Productionplan {
             ", personCharge=" + personCharge +
             ", productionAudit=" + productionAudit +
             ", deleteProd=" + deleteProd +
-            ", prquantity=" + prquantity +
+            ", pickingid=" + pickingid +
             '}';
   }
 
@@ -85,18 +85,18 @@ public class Productionplan {
     this.deleteProd = deleteProd;
   }
 
-  public long getPrquantity() {
-    return prquantity;
+  public long getPickingid() {
+    return pickingid;
   }
 
-  public void setPrquantity(long prquantity) {
-    this.prquantity = prquantity;
+  public void setPickingid(long pickingid) {
+    this.pickingid = pickingid;
   }
 
   public Productionplan() {
   }
 
-  public Productionplan(long id, long productId, Date startTime, Date endTime, long personCharge, long productionAudit, long deleteProd, long prquantity) {
+  public Productionplan(long id, long productId, Date startTime, Date endTime, long personCharge, long productionAudit, long deleteProd, long pickingid) {
     this.id = id;
     this.productId = productId;
     this.startTime = startTime;
@@ -104,6 +104,6 @@ public class Productionplan {
     this.personCharge = personCharge;
     this.productionAudit = productionAudit;
     this.deleteProd = deleteProd;
-    this.prquantity = prquantity;
+    this.pickingid = pickingid;
   }
 }

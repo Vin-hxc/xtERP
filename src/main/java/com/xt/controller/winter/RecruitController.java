@@ -1,6 +1,4 @@
 package com.xt.controller.winter;
-
-import com.alibaba.fastjson.JSONObject;
 import com.xt.entity.winter.Recruit;
 import com.xt.service.winter.RecruitServiceI;
 import org.slf4j.Logger;
@@ -9,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.List;
-
 
 /**
  * @Author Winter

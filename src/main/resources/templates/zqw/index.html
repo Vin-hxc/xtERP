@@ -15,14 +15,14 @@
   <form method="post" action="inserPro">
     <h1>添加生产计划</h1>
     <!--<hr class="sep"/>-->
-    <div class="group">
+    <div class="group" >
       <textarea ></textarea><span class="highlight"></span><span class="bar"></span>
       <div class="center-on-page">
         <div class="select">
-          <select name="productId" id="slct"  >
+          <select name="id" id="slct"  >
             <option>产品名称</option>
             <option th:each="dgselepds:${dgselepd}"
-                    th:value="${dgselepds.productId}" th:text="${dgselepds.product_name}" >
+                    th:value="${dgselepds.id}" th:text="${dgselepds.product_name}" >
            </option>
           </select>
         </div>
