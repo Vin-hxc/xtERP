@@ -1,11 +1,18 @@
 package com.xt.entity.hjn;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  * @program: xterp
  * @description: 采购订单表
  * @author: hjn
  * @create: 2019-12-03 10:07
  **/
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Orders {
     private int id;//主键id
     private Integer orderid;//采购订单编号
