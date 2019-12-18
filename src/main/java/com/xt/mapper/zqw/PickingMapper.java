@@ -1,8 +1,10 @@
 package com.xt.mapper.zqw;
 
 import com.xt.entity.zqw.Picking;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 领料持久层操作接口
@@ -12,7 +14,8 @@ public interface PickingMapper {
      * 查询领料信息
      * @return
      */
-    HashMap selePicking();
+    @Select("select picking.*,userInfo.userName,productionplan.*,product.product_name FROM picking,productionplan,product,userInfo where productionplan.pickingid=picking.productionid and productionplan.personCharge=userinfo.id")
+    List<HashMap> selePicking();
 
     /**
      * 添加领料信息
@@ -33,5 +36,5 @@ public interface PickingMapper {
      * @param id
      * @return
      */
-    boolean deletePicking(int id);
+    boolean deletePicking(int id,int deletePick);
 }

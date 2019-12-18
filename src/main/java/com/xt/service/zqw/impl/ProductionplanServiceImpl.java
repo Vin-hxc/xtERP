@@ -56,8 +56,8 @@ public class ProductionplanServiceImpl implements ProductionplanServiceI {
      * @return
      */
     @Override
-    public boolean deletePeouct(int id) {
-        return productionplanMapper.deletePeouct(id);
+    public boolean deletePeouct(int deleteProd,int id) {
+        return productionplanMapper.deletePeouct(deleteProd,id);
     }
 
     /**
@@ -101,5 +101,16 @@ public class ProductionplanServiceImpl implements ProductionplanServiceI {
     public List<Userinfo> seleuser() {
         return productionplanMapper.seleuser();
     }
+
+    /**
+     * 根据id查询所需物料
+     * @param pickingid
+     * @return
+     */
+    @Override
+    public List<HashMap> selepropick(int pickingid) {
+        return productionplanMapper.selepropick(pickingid);
+    }
+
 
 }

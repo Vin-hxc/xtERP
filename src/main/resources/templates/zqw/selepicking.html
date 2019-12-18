@@ -14,25 +14,22 @@
         class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
     <tr class="text-c">
-        <th width="100">主板</th>
-        <th width="100">cpu</th>
-        <th width="100">内存条</th>
-        <th width="100">显卡</th>
-        <th width="100">硬盘</th>
-        <th width="100">固态硬盘</th>
+        <th width="100">生产名称</th>
+        <th width="100">出库时间</th>
+        <th width="100">负责人</th>
+        <th width="100">所需原料详情</th>
         <th width="100">操作</th>
     </tr>
     </thead>
     <tbody>
-
-    <tr th:each="sele:${selepml}" height="40px" class="text-c">
-        <td th:text="${sele.motherboard}"></td>
-        <td th:text="${sele.cpu}"></td>
-        <td th:text="${sele.memories}"></td>
-        <td th:text="${sele.video_card}"></td>
-        <td th:text="${sele.disks}"></td>
-        <td th:text="${sele.ssd}"></td>
-        <td ><a th:href="@{/inserpick/(pickingNo=${sele.id})}">添加</a></td>
+    <tr th:each="selePickadd:${selePickadd}" height="40px" class="text-c">
+        <td th:text="${selePickadd.product_name}"></td>
+        <td th:text="${selePickadd.startTime}"></td>
+        <td th:text="${selePickadd.product_name}"></td>
+        <td><a th:href="@{/selepropick(pickingid=${selePickadd.pickingid})}">领料详情</a></td>
+        <td>
+            <a>修改</a>
+        </td>
     </tr>
     </tbody>
 

@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,8 +24,11 @@ public interface DepotItemMapper {
      * 查询所有数据包括已删除的数据
      * @return
      */
-    @Select("select * from depotItem ")
-    List<DepotItem> queryAllDepotItem();
+    @Select("select i.id id,m.id mid,m.mName mName,m.mType type,i.basicNumber basicNumber," +
+            " i.unitPrice unitPrice,i.allPrice allPrice,m.mUnit mUnit,d.`name` dName,i.img img,i.deleteFlag flag" +
+            " from depotItem i LEFT JOIN materials m ON i.materialId=m.id" +
+            " LEFT JOIN depot d on i.depotid=d.id")
+    List<HashMap> queryAllDepotItem();
 
     /**
      * 根据depotHead Id 进行查询
@@ -54,8 +58,8 @@ public interface DepotItemMapper {
      * @param depotItem
      * @return
      */
-    @Insert("insert into depotItem values(null,#{header},#{materialId},#{mUnit},#{basicNumber}," +
-            "#{unitPrice},#{allPrice},#{remark},#{img},#{depot},#{mType},0)")
+    @Insert("insert into depotItem values(null,#{header},#{materialId},#{basicNumber}," +
+            "#{unitPrice},#{allPrice},#{remark},#{img},#{depotId},0)")
     boolean addDepotItem(DepotItem depotItem);
 
     /**
@@ -63,8 +67,8 @@ public interface DepotItemMapper {
      * @param depotItem
      * @return
      */
-    @Update("update depotItem set mUnit=#{mUnit},basicNumber=#{basicNumber}," +
-            "remark=#{remark},img=#{img},mType=#{mType} where id=#{id}")
+    @Update("update depotItem set basicNumber=#{basicNumber}," +
+            "remark=#{remark},img=#{img} where id=#{id}")
     boolean updateDepotItem(DepotItem depotItem);
 
     /**
@@ -94,4 +98,12 @@ public interface DepotItemMapper {
     @Update("update depotItem set basicNumber=#{amount} where materialId=#{materialID}")
     boolean updateAmount(Integer amount,Integer materialID);
 
+    /**
+     * 上传图片
+     * @param img
+     * @param id
+     * @return
+     */
+    @Update("update depotItem set img=#{img} where id=#{id}")
+    boolean updateImg(String img,Integer id);
 }

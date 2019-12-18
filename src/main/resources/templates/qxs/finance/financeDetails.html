@@ -65,7 +65,7 @@
                                 <button th:onclick="toChange([[${ex.expenditureId}]],0)" type="button" class="layui-btn layui-btn-sm">
                                     <i class="layui-icon">&#xe642;</i>编辑
                                 </button>
-                                <button th:onclick="|expurgate('${ex.expenditureId} ',0)|" type="button" class="layui-btn layui-btn-sm">
+                                <button th:if="${ex.deleteFlag==0}" th:onclick="|expurgate('${ex.expenditureId} ',0)|" type="button" class="layui-btn layui-btn-sm">
                                     <i class="layui-icon">&#xe640;</i>删除
                                 </button>
                                 <button type="button" class="layui-btn layui-btn-sm">
@@ -120,7 +120,7 @@
                             <button th:onclick="toChange([[${in.incomeId}]],1)" type="button" class="layui-btn layui-btn-sm">
                                 <i class="layui-icon">&#xe642;</i>编辑
                             </button>
-                            <button th:onclick="|expurgate('${in.incomeId} ',1)|" type="button" class="layui-btn layui-btn-sm">
+                            <button th:if="${in.deleteFlag==0}" th:onclick="|expurgate('${in.incomeId} ',1)|" type="button" class="layui-btn layui-btn-sm">
                                 <i class="layui-icon">&#xe640;</i>删除
                             </button>
                             <button type="button" class="layui-btn layui-btn-sm">

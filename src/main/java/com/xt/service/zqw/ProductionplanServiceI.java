@@ -1,9 +1,11 @@
 package com.xt.service.zqw;
 
 import com.xt.entity.vin.Product_model;
+
 import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
 import com.xt.entity.zqw.Userinfo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +38,7 @@ public interface ProductionplanServiceI {
      * @param id
      * @return
      */
-    boolean deletePeouct(int id);
+    boolean deletePeouct(@Param("deleteProd")int deleteProd, @Param("id")int id);
     /**
      * 根据申请表查询产品名称
      * @return
@@ -67,4 +69,11 @@ public interface ProductionplanServiceI {
      * @return
      */
     List<Userinfo> seleuser();
+
+    /**
+     * 根据id查询所需物料
+     * @param pickingid
+     * @return
+     */
+    List<HashMap> selepropick(int pickingid);
 }

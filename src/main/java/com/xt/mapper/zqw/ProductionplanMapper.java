@@ -5,7 +5,9 @@ import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
 import com.xt.entity.zqw.Userinfo;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -45,21 +47,21 @@ public interface ProductionplanMapper {
      * @param id
      * @return
      */
-    boolean deletePeouct(int id);
+    @Update("update productionplan set deleteProd=#{deleteProd} where id=#{id}")
+    boolean deletePeouct(@Param("deleteProd") int deleteProd, @Param("id") int id);
 
     /**
      * 根据申请表查询产品名称
      * @return
      */
-    @Select("SELECT productionPlan.productId,applyFor.productId,product.product_name from applyFor,product,productionPlan WHERE \n" +
-            "applyFor.productId =product.id and productionPlan.productId=product.id")
+    @Select("select * from product")
     List<HashMap> dgselepro();
 
     /**
      * 查询产品信息
      * @return
      */
-    @Select("select product_model.*,picking.*,productionplan.* from productionplan,picking,product_model WHERE picking.productionid=productionplan.id")
+    @Select("select product_model.*,number.*,productionplan.id as prid from productionplan,number,product_model WHERE number.pickid=productionplan.id")
     List<HashMap> selepm();
 
     /**
@@ -74,8 +76,8 @@ public interface ProductionplanMapper {
      * @param picking
      * @return
      */
-    @Insert("insert into picking(id,pickingNo,materialNumber,startTime,productionAudit,deletePick) values " +
-            "(null,#{pickingNo},#{materialNumber},#{startTime},#{productionAudit},#{deletePick})")
+    @Insert("insert into picking(id,pickingNo,startTime,productionAudit,deletePick,productionid) values " +
+            "(null,#{pickingNo},#{startTime},#{productionAudit},#{deletePick},#{productionid})")
     boolean inserpick(Picking picking);
 
     /**
@@ -84,4 +86,13 @@ public interface ProductionplanMapper {
      */
     @Select("select * from userinfo")
     List<Userinfo> seleuser();
+
+    /**
+     * 根据生产编号查询所需物料
+     * @return
+     */
+    @Select("select productionplan.pickingid,picking.*,number.*,product_model.* from productionplan,picking,number,product_model\n" +
+            "where productionplan.pickingid=picking.productionid and Number.pickid=picking.id and picking.pickingNo=product_model.id")
+    List<HashMap> selepropick(int pickingid);
+
 }

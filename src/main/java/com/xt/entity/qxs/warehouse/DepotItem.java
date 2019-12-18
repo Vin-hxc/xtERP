@@ -9,35 +9,33 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class DepotItem {
-    private Integer id;//主键
+    private Integer id;//主键 /null
     private Integer header;//单据主表id
     private Integer materialId;//材料id/商品id
-    private String mUnit;//计量单位
     private Integer basicNumber;//基础数量
     private Double unitPrice;//单价
     private Double allPrice;//总金额
     private String remark;//描述
     private String img;//样品图
-    private Integer depot;//仓库id
-    private String mType;//类型:成品/材料
+    private Integer depotId;//仓库id
     private String deleteFlag;//标记删除
 
     public DepotItem(Integer id, Integer header, Integer materialId,
-                     String mUnit, Integer basicNumber, Double unitPrice,
+                     Integer basicNumber, Double unitPrice,
                      String remark, String img, Integer depot,
-                     String mType, String deleteFlag) {
+                     String deleteFlag) {
         this.id = id;
         this.header = header;
         this.materialId = materialId;
-        this.mUnit = mUnit;
+        //this.mUnit = mUnit;
         this.basicNumber = basicNumber;
         this.unitPrice = unitPrice;
         //计算总金额
         this.allPrice = this.basicNumber*this.unitPrice;
         this.remark = remark;
         this.img = img;
-        this.depot = depot;
-        this.mType = mType;
+        this.depotId = depot;
+        //this.mType = mType;
         this.deleteFlag = deleteFlag;
     }
 }

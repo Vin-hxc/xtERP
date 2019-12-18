@@ -1,5 +1,10 @@
 package com.xt.entity.winter;
 
+import com.xt.entity.qxs.warehouse.Depot;
+import com.xt.entity.qxs.warehouse.Depothead;
+import com.xt.entity.vin.Product;
+import com.xt.entity.vin.Supplier;
+import com.xt.entity.zqw.Userinfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +25,7 @@ public class Sale implements Serializable {
     private Integer clientId;//客户编号
     private Integer productId;//产品编号
     private Integer depotId;//仓库编号
+    private Integer depotHeadId;//单据编号
     private Integer state;//状态
     private Integer number;//数量
     private double discounts;//优惠率
@@ -28,5 +34,4 @@ public class Sale implements Serializable {
     private Integer deleteFlag;//删除标记
     private Double commission;//提成
     private Integer finance;//财务记录添加状态
-    //数量 优惠率 总金额 实际付款金额
 }

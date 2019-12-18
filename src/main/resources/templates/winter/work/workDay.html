@@ -142,8 +142,9 @@
                                 }else if(state == 5){
                                     states = "未打早卡"
                                 }
+                                var keys = parseInt(key)+1;
                                 str = "<tr class='text-c'>" +
-                                    "<td>"+key+"</td>" +
+                                    "<td>"+keys+"</td>" +
                                     "<td>"+userName+"</td>" +
                                     "<td>"+attendanceDate+"</td>" +
                                     "<td>"+week+"</td>" +
@@ -152,6 +153,7 @@
                                     "<td>"+allHour+"</td>" +
                                     "<td>"+states+"</td>" +
                                     "</tr>"
+                                //"<td><button class ='addWork'>"+添加+"</button></td>" +
                                 $("#workDay").append(str);
                             }
                         }
@@ -178,7 +180,7 @@
             <div id="main" style="width:80%">
                 <h2 class="top_title"><a href="#">打卡考勤</a></h2>
                 <div class="button">
-                    <button>上班打卡</button>
+                    <button>打卡</button>
                     <p>1.（法定上班时间为08:30:00，晚于该时间即为迟到。
                         法定下班时间为18:00:00，早于该时间即为早退）;</p>
                     <p>2.下班后还未进行上班打卡的员工，则视为旷工，当天则不允许打卡，
@@ -201,10 +203,29 @@
                         <th>下班时间</th>
                         <th>总时间</th>
                         <th>状态</th>
-                        <!--<th>操作</th>-->
+                        <th>操作</th>
                     </tr>
                     </thead>
-                    <tbody id="workDay"></tbody>
+                    <tbody id="workDay">
+                    <!--<tr th:each="work,workStat : ${employeeAttendance}">
+                        &lt;!&ndash;<td th:text="${employeeStat.userId}"></td>&ndash;&gt;
+                        <td th:text="${workStat.index}")></td>
+                        <td th:text="${work.attendanceDate}")></td>
+                        <td th:text="${work.week}"></td>
+                        <td th:text="${work.startTime}"></td>
+                        <td th:text="${work.endTime}"></td>
+                        <td th:text="${work.allHour}"></td>
+                        <td th:switch="${work.state}">
+                            <p th:case="0">早卡</p>
+                            <p th:case="1">工时不足</p>
+                            <p th:case="2">全勤</p>
+                            <p th:case="3">缺勤</p>
+                            <p th:case="4">未打晚卡</p>
+                            <p th:case="5">未打早卡</p>
+                        </td>
+                        <td><a href="addRecruit">考勤申请</a></td>
+                    </tr>-->
+                    </tbody>
             </table>
         </div>
     </div>

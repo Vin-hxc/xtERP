@@ -4,6 +4,7 @@ import com.xt.entity.winter.WorkAttendance;
 
 import java.sql.Time;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -48,5 +49,5 @@ public interface WorkAttendanceServiceI {
      * @param userId
      * @return
      */
-    List<WorkAttendance> getEmployeeAttendance(int userId);
+    List<HashMap> getEmployeeAttendance(int userId);
 }

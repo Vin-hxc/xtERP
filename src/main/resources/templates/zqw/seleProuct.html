@@ -27,8 +27,8 @@
         <td th:text="${seleuser.startTime}"></td>
         <td th:text="${seleuser.endTime}"></td>
         <td th:text="${seleuser.userName}"></td>
-        <td><a>原料详情</a></td>
-        <td></td>
+        <td><a th:href="@{/selepropick(pickingid=${seleuser.pickingid})}">原料详情</a></td>
+        <td><a th:href="@{/delepro(id=${seleuser.id})}">删除</a></td>
     </tr>
     </tbody>
 </table>

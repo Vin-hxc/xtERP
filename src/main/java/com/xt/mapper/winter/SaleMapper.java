@@ -50,19 +50,19 @@ public interface SaleMapper {
      * 未删除的销售数据
      * @return
      */
-    List<Sale> getAllNoDeleteSale();
+    List<HashMap> getAllNoDeleteSale();
 
     /**
      * 已删除的销售数据
      * @return
      */
-    List<Sale> getAllDeleteSale();
+    List<HashMap> getAllDeleteSale();
 
     /**
      * 查询所有销售数据
      * @return
      */
-    List<Sale> getAllSale();
+    List<HashMap> getAllSale();
 
     /**
      * 查询单条销售数据

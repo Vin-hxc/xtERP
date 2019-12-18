@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -84,7 +85,7 @@ public class WorkAttendanceServiceImpl implements WorkAttendanceServiceI {
      * @return
      */
     @Override
-    public List<WorkAttendance> getEmployeeAttendance(int userId) {
+    public List<HashMap> getEmployeeAttendance(int userId) {
         return workAttendanceMapper.getEmployeeAttendance(userId);
     }
 }

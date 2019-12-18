@@ -8,6 +8,7 @@ import com.xt.entity.zqw.Userinfo;
 import com.xt.service.zqw.ProductionplanServiceI;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +39,7 @@ public class ProductionplanContrller {
     }
     @RequestMapping("aaa")
     public String aaa(){
-        return "zqw/index";
+        return "zqw/pickingTj";
     }
     /**
      * 根据申请表查询产品表
@@ -62,29 +63,16 @@ public class ProductionplanContrller {
      */
    @RequestMapping("selepml")
     public String selepml(HttpServletRequest request){
-       List<HashMap> selepm = productionplanServiceI.selepm();
-       request.setAttribute("selepml",selepm);
-       System.out.println(selepm);
-       return "zqw/selepicking";
+       List<Product_model> selepmll = productionplanServiceI.selepmll();
+       request.setAttribute("selepmll",selepmll);
+       System.out.println(selepmll);
+       return "zqw/pickingTj";
     }
-    /**
-     * 添加领料信息
-     * @return
-     */
-   @RequestMapping("inserpick")
-   public String inserpick(int pickingNo, int productionid,HttpServletResponse response) throws ParseException {
-       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-       String a="2019-12-1";
-       Date parse = sdf.parse(a);
-       Picking picking = new Picking(0,pickingNo,"0",parse,0,0,productionid);
-       boolean inserpick = productionplanServiceI.inserpick(picking);
-       System.out.println(inserpick);
-       return "redirect:/dgselepd";
-   }
+
 
     /**
      * 添加生产计划
-     * @param productId
+     * @param id
      * @param startTime
      * @param endTime
      * @param personCharge
@@ -92,13 +80,38 @@ public class ProductionplanContrller {
      * @return
      */
    @RequestMapping("inserPro")
-    public String inserPro( int productId, String startTime,String endTime,int personCharge,int prquantity,HttpServletRequest request) throws ParseException {
+    public String inserPro( int id, String startTime,String endTime,int personCharge,int prquantity,HttpServletRequest request) throws ParseException {
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        Date date1 = sdf.parse(startTime);
        Date date2 = sdf.parse(endTime);
-       Productionplan productionplan = new Productionplan(0,productId,date1,date2,personCharge,0,0,prquantity);
+       Productionplan productionplan = new Productionplan(0,id,date1,date2,personCharge,0,0,prquantity);
        boolean b = productionplanServiceI.inserProuct(productionplan);
        System.out.println(b);
        return "redirect:/pdsele";
     }
+
+    /**
+     * 删除生产计划
+     * @param id
+     * @param
+     * @return
+     */
+    @RequestMapping("delepro")
+    public String delepro(int id){
+        boolean b = productionplanServiceI.deletePeouct(2,id);
+        return "redirect:/pdsele";
+    }
+
+    /**
+     * 根据id查询所需物料
+     * @param pickingid
+     * @return
+     */
+    @RequestMapping("selepropick")
+    public String selepropick(int pickingid,HttpServletRequest request){
+        List<HashMap> selepropick = productionplanServiceI.selepropick(pickingid);
+        request.setAttribute("selepropick",selepropick);
+        return "zqw/selepropick";
+    }
+
 }

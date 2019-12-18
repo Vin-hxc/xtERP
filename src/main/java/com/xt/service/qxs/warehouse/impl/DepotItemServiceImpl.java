@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class DepotItemServiceImpl implements DepotItemServiceI {
      * @return
      */
     @Override
-    public List<DepotItem> queryAllDepotItem() {
+    public List<HashMap> queryAllDepotItem() {
         return depotItemMapper.queryAllDepotItem();
     }
 
@@ -120,5 +121,10 @@ public class DepotItemServiceImpl implements DepotItemServiceI {
     public boolean updateAmount(Integer amount, Integer materialID) {
 
         return depotItemMapper.updateAmount(amount, materialID);
+    }
+
+    @Override
+    public boolean updateImg(String img, Integer id) {
+        return depotItemMapper.updateImg(img, id);
     }
 }

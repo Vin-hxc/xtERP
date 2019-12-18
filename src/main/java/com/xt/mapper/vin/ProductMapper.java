@@ -61,7 +61,7 @@ public interface ProductMapper {
      * @param product
      * @return boolean
      */
-    @Update("UPDATE product SET product_name=#{product_name},product_model=#{product_model},product_type=#{product_type},product_unit=#{product_unit},product_stock=#{product_stock},retail_price=#{retail_price},min_price=#{min_price},cost_price=#{cost_price},trade_price=#{trade_price},serial_number=#{serial_number} WHERE id=#{id} and delete_Flag='0'")
+    @Update("UPDATE product SET product_name=#{product_name},product_model=#{product_model},product_type=#{product_type},product_unit=#{product_unit},retail_price=#{retail_price},min_price=#{min_price},cost_price=#{cost_price},trade_price=#{trade_price},serial_number=#{serial_number} WHERE id=#{id} and delete_Flag='0'")
     public boolean updateProduct(Product product);
 
     /**
@@ -91,14 +91,6 @@ public interface ProductMapper {
     public List<Depothead> getProductStock();
 
     /**
-     * 修改产品状态
-     * @param id
-     * @return boolean
-     */
-    @Update("UPDATE product SET product_state = #{product_state} where id = #{id}")
-    public boolean updateProductState(long id);
-
-    /**
      * 根据产品型号获取产品类型
      * @return Product_type
      */
@@ -114,4 +106,20 @@ public interface ProductMapper {
             " INNER JOIN product_type as pt ON p.product_type = pt.id" +
             " where p.id = 25 and p.delete_Flag ='0'")
     public Product queryByProductType(long product_type);
+
+    /**
+     * 修改产品状态为禁用
+     * @param id
+     * @return
+     */
+    @Update("UPDATE product set `product_state` = 0 where id = #{id}")
+    public boolean updateProductStateF(long id);
+
+    /**
+     * 修改产品状态为启用
+     * @param id
+     * @return
+     */
+    @Update("UPDATE product set `product_state` = 1 where id = #{id}")
+    public boolean updateProductStateT(long id);
 }

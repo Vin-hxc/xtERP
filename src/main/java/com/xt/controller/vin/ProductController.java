@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,8 +23,6 @@ import java.util.List;
 public class ProductController {
     @Resource
     private ProductServiceI productServiceI;
-
-
     /**
      * 获取所有产品信息
      * @param request
@@ -110,7 +109,7 @@ public class ProductController {
         System.out.println(product);
         boolean insertProduct = productServiceI.insertProduct(product);
         if (insertProduct){
-            return "vin/product";
+            return "vin/insertProduct";
         }else {
             return "";
         }
@@ -139,12 +138,15 @@ public class ProductController {
      * @return
      */
     @RequestMapping("updateProduct")
+    @ResponseBody
     public String updateProduct(Product product){
+        System.out.println(product);
+        product.setCreatetime(new Date());
         System.out.println("---------------------------------------------------------------------------------------------");
         System.out.println(product);
         boolean updateProduct = productServiceI.updateProduct(product);
         if (updateProduct){
-            return "redirect:getAllProduct";
+            return "getAllProduct";
         }else {
             return "";
         }
@@ -169,6 +171,34 @@ public class ProductController {
         boolean bool = false;
         for (int i=0;i<proids.length;i++){
           bool =   productServiceI.deleteProduct(proids[i]);
+        }
+        if (bool){
+            return "true";
+        }else {
+            return "";
+        }
+    }
+
+    @RequestMapping("updateProductStateT")
+    @ResponseBody
+    public String updateProductStateT(Long[] proidsT){
+        boolean bool = false;
+        for (int i=0;i<proidsT.length;i++){
+            bool =   productServiceI.updateProductStateT(proidsT[i]);
+        }
+        if (bool){
+            return "true";
+        }else {
+            return "";
+        }
+    }
+
+    @RequestMapping("updateProductStateF")
+    @ResponseBody
+    public String updateProductStateF(Long[] proidsF){
+        boolean bool = false;
+        for (int i=0;i<proidsF.length;i++){
+            bool =   productServiceI.updateProductStateF(proidsF[i]);
         }
         if (bool){
             return "true";
