@@ -42,7 +42,7 @@
                     <th>总额</th>
                     <th>计量单位</th>
                     <th>所在仓库</th>
-                    <th>样品图</th>
+                    <!--<th>样品图</th>-->
                     <th>状态</th>
                     <th>操作</th>
                 </tr>
@@ -57,14 +57,14 @@
                     <td th:text="${item.allPrice}"></td>
                     <td th:text="${item.mUnit}"></td>
                     <td th:text="${item.dName}"></td>
-                    <td>
+                   <!-- <td>
                         <img th:src="|../static/img/${item.img}|" />
-                    </td>
+                    </td>-->
                     <td th:text="${item.flag=='0'?'正常':'已删除'}"></td>
                     <td>
-                        <button type="button" th:onclick="file([[${item.id}]])" class="layui-btn layui-btn-sm" id="test1">
+                       <!-- <button type="button" th:onclick="file([[${item.id}]])" class="layui-btn layui-btn-sm" id="test1">
                             <i class="layui-icon">&#xe67c;</i>上传图片
-                        </button>
+                        </button>-->
                         <div class="layui-btn-group">
                             <button type="button" th:onclick="addMaterials()" class="layui-btn layui-btn-sm">
                                 <i class="layui-icon">&#xe654;</i>新增材料类型
@@ -104,6 +104,19 @@
                                     <td th:text="${depot.principal}"></td>
                                 </tr>
                             </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                    <div class="layui-timeline-content layui-text">
+                        <h3 class="layui-timeline-title">材料类型</h3>
+                        <table class="layui-table">
+                            <thead>
+                                <tr>
+                                    <td th:each="m:${materials}" th:text="${m.MName}"></td>
+                                </tr>
+                            </thead>
                         </table>
                     </div>
                 </li>
@@ -195,7 +208,6 @@
                     url:'',//上传路径
                     done:function (resp) {
                         //上传回调
-
                     },error:function () {
                         //请求异常回调
                     }
@@ -318,7 +330,7 @@
     }
 
     function state(id,state) {
-        if(confirm('是否确认...')){
+        if(confirm('是否确认审核')){
             $.ajax({
                url:'/depot/headState',
                dataType:'json',

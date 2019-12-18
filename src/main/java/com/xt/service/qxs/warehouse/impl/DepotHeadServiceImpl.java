@@ -124,6 +124,7 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                                     depothead.getChangeAmount(), "0", "0", type, "0");
                             boolean addDepotItem = depotItemMapper.addDepotItem(item);
                             if(addDepotItem){
+                                depotHeadMapper.updateDateTime(new Date(), id);
                                 return 1;
                             }
                         }
@@ -147,6 +148,7 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                                     depothead.getChangeAmount(), null, null, t, "0");
                             boolean addDepotItem = depotItemMapper.addDepotItem(item);
                             if(addDepotItem){
+                                depotHeadMapper.updateDateTime(new Date(), id);
                                 return 2;
                             }
                         }
