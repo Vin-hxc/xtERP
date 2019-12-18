@@ -3,13 +3,14 @@ package com.xt;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
+
 @SpringBootTest
 class XterpApplicationTests {
 
     @Test
     void contextLoads() {
-        System.out.println(Math.round(11.5)
-        );
+        System.out.println(new Date());
     }
 
 }

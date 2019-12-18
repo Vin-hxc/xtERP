@@ -15,7 +15,7 @@ public interface DepotMapper {
      * 查询所有未删除的仓库
      * @return
      */
-    @Select("select * from depot where delete_Flag!=1 order by sort desc")
+    @Select("select * from depot where deleteFlag!=1 order by sort desc")
     List<Depot> queryNotDeleteDepot();
 
     /**
@@ -29,7 +29,7 @@ public interface DepotMapper {
      * 查询所有被删除的仓库
      * @return
      */
-    @Select("select * from depot where delete_Flag=1 order by sort desc")
+    @Select("select * from depot where deleteFlag=1 order by sort desc")
     List<Depot> queryDelete();
 
     /**

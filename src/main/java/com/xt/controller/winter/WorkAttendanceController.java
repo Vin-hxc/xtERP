@@ -1,5 +1,6 @@
 package com.xt.controller.winter;
 
+import com.alibaba.fastjson.JSON;
 import com.xt.entity.winter.WorkAttendance;
 import com.xt.service.winter.WorkAttendanceServiceI;
 import org.slf4j.Logger;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -56,29 +60,51 @@ public class WorkAttendanceController {
 
     /**
      * 查看该员工的考勤信息
-     * 表格的
-     * @param userId
+     * 表格的 userId
+     * @param
      * @param model
      * @return
      */
     @RequestMapping("/employeeAttendance")
-    public String getEmployeeAttendance(int userId, Model model){
-        List<WorkAttendance> employeeAttendance = workAttendanceService.getEmployeeAttendance(userId);
+    public String getEmployeeAttendance( Model model){
+        List<HashMap> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
         model.addAttribute("employeeAttendance",employeeAttendance);
-        return "winter/work/employeeAttendance";
+        return "winter/work/workDay";
     }
 
     /**
+     * 跳转到日程页面
+     * @return
+     */
+    @RequestMapping("/workDay")
+    public String getWork(){
+        return "winter/work/workDay";
+    }
+    /**
      * 查看该员工的考勤信息
-     * 日历上的
-     * @param userId
-     * @param model
+     * 日历上的 userId
+     * @param response
+     * @param
      * @return
      */
     @RequestMapping("/work")
-    public String getWorkAttendance(Model model){
-        List<WorkAttendance> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
-        model.addAttribute("work",employeeAttendance);
-        return "winter/work/workDay";
+    public List<HashMap> getWorkAttendance(Model model,HttpServletResponse response){
+        List<HashMap> employeeAttendance = workAttendanceService.getEmployeeAttendance(1);
+        model.addAttribute("employeeAttendance",employeeAttendance);
+        String result = JSON.toJSONString(employeeAttendance);
+        try {
+            sendJsonData(response,result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    protected void sendJsonData(HttpServletResponse response, String param) throws Exception{
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        out.println(param);
+        out.flush();
+        out.close();
     }
 }

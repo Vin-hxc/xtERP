@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -36,9 +37,16 @@ public interface WorkAttendanceMapper {
     boolean updateWorkAttendanceState(@Param("state") int state,
                                       @Param("id") int id);
 
+
     /**
-     * 修改考勤时间
-     * @param startTime 开始时间
+     * 修改上班时间
+     * @param startTime
+     * @param id
+     * @return
+     */
+    boolean updateWorkStartTime(@Param("startTime") Time startTime,int id);
+    /**
+     * 修改下班时间
      * @param endTime 结束时间
      * @param allHour 总时长
      * @param id 编号
@@ -54,5 +62,12 @@ public interface WorkAttendanceMapper {
      * @param userId
      * @return
      */
-    List<WorkAttendance> getEmployeeAttendance(int userId);
+    List<HashMap> getEmployeeAttendance(int userId);
+
+    /**
+     * 查询单条员工考勤数据
+     * @param id
+     * @return
+     */
+    WorkAttendance findWorkAttendance(int id);
 }

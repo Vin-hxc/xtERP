@@ -9,6 +9,7 @@ import com.xt.service.qxs.finance.ExpenditureServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 @Service
 public class ExpenditureServiceImpl implements ExpenditureServiceI {
@@ -108,21 +109,34 @@ public class ExpenditureServiceImpl implements ExpenditureServiceI {
      * @return
      */
     @Override
-    public boolean sumExpenditure(FinancialSettlement fs) {
+    public int sumExpenditure(FinancialSettlement fs) {
         //获取总金额
         Double sumExpenditure = expenditureMapper.sumExpenditure();
-        System.out.println("总金额："+sumExpenditure);
-        if(sumExpenditure>0.00){
+        if(sumExpenditure!=null && sumExpenditure>0){
+            System.out.println("总金额："+sumExpenditure);
             // 修改结算状态
             boolean stateClose = expenditureMapper.updateStateClose(1);
             if(stateClose){
+                fs.setBalanceDate(new Date());
                 fs.setTotalMoney(sumExpenditure);
                 fs.setType(1);
                 System.out.println("fs对象："+fs);
-                return financialSettlementMapper.addFinancialSettlement(fs);
+                boolean b = financialSettlementMapper.addFinancialSettlement(fs);
+                if(b){
+                    return 0;
+                }
             }
         }
+        return 1;
+    }
 
-        return false;
+    /**
+     * 清算尾款
+     * @param expenditure
+     * @return
+     */
+    @Override
+    public boolean liquidationExpenditure(Expenditure expenditure) {
+        return  expenditureMapper.liquidationExpenditure(expenditure);
     }
 }

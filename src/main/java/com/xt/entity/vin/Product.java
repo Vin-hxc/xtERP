@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * 产品类
  */
@@ -11,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-    private long id;//产品主键
+    private int id;//产品主键
     private String product_name;//产品名称
     private long product_model;//产品型号
     private long product_type;//产品类别
@@ -25,5 +27,5 @@ public class Product {
     private String serial_number;//产品序列号
     private String delete_Flag;//删除标记（0==未删除,1==删除)
     private String status;//产品审核 0未审核，1已审核，默认0
-    private Data createtime;//产品创建时间
+    private Date createtime;//产品创建时间
 }

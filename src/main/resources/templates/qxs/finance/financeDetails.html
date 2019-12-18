@@ -37,6 +37,7 @@
                             <th>负责人编号</th>
                             <th>描述</th>
                             <th>状态</th>
+                            <th>结算情况</th>
                             <th>是否确定付款</th>
                             <th>操作</th>
                         </tr>
@@ -53,6 +54,7 @@
                             <td th:text="${ex.principal}"></td>
                             <td th:text="${ex.remark}"></td>
                             <td th:text="${ex.deleteFlag==0?'正常':'已删除'}"></td>
+                            <td th:text="${ex.stateClose==0?'未结算':'已结算'}"></td>
                             <td>
                                 <button th:onclick="|affirm('${ex.expenditureId} ',0)|" id="fk" th:if="${ex.confirmPayment==0}" class="layui-btn layui-btn-radius layui-btn-warm">
                                         确定付款
@@ -60,7 +62,7 @@
                                 <samp th:if="${ex.confirmPayment==1}">已付款</samp>
                             </td>
                             <td>
-                                <button th:onclick="|zcUpdate('${ex.expenditureId} ')|" type="button" class="layui-btn layui-btn-sm">
+                                <button th:onclick="toChange([[${ex.expenditureId}]],0)" type="button" class="layui-btn layui-btn-sm">
                                     <i class="layui-icon">&#xe642;</i>编辑
                                 </button>
                                 <button th:onclick="|expurgate('${ex.expenditureId} ',0)|" type="button" class="layui-btn layui-btn-sm">
@@ -90,6 +92,7 @@
                         <th>负责人编号</th>
                         <th>描述</th>
                         <th>状态</th>
+                        <th>结算情况</th>
                         <th>是否确定收款</th>
                         <th>操作</th>
                     </tr>
@@ -106,6 +109,7 @@
                         <td th:text="${in.principal}"></td>
                         <td th:text="${in.remark}"></td>
                         <td th:text="${in.deleteFlag==0?'正常':'已删除'}"></td>
+                        <td th:text="${in.stateClose==0?'未结算':'已结算'}"></td>
                         <td>
                             <button th:onclick="|affirm('${in.incomeId} ',1)|" id="sk" th:if="${in.confirmReceipt==0}" class="layui-btn layui-btn-radius layui-btn-warm">
                                 确定收款
@@ -113,7 +117,7 @@
                             <samp th:if="${in.confirmReceipt==1}">已收款</samp>
                         </td>
                         <td>
-                            <button th:onclick="|skUpdate('${in.incomeId} ')|" type="button" class="layui-btn layui-btn-sm">
+                            <button th:onclick="toChange([[${in.incomeId}]],1)" type="button" class="layui-btn layui-btn-sm">
                                 <i class="layui-icon">&#xe642;</i>编辑
                             </button>
                             <button th:onclick="|expurgate('${in.incomeId} ',1)|" type="button" class="layui-btn layui-btn-sm">
@@ -234,7 +238,7 @@
     }
     //点击添加，查询当前项目的支出信息与收入信息
     function add(type) {
-        location.href='/finance/addReady?type='+type;
+        location.href='/finance/addReady';
         layui.use('layer',function () {
             var layer = layui.layer;
             layer.open({
@@ -256,6 +260,54 @@
                 }
             })
         })
+    }
+    //进入修改页面
+    function toChange(id,type) {
+        if(type==0){
+            //支出
+            var zc = id;
+            //location.href='/finance/toChange';
+            layui.use('layer',function () {
+                var layer = layui.layer;
+                layer.open({
+                    title:'修改支出记录',
+                    type:2,
+                    //skin: 'layui-layer-lan ', //样式类名
+                    closeBtn: 1, //显示关闭按钮
+                    anim: 2,
+                    area:['40%','100%'],
+                    resize:true,
+                    //id: '1', //防止重复弹出
+                    shadeClose: true, //开启遮罩关闭
+                    shade:[0.5], //透明度，背景颜色
+                    content: ['/finance/toChange?id='+zc+'&type='+0],
+                    //offset:'left',
+                    btn:['取消']
+                })
+            })
+        }else if(type==1){
+            //收入
+            var sr = id;
+            layui.use('layer',function () {
+                var layer = layui.layer;
+                layer.open({
+                    title:'修改收入记录',
+                    type:2,
+                    //skin: 'layui-layer-lan ', //样式类名
+                    closeBtn: 1, //显示关闭按钮
+                    anim: 2,
+                    area:['40%','100%'],
+                    resize:true,
+                    //id: '1', //防止重复弹出
+                    shadeClose: true, //开启遮罩关闭
+                    shade:[0.5], //透明度，背景颜色
+                    content: ['/finance/toChange?id='+sr+'&type='+1],
+                    //offset:'left',
+                    btn:['取消']
+
+                })
+            })
+        }
     }
 </script>
 </body>

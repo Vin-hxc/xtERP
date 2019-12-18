@@ -5,14 +5,15 @@
     <update id="updateExpenditure" parameterType="Expenditure">
         update expenditure
         <set>
-            <if test="balancePayment != 0.00 ">
-                <!-- 清算尾款 -->
-                balancePayment=#{balancePayment},
-            </if>
-            <if test="account !=null">
+            <if test=" account !=null">
                 <!-- 修改收款方 -->
-                account=#{account}
+                account=#{account},
             </if>
+            <if test=" remark !=null">
+                <!-- 修改收款方 -->
+                remark=#{remark},
+            </if>
+            principal=#{principal}
         </set>
         where expenditureId=#{expenditureId}
     </update>

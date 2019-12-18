@@ -2,8 +2,10 @@ package com.xt.service.qxs.warehouse.impl;
 
 import com.xt.entity.qxs.warehouse.DepotItem;
 import com.xt.entity.qxs.warehouse.Depothead;
+import com.xt.entity.qxs.warehouse.Materials;
 import com.xt.mapper.qxs.warehouse.DepotHeadMapper;
 import com.xt.mapper.qxs.warehouse.DepotItemMapper;
+import com.xt.mapper.qxs.warehouse.MaterialsMapper;
 import com.xt.service.qxs.warehouse.DepotHeadServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,8 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
     private DepotHeadMapper depotHeadMapper;
     @Autowired
     private DepotItemMapper depotItemMapper;
-
+    @Autowired
+    private MaterialsMapper materialsMapper;
     /**
      * 查询所有未删除的
      * @return
@@ -95,29 +98,33 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
             //根据id查询出当前数据
             Depothead depothead = depotHeadMapper.getDepotHeadID(id);
             if(depothead!=null){
-                //获取子表的基础数量，判断子表是否存在此数据
-                DepotItem depotItem = depotItemMapper.queryDepotItemRecord(depothead.getMaterialId());
-                if(depotItem!=null){
-                    //判断单据主表的类型
-                    if("出库".equals(depothead.getType())){
-                        //修改子表数量
-                        int i = depotItem.getBasicNumber() - depothead.getAmount();
-                        boolean updateAmount = depotItemMapper.updateAmount(i, depothead.getMaterialId());
-                        if(updateAmount){
-                            return 1;
-                        }else {
-                            return 5;
-                        }
-                    }else if("入库".equals(depothead.getType())){
-                        if (depotItem!=null){
+                //判断材料表中是否有此数据
+                Materials materials = materialsMapper.queryOneMaterials(depothead.getMaterialId());
+                if(materials!=null){
+                    //获取子表的基础数量
+                    DepotItem depotItem = depotItemMapper.queryDepotItemRecord(depothead.getMaterialId());
+                    if(depotItem!=null){
+                        //判断单据主表的类型
+                        if("出库".equals(depothead.getType())){
                             //修改子表数量
-                            boolean updateAmount = depotItemMapper.updateAmount
-                                    ((depotItem.getBasicNumber() + depothead.getAmount()),
-                                            depothead.getMaterialId());
+                            int i = depotItem.getBasicNumber() - depothead.getAmount();
+                            boolean updateAmount = depotItemMapper.updateAmount(i, depothead.getMaterialId());
                             if(updateAmount){
-                                return 2;
-                            }else  {
+                                return 1;
+                            }else {
                                 return 5;
+                            }
+                        }else if("入库".equals(depothead.getType())){
+                            if (depotItem!=null){
+                                //修改子表数量
+                                boolean updateAmount = depotItemMapper.updateAmount
+                                        ((depotItem.getBasicNumber() + depothead.getAmount()),
+                                                depothead.getMaterialId());
+                                if(updateAmount){
+                                    return 2;
+                                }else  {
+                                    return 5;
+                                }
                             }
                         }
                     }

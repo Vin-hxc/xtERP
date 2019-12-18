@@ -10,6 +10,7 @@ import com.xt.service.qxs.finance.IncomeServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -91,8 +92,8 @@ public class IncomeServiceImpl implements IncomeServiceI {
      * @return
      */
     @Override
-    public boolean liquidationIncome(Double balance_payment, Integer id) {
-        return incomeMapper.liquidationIncome(balance_payment,id);
+    public boolean liquidationIncome(Double actualPayment,Double balance_payment, Integer id) {
+        return incomeMapper.liquidationIncome(actualPayment,balance_payment,id);
     }
 
     /**
@@ -111,23 +112,26 @@ public class IncomeServiceImpl implements IncomeServiceI {
      * @return
      */
     @Override
-    public boolean sumIncome(FinancialSettlement fs) {
+    public int sumIncome(FinancialSettlement fs) {
         //调用结算方法
         Double income = incomeMapper.sumIncome();
-        System.out.println("总收入："+income);
-        if(income > 0.00){
+        if(income!=null && income > 0){
+            System.out.println("总收入："+income);
             //调用修改结算状态方法
             boolean stateClose = incomeMapper.updateStateClose(1);
             if(stateClose){
                 //给FinancialSettlement 对象赋值
+                fs.setBalanceDate(new Date());
                 fs.setTotalMoney(income);
                 fs.setType(2);
-                //调用 财政结算的新增方法
+                //调用 财政汇总的新增方法
                 boolean b = financialSettlementMapper.addFinancialSettlement(fs);
-                return b;
+                if(b){
+                    return 0;
+                }
             }
         }
-        return false;
+        return 1;
     }
 
     /**

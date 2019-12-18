@@ -11,6 +11,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -46,6 +47,19 @@ public class WorkAttendanceServiceImpl implements WorkAttendanceServiceI {
     }
 
     /**
+     * 修改上班时间
+     *
+     * @param startTime
+     * @param id
+     * @return
+     */
+    @Override
+    public boolean updateWorkStartTime(Time startTime, int id) {
+        return workAttendanceMapper.updateWorkStartTime(startTime,id);
+    }
+
+
+    /**
      * 修改考勤时间
      *
      * @param startTime 开始时间
@@ -71,7 +85,7 @@ public class WorkAttendanceServiceImpl implements WorkAttendanceServiceI {
      * @return
      */
     @Override
-    public List<WorkAttendance> getEmployeeAttendance(int userId) {
+    public List<HashMap> getEmployeeAttendance(int userId) {
         return workAttendanceMapper.getEmployeeAttendance(userId);
     }
 }

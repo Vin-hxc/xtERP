@@ -21,12 +21,23 @@
     <update id="updateWorkAttendanceState" parameterType="com.xt.entity.winter.WorkAttendance">
       update workAttendance set start = #{start} where id = #{id}
     </update>
+    <!-- 修改上班时间 -->
+    <update id="updateWorkStartTime" parameterType="com.xt.entity.winter.WorkAttendance">
+        update workattendance set startTime = #{startTime} where id = #{id}
+    </update>
     <!--修改考勤时间-->
     <update id="updateWorkAttendanceDate" parameterType="com.xt.entity.winter.WorkAttendance">
-      update workAttendance set startTime = #{startTime},endTime = #{endTime},allHour = #{allHour} where id = #{id}
+      update workAttendance set endTime = #{endTime},allHour = #{allHour},workState = 1 where id = #{id}
     </update>
     <!--查看该员工的考勤信息-->
-    <select id="getEmployeeAttendance" resultType="com.xt.entity.winter.WorkAttendance">
-        select * from workAttendance w left join userInfo u on u.id = w.userId where userId = #{userId} order by attendanceDate desc
+    <select id="getEmployeeAttendance" resultType="hashmap">
+        select w.id,u.userName,w.attendanceDate,w.`week`,w.startTime,w.endTime,w.allHour,w.state from workAttendance w
+        inner join userInfo u on u.id = w.userId
+        where userId = 1 order by attendanceDate desc
+    </select>
+
+    <!-- 查询单条员工记录 -->
+    <select id="findWorkAttendance" resultType="com.xt.entity.winter.WorkAttendance">
+        select * from workattendance where id = #{id}
     </select>
 </mapper>

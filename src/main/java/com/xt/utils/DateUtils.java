@@ -146,6 +146,19 @@ public class DateUtils {
     }
 
     /**
+     * 获取日期后某天日期
+     * @param day
+     * @return
+     */
+    public static String getAfterDay(int day){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(YMDHMS);
+        calendar.add(Calendar.DATE, day);
+        String three_days_after = sdf.format(calendar.getTime());
+        System.out.println(three_days_after);
+        return three_days_after;
+    }
+    /**
      * 可以获取昨天的日期
      * 格式：2014-12-01
      *
@@ -316,7 +329,8 @@ public class DateUtils {
     }
 
     public static void main(String[] args) throws ParseException {
-        logger.info("获取当前日期时间：{}", DateUtils.getCurrentTime());
+        logger.info("获取后几天日期：",DateUtils.getAfterDay(30));
+        /*logger.info("获取当前日期时间：{}", DateUtils.getCurrentTime());
         logger.info("获取当前日期：{}", DateUtils.getCurrentDate());
         logger.info("获取当前日期时间：{}", DateUtils.getSysTime());
         logger.info("获取当前日期：{}", DateUtils.getSysDate());
@@ -328,7 +342,7 @@ public class DateUtils {
         logger.info("获取当前日：{}", DateUtils.getCureentHourMinute());
         SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
         Date date1 = format.parse("8:30:00");
-        Date date2 = format.parse("14:20:20");
+        Date date2 = format.parse("14:20:20");*/
         /*logger.info("计算两个时间之间的时间差："+DateUtils.timeDifference(date1,date2));*/
     }
 }
