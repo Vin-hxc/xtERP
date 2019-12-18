@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,7 +49,7 @@ public interface DepotHeadMapper {
      * @param id
      * @return
      */
-    @Select("select * from depotHead where id=#{id} and deleteFlag='1' ")
+    @Select("select * from depotHead where id=#{id} ")
     Depothead getDepotHeadID(Integer id);
 
     /**
@@ -94,4 +96,12 @@ public interface DepotHeadMapper {
      */
     @Delete("delete from depotHead where number=#{number}")
     boolean deDepotHeadNumber(String number);
+
+    /**
+     * 修改出入库时间 需要审核通过调用
+     * @param date
+     * @return
+     */
+    @Update("update depotHead set operTime=#{date} where id=#{id} and status=1")
+    boolean updateDateTime(Date date, Integer id);
 }

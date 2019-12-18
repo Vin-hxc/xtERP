@@ -69,7 +69,7 @@
                             <button type="button" th:onclick="addMaterials()" class="layui-btn layui-btn-sm">
                                 <i class="layui-icon">&#xe654;</i>新增材料类型
                             </button>
-                            <button type="button" th:onclick="deleteDepot([[${item.id}]],0)" class="layui-btn layui-btn-sm">
+                            <button type="button" th:if="${item.flag=='0'}" th:onclick="deleteDepot([[${item.id}]],0)" class="layui-btn layui-btn-sm">
                                 <i class="layui-icon">&#xe640;</i>删除
                             </button>
                             <button type="button" class="layui-btn layui-btn-sm">
@@ -109,6 +109,64 @@
                 </li>
             </ul>
         </div>
+        <div class="layui-tab-item">
+            <!-- 出入库管理 -->
+           <table id="tab" class="table table-border table-bordered table-hover table-bg table-sort">
+               <thead>
+                    <tr class="text-c">
+                        <th>票据号</th>
+                        <th>类型</th>
+                        <th>操作人</th>
+                        <th>单据创建时间</th>
+                        <th>出入库时间</th>
+                        <th>经手人</th>
+                        <th>物品单价</th>
+                        <th>物品数量</th>
+                        <th>总额</th>
+                        <th>存储天数</th>
+                        <th>审核</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+               </thead>
+               <tbody>
+                    <tr class="text-c" th:each="head : ${depotHeads}" >
+                        <td th:text="${head.number}"></td>
+                        <td th:text="${head.type}"></td>
+                        <td th:text="${head.operPersonName}"></td>
+                        <td th:text="${head.createTime}"></td>
+                        <td th:text="${head.operTime}"></td>
+                        <td th:text="${head.handsPersonId}"></td>
+                        <td th:text="${head.changeAmount}"></td>
+                        <td th:text="${head.amount}"></td>
+                        <td th:text="${head.totalPrice}"></td>
+                        <td th:text="${head.accountDay}"></td>
+                        <td>
+                            <button th:if="${head.status==0}" th:onclick="state([[${head.id}]],1)" class="layui-btn layui-btn-sm">通过</button>
+                            <button th:if="${head.status==0}" th:onclick="state([[${head.id}]],2)" class="layui-btn layui-btn-sm">拒绝</button>
+                            <samp th:if="${head.status==1}">审核通过</samp>
+                        </td>
+                        <td th:text="${head.deleteFlag=='0'?'正常':'已删除'}"></td>
+                        <td>
+                            <div class="layui-btn-group">
+                                <button type="button" class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe654;</i>
+                                </button>
+                                <button type="button" class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe642;</i>
+                                </button>
+                                <button type="button" th:if="${head.deleteFlag=='0'} " class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe640;</i>
+                                </button>
+                                <button type="button" class="layui-btn layui-btn-sm">
+                                    <i class="layui-icon">&#xe602;</i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+               </tbody>
+           </table>
+        </div>
     </div>
 </div>
 
@@ -120,6 +178,9 @@
     });
 
     $("#tp").DataTable({
+        aLengthMenu:[3,5,10]
+    });
+    $("#tab").DataTable({
         aLengthMenu:[3,5,10]
     });
     // layui文件上传
@@ -181,7 +242,7 @@
                     success:function (resp) {
                         if(resp){
                             alert('数据已删除');
-                            prototype.location.reload();
+                            location.reload();
                             location.href='/depot/pageDepot';
                         }else {
                             alert('数据删除失败...')
@@ -254,6 +315,92 @@
                 }
             })
         })
+    }
+
+    function state(id,state) {
+        if(confirm('是否确认...')){
+            $.ajax({
+               url:'/depot/headState',
+               dataType:'json',
+               type:'post',
+               data:{'id':id,'state':state},
+               success:function (resp) {
+                    if(resp==1){
+                        alert('出库审核通过!');
+                        location.reload();
+                        location.href='/depot/pageDepot';
+                    }else if(resp==2){
+                        alert('入库审核通过！');
+                        location.reload();
+                        location.href='/depot/pageDepot';
+                    }else if(resp==3){
+                        alert('审核通过，新品入库，请添加材料类型');
+                        layui.use('layer',function () {
+                            var layer = layui.layer;
+                            var dom = "<div><table class='layui-table'><thead>" +
+                                "<tr class='text-c'>" +
+                                "<th>名称</th>" +
+                                "<th>类型</th>" +
+                                "<th>计量单位</th>" +
+                                "<th>描述</th>" +
+                                "</tr></thead>" +
+                                "<tbody><tr class='text-c'>" +
+                                "<td><input type='text' name='mName' placeholder='请输入名称' required class='layui-input' autocomplete='off' /></td>" +
+                                "<td><input type='radio' name='mType' required lay-skin='primary' autocomplete='off' value='成品' />成品  " +
+                                "<input type='radio' name='mType' required lay-skin='primary' autocomplete='off' value='零件' checked />零件</td>" +
+                                "<td><input name='mUnit' placeholder='请输入计量单位' type='text' required class='layui-input' autocomplete='off' /></td>" +
+                                "<td><textarea name='remark' required class='layui-textarea' placeholder='请输入'></textarea></td>" +
+                                "</tr></tbody>" +
+                                "</table></div>"
+                            layer.open({
+                                title:'新增材料类别',
+                                type:1,
+                                skin: 'layui-layer-lan ', //样式类名
+                                closeBtn: 1, //显示关闭按钮
+                                anim: 2,
+                                area:['60%','35%'],
+                                resize:true,
+                                //id: '1', //防止重复弹出
+                                shadeClose: true, //开启遮罩关闭
+                                shade:[0.5], //透明度，背景颜色
+                                content: dom,
+                                btn:['确定','取消'],
+                                yes:function () {
+                                    var mName = $("input[name='mName']").val();
+                                    var mType = $("input[name='mType']:checked").val();
+                                    var mUnit = $("input[name='mUnit']").val();
+                                    var remark = $("textarea[name='remark']").val();
+                                    //alert(mName+"=="+mType);
+                                    alert(mName+"="+mType+"="+mUnit+"="+remark)
+                                    if(mName!=null && mName!="" && mUnit!=null && mUnit!="" && remark!=null && remark!=""){
+                                        $.ajax({
+                                            url:'/depot/addMaterials',
+                                            dateType:'json',
+                                            type:'post',
+                                            data:{'mName':mName,'mType':mType,'mUnit':mUnit,'remark':remark},
+                                            success:function (resp) {
+                                                if(resp){
+                                                    debugger;
+                                                    alert('数据添加成功...');
+                                                    location.reload();
+                                                    location.href='/depot/pageDepot';
+                                                }else {
+                                                    alert('数据添加失败...')
+                                                }
+                                            }
+                                        });
+                                    }else {
+                                        alert("请填写数据");
+                                    }
+                                }
+                            })
+                        });
+                    }else {
+                        alert('审核失败');
+                    }
+               }
+            });
+        }
     }
 </script>
 </html>

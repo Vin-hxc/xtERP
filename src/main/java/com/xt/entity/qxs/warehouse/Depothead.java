@@ -22,7 +22,7 @@ public class Depothead {
     private Integer organId;//供应商/客户 id
     private Integer handsPersonId;//经手人id：销售/采购
     private Integer account;//外键 付款账号
-    private Double changeAmount;//变动金额 付款/收款
+    private Double changeAmount;//单价
     private Double totalPrice;//合计金额
     private String payType;//付款方式
     private String remark;//描述
