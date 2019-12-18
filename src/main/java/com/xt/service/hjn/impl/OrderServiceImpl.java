@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderServiceI {
      */
     @Override
     public int updateState(int orderstate, int id) {
-        return orderMapper.updateState(id);
+        return orderMapper.updateState(orderstate,id);
     }
 
     /**

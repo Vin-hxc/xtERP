@@ -2,6 +2,7 @@ package com.xt.service.zqw.impl;
 
 import com.xt.entity.zqw.Number;
 import com.xt.entity.zqw.Picking;
+import com.xt.entity.zqw.Productionplan;
 import com.xt.mapper.zqw.NumberMapper;
 import com.xt.mapper.zqw.ProductionplanMapper;
 import com.xt.service.zqw.NumberServiceI;
@@ -18,10 +19,12 @@ public class NumberServiceImpl implements NumberServiceI {
     @Autowired
     private  ProductionplanMapper productionplanMapper;
     @Override
-    public Boolean inserNum(Number number,Picking picking) {
+    public Boolean inserNum(Number number, Picking picking, Productionplan productionplan) {
         Boolean aBoolean = numberMapper.inserNum(number);
+        System.out.println(picking.getStartTime()+"--------------------------->sj");
         boolean inserpick = productionplanMapper.inserpick(picking);
-        if (aBoolean && inserpick){
+        boolean b = productionplanMapper.inserProuct(productionplan);
+        if (aBoolean && inserpick && b){
             return true;
         }
         return false;

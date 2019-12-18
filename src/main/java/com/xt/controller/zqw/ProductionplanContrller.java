@@ -34,7 +34,6 @@ public class ProductionplanContrller {
     public String pdsele(HttpServletRequest request){
         List<HashMap> list = productionplanServiceI.seleProuct();
         request.setAttribute("pdsele",list);
-        System.out.println(list);
         return "zqw/seleProuct";
     }
     @RequestMapping("aaa")
@@ -50,24 +49,16 @@ public class ProductionplanContrller {
    public String dgselepd(HttpServletRequest request){
         List<HashMap> list = productionplanServiceI.dgselepro();
         List<Userinfo> seleuser = productionplanServiceI.seleuser();
+        List<HashMap> list1 = productionplanServiceI.seleProckll();
+        List<Product_model> selepmll = productionplanServiceI.selepmll();
+        request.setAttribute("selepmll",selepmll);
         request.setAttribute("dgselepd",list);
         request.setAttribute("seleuserf",seleuser);
-        System.out.println(list);
-        return "zqw/index";
+        request.setAttribute("seleprockll",list1);
+        System.out.println("产品信息："+list1);
+        return "zqw/index1";
    }
 
-    /**
-     * 查询产品信息
-     * @param request
-     * @return
-     */
-   @RequestMapping("selepml")
-    public String selepml(HttpServletRequest request){
-       List<Product_model> selepmll = productionplanServiceI.selepmll();
-       request.setAttribute("selepmll",selepmll);
-       System.out.println(selepmll);
-       return "zqw/pickingTj";
-    }
 
 
     /**
@@ -76,15 +67,15 @@ public class ProductionplanContrller {
      * @param startTime
      * @param endTime
      * @param personCharge
-     * @param prquantity
+     * @param pickingid
      * @return
      */
    @RequestMapping("inserPro")
-    public String inserPro( int id, String startTime,String endTime,int personCharge,int prquantity,HttpServletRequest request) throws ParseException {
+    public String inserPro( int id, String startTime,String endTime,int personCharge,int pickingid,HttpServletRequest request) throws ParseException {
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        Date date1 = sdf.parse(startTime);
        Date date2 = sdf.parse(endTime);
-       Productionplan productionplan = new Productionplan(0,id,date1,date2,personCharge,0,0,prquantity);
+       Productionplan productionplan = new Productionplan(0,id,date1,date2,personCharge,0,0,pickingid);
        boolean b = productionplanServiceI.inserProuct(productionplan);
        System.out.println(b);
        return "redirect:/pdsele";
@@ -98,7 +89,7 @@ public class ProductionplanContrller {
      */
     @RequestMapping("delepro")
     public String delepro(int id){
-        boolean b = productionplanServiceI.deletePeouct(2,id);
+        boolean b = productionplanServiceI.deletePeouct(1,id);
         return "redirect:/pdsele";
     }
 

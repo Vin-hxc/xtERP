@@ -1,54 +1,235 @@
 <!DOCTYPE html>
-<html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>CSS-only Material Inputs</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <meta charset="UTF-8">
+    <title>添加生产计划</title>
+    <script src="/static/layui/layui/layui.js"></script>
+    <link rel="stylesheet" href="/static/layui/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="/static/css/H-ui.min.css" />
 
-  
-      <link rel="stylesheet" href="css/style.css">
-
-  
+    <style>
+        #test1{
+            margin-left: 110px;
+        }
+        #test2{
+            margin-left: 110px;
+        }
+        h3{
+            margin-left: 200px;
+        }
+        #big{
+            width: 500px;
+        }
+        #big1{
+            margin-left: 0px;
+        }
+    </style>
+    <script src="/static/js/jquery-3.4.1.min.js"></script>
 </head>
-
 <body>
-  
-<div class="wrapper">
-  <form>
-    <h1>Material Inputs</h1>
-    <h5>Inspired by Google's Material Design guidelines for text fields</h5>
-    <div class="btn-box"><a class="btn btn-link" href="https://material.google.com/components/text-fields.html" target="_blank">Design Docs</a></div>
-    <hr class="sep"/>
-    <div class="group">
-      <input type="text" required="required"/><span class="highlight"></span><span class="bar"></span>
-      <label>Name</label>
+<form class="layui-form" method="post" action="insernum">
+    <h3>添加生产计划</h3>
+    <div class="layui-form-item" id="big">
+        <label class="layui-form-label">产品名称</label>
+        <div class="layui-input-block">
+            <select name="id" lay-verify="required" id="id">
+                <option>请选择产品名称</option>
+                <option th:each="dgselepds:${dgselepd}"
+                        th:value="${dgselepds.id}" th:text="${dgselepds.product_name}" >
+                </option>
+            </select>
+        </div>
     </div>
-    <div class="group">
-      <input type="text" required="required"/><span class="highlight"></span><span class="bar"></span>
-      <label>Email</label>
+    <div class="layui-inline" id="startTime">
+        <input type="text" class="layui-input" id="test1" placeholder="开始时间" name="startTime">
     </div>
-    <div class="group">
-      <input type="password" required="required"/><span class="highlight"></span><span class="bar"></span>
-      <label>Password</label>
+    <br/>
+    <br/>
+    <div class="layui-inline" id="endTime">
+        <input type="text" class="layui-input" id="test2" placeholder="预计结束时间" name="endTime">
     </div>
-    <div class="group">
-      <input type="number" required="required"/><span class="highlight"></span><span class="bar"></span>
-      <label>Number</label>
+    <br/>
+    <br/>
+    <div class="layui-form-item" id="big" >
+        <label class="layui-form-label">所需物料</label>
+        <div id="wl" class="layui-input-block">
+            <table th:each="selepmll:${selepmll}">
+                <tr >
+                    <th>
+                        <div>
+                            <select lay-verify=""  name="pickingNo" id="pickingNo">
+                                <option>请输入主板</option>
+                                <option th:value="${selepmll.id}" th:text="${selepmll.motherboard}" name="ctname"></option>
+                            </select>
+                        </div>
+                    </th>
+                    <td>
+                        <div id="big1">
+                            <input type="text" name="numberzb" id="numberzb" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+                        </div>
+                    </td>
+                </tr>
+                <tr >
+                    <th>
+                        <div>
+                            <select name="pickingNo" lay-verify="" >
+                                <option>请输入cpu</option>
+                                <option th:value="${selepmll.id}" th:text="${selepmll.cpu}" name="ctname"></option>
+                            </select>
+                        </div>
+                    </th>
+                    <td>
+                        <div id="big1">
+                            <input type="text" name="numbercpu" id="numbercpu" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+                        </div>
+                    </td>
+                </tr>
+                <tr >
+                    <th>
+                        <div>
+                            <select name="pickingNo" lay-verify="">
+                                <option>请输入内存条</option>
+                                <option th:value="${selepmll.id}" th:text="${selepmll.memories}" name="ctname"></option>
+                            </select>
+                        </div>
+                    </th>
+                    <td>
+                        <div id="big1">
+                            <input type="text" name="numbernc" id="numbernc" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+                        </div>
+                    </td>
+                </tr>
+                <tr >
+                    <th>
+                        <div>
+                            <select name="pickingNo" lay-verify="" >
+                                <option>请输入显卡</option>
+                                <option th:value="${selepmll.id}" th:text="${selepmll.video_card}" name="ctname"></option>
+                            </select>
+                        </div>
+                    </th>
+                    <td>
+                        <div id="big1">
+                            <input type="text" name="numberxk" id="numberxk" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+                        </div>
+                    </td>
+                </tr>
+                <tr >
+                    <th>
+                        <div>
+                            <select name="pickingNo" lay-verify="" >
+                                <option>请输入硬盘</option>
+                                <option th:value="${selepmll.id}" th:text="${selepmll.disks}" name="ctname"></option>
+                            </select>
+                        </div>
+                    </th>
+                    <td>
+                        <div id="big1">
+                            <input type="text" name="numberyp" id="numberyp" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+                        </div>
+                    </td>
+                </tr>
+                <tr >
+                    <th>
+                        <div>
+                            <select name="pickingNo" lay-verify="" >
+                                <option>请输入固态硬盘</option>
+                                <option th:value="${selepmll.id}" th:text="${selepmll.ssd}" name="ctname"></option>
+                            </select>
+                        </div>
+                    </th>
+                    <td>
+                        <div id="big1">
+                            <input type="text" name="numbergtyp" id="numbergtyp" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+        <div class="layui-form-item" id="big">
+            <label class="layui-form-label">负责人</label>
+            <div class="layui-input-block">
+                <select name="personCharge" lay-verify="required" id="personCharge" >
+                    <option>请选择负责人</option>
+                    <option th:each="seleuserf:${seleuserf}"
+                            th:value="${seleuserf.id}" th:text="${seleuserf.userName}" >
+                    </option>
+                </select>
+            </div>
+        </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo" id="tj">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
     </div>
-    <div class="group">
-      <textarea type="textarea" rows="5" required="required"></textarea><span class="highlight"></span><span class="bar"></span>
-      <label>Message</label>
-    </div>
-    <div class="btn-box">
-      <button class="btn btn-submit" type="submit">submit</button>
-      <button class="btn btn-cancel" type="button">cancel</button>
-      <h5>*these buttons do nothing <span class="emoji">&#x1F609;</span></h5>
-    </div>
-  </form>
-</div>
-  
-    <script src="js/index.js"></script>
+</form>
 
+<script>
+    //Demo
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+</script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#test1' //指定元素
+        });
+        laydate.render({
+            elem: '#test2' //指定元素
+        });
+
+    });
+</script>
+<script>
+
+/*    $(function () {
+        $("#tj").click(function () {
+            debugger;
+            var id = $("#id").val();
+            var startTime = $("#startTime").val();
+            var endTime = $("#endTime").val();
+            var numbergtyp = $("#numbergtyp").val();
+            var pickingNo = $("#pickingNo").val();
+            var numberzb = $("#numberzb").val();
+            var numbercpu = $("#numbercpu").val();
+            var numbernc = $("#numbernc").val();
+            var numberxk = $("#numberxk").val();
+            var numberyp = $("#numberyp").val();
+            var personCharge = $("#personCharge").val();
+            $.ajax({
+                url:"insernum",
+                dateType:"json",
+                type:"post",
+                data:{
+                    "id":id,
+                    "startTime":startTime,
+                    "endTime":endTime,
+                    "pickingNo":pickingNo,
+                    "numberzb":numberzb,
+                    "numbercpu":numbercpu,
+                    "numbernc":numbernc,
+                    "numberxk":numberxk,
+                    "numberyp":numberyp,
+                    "numbergtyp":numbergtyp,
+                    "personCharge":personCharge,
+                },
+                success:function (resp) {
+                    debugger;
+                    if (resp!=null){
+                        alert("添加成功")
+                    }else {
+                        alert("添加失败")
+                    }
+                }
+            });
+        });
+    })*/
+</script>
 </body>
 </html>

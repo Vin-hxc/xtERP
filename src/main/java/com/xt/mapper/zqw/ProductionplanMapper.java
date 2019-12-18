@@ -31,8 +31,8 @@ public interface ProductionplanMapper {
      * @param productionplan
      * @return
      */
-    @Insert("insert into productionplan(id,productId,startTime,endTime,personCharge,productionAudit,deleteProd,prquantity) values " +
-            "(null,#{productId},#{startTime},#{endTime},#{personCharge},#{productionAudit},#{deleteProd},#{prquantity})")
+    @Insert("insert into productionplan(id,productId,startTime,endTime,personCharge,productionAudit,deleteProd,pickingid) values " +
+            "(null,#{productId},#{startTime},#{endTime},#{personCharge},#{productionAudit},#{deleteProd},#{pickingid})")
     boolean inserProuct(Productionplan productionplan);
 
     /**
@@ -76,8 +76,8 @@ public interface ProductionplanMapper {
      * @param picking
      * @return
      */
-    @Insert("insert into picking(id,pickingNo,startTime,productionAudit,deletePick,productionid) values " +
-            "(null,#{pickingNo},#{startTime},#{productionAudit},#{deletePick},#{productionid})")
+    @Insert("insert into picking(id,pickingNo,startTime,productionAudit,deletePick) values " +
+            "(null,#{pickingNo},#{startTime},#{productionAudit},#{deletePick})")
     boolean inserpick(Picking picking);
 
     /**
@@ -92,7 +92,15 @@ public interface ProductionplanMapper {
      * @return
      */
     @Select("select productionplan.pickingid,picking.*,number.*,product_model.* from productionplan,picking,number,product_model\n" +
-            "where productionplan.pickingid=picking.productionid and Number.pickid=picking.id and picking.pickingNo=product_model.id")
+            "where productionplan.pickingid=picking.id and Number.pickid=picking.id and picking.pickingNo=product_model.id")
     List<HashMap> selepropick(int pickingid);
+
+    /**
+     * 查询生产和领料数据
+     * @return
+     */
+    @Select("select productionplan.pickingid,picking.*,number.*,product_model.* from productionplan,picking,number,product_model\n" +
+            "where productionplan.pickingid=picking.id and Number.pickid=picking.id and picking.pickingNo=product_model.id")
+    List<HashMap> seleProckll();
 
 }

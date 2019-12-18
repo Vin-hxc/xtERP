@@ -2,6 +2,7 @@ package com.xt.service.zqw;
 
 import com.xt.entity.zqw.Number;
 import com.xt.entity.zqw.Picking;
+import com.xt.entity.zqw.Productionplan;
 
 /**
  * 物料数量的业务层操作接口
@@ -12,5 +13,5 @@ public interface NumberServiceI {
      * @param number
      * @return
      */
-    Boolean inserNum(Number number, Picking picking);
+    Boolean inserNum(Number number, Picking picking, Productionplan productionplan);
 }

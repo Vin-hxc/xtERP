@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
 
 @Controller
 public class NumberContrller {
@@ -28,17 +30,30 @@ public class NumberContrller {
      * @param numberxk
      * @param numberyp
      * @param numbergtyp
-     * @param pickid
+     * @param
      * @return
      */
     @RequestMapping("insernum")
-    public String insernum(String numberzb,String numbercpu,String numbernc,String numberxk,String numberyp,String numbergtyp,int pickid,int productionid){
-     Number number = new Number(0,numberzb,numbercpu,numbernc,numberxk,numberyp,numbergtyp,pickid);
+    public String insernum(int id, Date startTime,Date endTime,int personCharge,String numberzb,String numbercpu,String numbernc,String numberxk,String numberyp,String numbergtyp,int pickingNo) throws ParseException {
+     Number number = new Number(0,numberzb,numbercpu,numbernc,numberxk,numberyp,numbergtyp,pickingNo);
      Date t = new Date();
-     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-     String format = df.format(t);
-     Picking picking = new Picking(0,pickid,t,0,0,productionid);
-     Boolean aBoolean = numberServiceI.inserNum(number,picking);
-     return "redirect:/selepml";
+     Picking picking = new Picking();
+     picking.setId(0);
+     picking.setPickingNo(pickingNo);
+     picking.setStartTime(t);
+     picking.setProductionAudit(0);
+     picking.setDeletePick(0);
+     Productionplan productionplan = new Productionplan();
+     productionplan.setId(0);
+     productionplan.setProductId(id);
+     productionplan.setStartTime(startTime);
+     productionplan.setEndTime(endTime);
+     productionplan.setPersonCharge(personCharge);
+     productionplan.setProductionAudit(0);
+     productionplan.setDeleteProd(0);
+     productionplan.setPickingid(pickingNo);
+     Boolean aBoolean = numberServiceI.inserNum(number,picking,productionplan);
+     System.out.println(aBoolean);
+     return "redirect:/pdsele";
     }
 }
