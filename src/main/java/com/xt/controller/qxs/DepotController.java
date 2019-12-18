@@ -1,6 +1,7 @@
 package com.xt.controller.qxs;
 
 import com.xt.entity.qxs.warehouse.Depot;
+import com.xt.entity.qxs.warehouse.Depothead;
 import com.xt.entity.qxs.warehouse.Materials;
 import com.xt.service.qxs.warehouse.DepotHeadServiceI;
 import com.xt.service.qxs.warehouse.DepotItemServiceI;
@@ -60,6 +61,9 @@ public class DepotController {
         //查询所有材料类别
         List<Materials> materials = materialsServiceI.queryAllMaterials();
         model.addAttribute("materials",materials);
+        //查询所有单据
+        List<Depothead> depotHeads = depotHeadServiceI.queryAllDepotHead();
+        model.addAttribute("depotHeads",depotHeads);
         return "qxs/warehouse/depotMain";
     }
 
@@ -118,4 +122,16 @@ public class DepotController {
         return materialsServiceI.addMaterials(materials);
     }
 
+    /**
+     * 单据主表审核
+     * @param id
+     * @param state
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("headState")
+    public int stateHead(Integer id,Integer state){
+        int i = depotHeadServiceI.depotHeadExamin(state, id);
+        return i;
+    }
 }

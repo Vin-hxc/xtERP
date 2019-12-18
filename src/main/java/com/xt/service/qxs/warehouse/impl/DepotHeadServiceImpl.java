@@ -10,6 +10,7 @@ import com.xt.service.qxs.warehouse.DepotHeadServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -89,7 +90,7 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
      * @param status 1:已审核 0:未审核 2：不通过 默认 0 其他数值为待审核
      * @param id
      * @return int 0：失败； 1:出库办理成功,通过审核；2：入库办理成功,通过审核；
-     * 3：不存在此数据，需要对子表数据进行新增,通过审核; 5:子表数据添加/修改失败，通过审核
+     * 3：不存在此数据，需要对子表数据进行新增,通过审核; 5:子表数据添加/修改失败
      */
     @Override
     public int depotHeadExamin(Integer status, Integer id) {
@@ -103,28 +104,52 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                 if(materials!=null){
                     //获取子表的基础数量
                     DepotItem depotItem = depotItemMapper.queryDepotItemRecord(depothead.getMaterialId());
-                    if(depotItem!=null){
-                        //判断单据主表的类型
-                        if("出库".equals(depothead.getType())){
+                    //判断单据主表的类型
+                    if("成品出库".equals(depothead.getType()) || "零件出库".equals(depothead.getType())){
+                        if(depotItem!=null){
                             //修改子表数量
                             int i = depotItem.getBasicNumber() - depothead.getAmount();
                             boolean updateAmount = depotItemMapper.updateAmount(i, depothead.getMaterialId());
                             if(updateAmount){
+                                depotHeadMapper.updateDateTime(new Date(), id);
                                 return 1;
                             }else {
+                                depotHeadMapper.depotHeadExamin(0, id);
                                 return 5;
                             }
-                        }else if("入库".equals(depothead.getType())){
-                            if (depotItem!=null){
-                                //修改子表数量
-                                boolean updateAmount = depotItemMapper.updateAmount
-                                        ((depotItem.getBasicNumber() + depothead.getAmount()),
-                                                depothead.getMaterialId());
-                                if(updateAmount){
-                                    return 2;
-                                }else  {
-                                    return 5;
-                                }
+                        }else {
+                            //子表不存在这条数据，进行新增
+                            int type = materials.getMType().equals("材料")?2:1;
+                            DepotItem item = new DepotItem(null, id, depothead.getMaterialId(), depothead.getAmount(),
+                                    depothead.getChangeAmount(), "0", "0", type, "0");
+                            boolean addDepotItem = depotItemMapper.addDepotItem(item);
+                            if(addDepotItem){
+                                depotHeadMapper.updateDateTime(new Date(), id);
+                                return 1;
+                            }
+                        }
+                    }else if("成品入库".equals(depothead.getType()) || "零件入库".equals(depothead.getType())){
+                        if (depotItem!=null){
+                            //修改子表数量
+                            boolean updateAmount = depotItemMapper.updateAmount
+                                    ((depotItem.getBasicNumber() + depothead.getAmount()),
+                                            depothead.getMaterialId());
+                            if(updateAmount){
+                                depotHeadMapper.updateDateTime(new Date(), id);
+                                return 2;
+                            }else  {
+                                depotHeadMapper.depotHeadExamin(0, id);
+                                return 5;
+                            }
+                        }else {
+                            //子表不存在这条数据，进行新增
+                            int t = materials.getMType().equals("材料")?2:1;
+                            DepotItem item = new DepotItem(null, id, depothead.getMaterialId(), depothead.getAmount(),
+                                    depothead.getChangeAmount(), null, null, t, "0");
+                            boolean addDepotItem = depotItemMapper.addDepotItem(item);
+                            if(addDepotItem){
+                                depotHeadMapper.updateDateTime(new Date(), id);
+                                return 2;
                             }
                         }
                     }
@@ -133,6 +158,7 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                 }
             }
         }
+        depotHeadMapper.depotHeadExamin(0, id);
         return 0;
     }
 
