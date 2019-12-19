@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Update;
 
 import javax.xml.crypto.Data;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -104,4 +105,13 @@ public interface DepotHeadMapper {
      */
     @Update("update depotHead set operTime=#{date} where id=#{id} and status=1")
     boolean updateDateTime(Date date, Integer id);
+
+    /**
+     * 报表查询
+     * @return
+     */
+    @Select(" select d.type dtype,d.amount am,m.mname materialsName,m.mtype mtype " +
+            " from depothead d LEFT JOIN materials m on d.materialid=m.id" +
+            " where `status`=1 and deleteFlag='0'")
+    List<HashMap> queryHead();
 }

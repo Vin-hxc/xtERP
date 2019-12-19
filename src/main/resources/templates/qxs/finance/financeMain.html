@@ -91,14 +91,14 @@
                 //加载数据图表
                 my.setOption({
                     series:[{
-                        type:'pie',
-                        radius:'95%',
-                        data:[
-                            {value:zc,name:zcType},
-                            {value:sr,name:srType}
-                        ]
-                    }]
-                });
+                    type:'pie',
+                    radius:'95%',
+                    data:[
+                        {value:zc,name:zcType},
+                        {value:sr,name:srType}
+                    ]
+                }]
+            });
             }else {
                 alert("图表请求数据失败!");
                 my.hideLoading();

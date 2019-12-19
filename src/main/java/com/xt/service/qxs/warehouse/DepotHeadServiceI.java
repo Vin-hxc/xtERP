@@ -1,7 +1,10 @@
 package com.xt.service.qxs.warehouse;
 
 import com.xt.entity.qxs.warehouse.Depothead;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Handler;
 
 /**
  * 单据主表业务操作
@@ -61,5 +64,11 @@ public interface DepotHeadServiceI {
      * @return
      */
     boolean deleteDepotHead(String deleteFlag, Integer id);
+
+    /**
+     * 报表查询
+     * @return
+     */
+    List<HashMap> queryHead();
 
 }

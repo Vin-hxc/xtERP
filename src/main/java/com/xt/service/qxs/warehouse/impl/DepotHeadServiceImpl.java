@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -173,4 +174,8 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
         return depotHeadMapper.deleteDepotHead(deleteFlag, id);
     }
 
+    @Override
+    public List<HashMap> queryHead() {
+        return depotHeadMapper.queryHead();
+    }
 }
