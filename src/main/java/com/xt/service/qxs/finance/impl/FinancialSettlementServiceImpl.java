@@ -46,7 +46,7 @@ public class FinancialSettlementServiceImpl implements FinancialSettlementServic
      * @return
      */
     @Override
-    public FinancialSettlement getOneFs(FinancialSettlement id) {
+    public FinancialSettlement getOneFs(Integer id) {
         return financialSettlementMapper.getOneFs(id);
     }
 
@@ -62,13 +62,12 @@ public class FinancialSettlementServiceImpl implements FinancialSettlementServic
 
     /**
      * 标记删除
-     * @param deleteFlag 0 不删除; 1：删除
-     * @param id
+     * @param financialSettlement
      * @return
      */
     @Override
-    public boolean deleteFinancialSettlement(Integer deleteFlag, Integer id) {
-        return financialSettlementMapper.deleteFinancialSettlement(deleteFlag,id);
+    public boolean deleteFinancialSettlement(FinancialSettlement financialSettlement) {
+        return financialSettlementMapper.deleteFinancialSettlement(financialSettlement);
     }
 
     /**
