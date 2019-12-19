@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -133,5 +134,26 @@ public class DepotController {
     public int stateHead(Integer id,Integer state){
         int i = depotHeadServiceI.depotHeadExamin(state, id);
         return i;
+    }
+
+    /**
+     * 单据主表 标记删除
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("deleteHead")
+    public boolean deleteHead(Integer id){
+        return depotHeadServiceI.deleteDepotHead("1",id);
+    }
+
+    /**
+     * 报表查询
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("queryHead")
+    public List queryHead(){
+        return depotHeadServiceI.queryHead();
     }
 }
