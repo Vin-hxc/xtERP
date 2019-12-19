@@ -41,4 +41,9 @@ public class ProductModelsServiceImpl implements ProductModelsServiceI {
     public List<Product_type> queryType() {
         return productModelsMapper.queryType();
     }
+
+    @Override
+    public boolean updateProductModelsStatus(long id) {
+        return productModelsMapper.updateProductModelsStatus(id);
+    }
 }
