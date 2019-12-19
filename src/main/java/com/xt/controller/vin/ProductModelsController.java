@@ -117,4 +117,16 @@ public class ProductModelsController {
             return "";
         }
     }
+
+    @RequestMapping("updateProducrtModelsStatus")
+    @ResponseBody
+    public String updateProducrtModelsStatus(long proStaid){
+        System.out.println(proStaid);
+        boolean flag = productModelsServiceI.updateProductModelsStatus(proStaid);
+        if (flag){
+            return "vin/productModels";
+        }else {
+            return "";
+        }
+    }
 }

@@ -10,18 +10,18 @@
     <link rel="stylesheet" href="/static/css/H-ui.min.css">
 
     <style type="text/css">
-     .s1 {
-         background-color: #f5f5f5;
+        .s1 {
+            background-color: #f5f5f5;
         }
 
-     </style>
+    </style>
 </head>
 <body>
 <table id="tbo"
        class="table table-border table-bordered table-hover table-bg table-sort">
     <thead>
     <tr>
-        <th colspan="16" height="15px" style="color: #F4F4F4">
+        <th colspan="20" height="15px" style="color: #F4F4F4">
             <button class="layui-btn layui-btn-sm" id="btnInsert" th:onclick="insert()">增加</button>
             <button class="layui-btn layui-btn-sm" id="btnDelete">删除</button>
             <button class="layui-btn layui-btn-sm" id="btnOpen">启用</button>
@@ -30,47 +30,54 @@
     </tr>
     <tr class="text-c">
         <th width="20px"><input type="checkbox" id="checkAll" name="checkAll"></th>
-        <th width="100">编号</th>
-        <th width="100">产品名称</th>
-        <th width="100">产品型号</th>
-        <th width="100">产品类型</th>
-        <th width="100">单位</th>
-        <th width="100">库存</th>
-        <th width="100">零售价</th>
-        <th width="100">最低售价</th>
-        <th width="100">成本价格</th>
-        <th width="100">销售价格</th>
-        <th width="100">产品状态</th>
-        <th width="100">序列号</th>
-        <th width="150">创建时间</th>
-        <th width="100">审核状态</th>
+        <th width="100">供应商</th>
+        <th width="70">联系人</th>
+        <th width="100">联系电话</th>
+        <th width="100">邮箱</th>
+        <th width="100">预收款</th>
+        <th width="100">期初应收</th>
+        <th width="100">期初应付</th>
+        <th width="100">累计应收</th>
+        <th width="100">累计应付</th>
+        <th width="100">传真</th>
+        <th width="100">手机号码</th>
+        <th width="100">地址</th>
+        <th width="100">纳税人识别号</th>
+        <th width="70">开户行</th>
+        <th width="100">账号</th>
+        <th width="100">税率</th>
+        <th width="50">启用状态</th>
+        <th width="50">审核状态</th>
         <th width="100">操作</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="product:${listproducthash}" height="40px" class="text-c" id="tr1">
-        <td><input type="checkbox" name="ckb" class="proid" th:value="${product.id}"></td>
-        <td th:text="${product.id}"></td>
-        <td th:text="${product.product_name}"></td>
-        <td th:text="${product.model_name}"></td>
-        <td th:text="${product.type_name}"></td>
-        <td th:text="${product.product_unit}"></td>
-        <td><a href="#" style="color: #0000FF;text-decoration: underline"
-               title="查看出入库明细">[[${product.product_stock}]]</a></td>
-        <td th:text="${product.retail_price}"></td>
-        <td th:text="${product.min_price}"></td>
-        <td th:text="${product.cost_price}"></td>
-        <td th:text="${product.trade_price}"></td>
-        <td th:text="${product.product_state==0?'禁用':'启用'}"></td>
-        <td th:text="${product.serial_number=='0'?'无':'有'}"></td>
-        <td th:text="${product.createtime}"></td>
+    <tr th:each="supplier:${suppliers}" height="40px" class="text-c" id="tr1">
+        <td><input type="checkbox" name="ckb" class="supid" th:value="${supplier.id}"></td>
+        <td th:text="${supplier.supplier}"></td>
+        <td th:text="${supplier.contacts}"></td>
+        <td th:text="${supplier.phonenum}"></td>
+        <td th:text="${supplier.email}"></td>
+        <td th:text="${supplier.advanceIn}"></td>
+        <td th:text="${supplier.beginNeedGet}"></td>
+        <td th:text="${supplier.beginNeedPay}"></td>
+        <td th:text="${supplier.allNeedGet}"></td>
+        <td th:text="${supplier.allNeedPay}"></td>
+        <td th:text="${supplier.fax}"></td>
+        <td th:text="${supplier.telephone}"></td>
+        <td th:text="${supplier.address}"></td>
+        <td th:text="${supplier.taxNum}"></td>
+        <td th:text="${supplier.bankName}"></td>
+        <td th:text="${supplier.accountNumber}"></td>
+        <td th:text="${supplier.taxRate}"></td>
+        <td th:text="${supplier.enabled==0?'禁用':'启用'}"></td>
         <td>
-            <button th:if="${product.status=='0'}" class="layui-btn layui-btn-primary" th:onclick="updateStatus([[${product.id}]])">未审核</button>
-            <span th:if="${product.status=='1'}">已审核</span>
+            <button th:if="${supplier.status=='0'}" class="layui-btn layui-btn-primary" th:onclick="updateStatus([[${supplier.id}]])">未审核</button>
+            <span th:if="${supplier.status=='1'}">已审核</span>
         </td>
         <td>
-            <a th:href="@{deleteProduct('id'=${product.id})}">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a th:onclick="update([[${product.id}]])">修改</a>
+            <a th:onclick="deleteG([[${supplier.id}]])">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a th:onclick="update([[${supplier.id}]])">修改</a>
         </td>
     </tr>
 
@@ -94,9 +101,9 @@
 
         $("tbody tr").click(function() {
             $(this).addClass("s1").siblings().removeClass("s1");
-               });
+        });
         $("#btnDelete").click(function () {//删除多条
-            // debugger;
+             debugger;
             var checkids = [];
             var data = [];
             $("input[name='ckb']:checked").each(function (i) {
@@ -106,18 +113,19 @@
                 alert("请选择一条需要被删除的数据")
             } else {
                 $("#tbo").find(":checkbox:checked").each(function () {
-                    var val = $(this).parents().children().children(".proid").val();
-                    // alert(val);
-                    data.push(val);
+                    var supid = $(this).parents().children().children(".supid").val();
+                     alert(supid);
+                    data.push(supid);
                     $.ajax({
-                        url: "deleteProducts",
+                        url: "deleteSuppliersG",
                         dateType: "json",
                         type: "post",
-                        data: {"proids": val},
+                        data: {"supid": supid},
                         success: function (resp) {
+                            debugger;
                             if (resp != null || resp != "") {
                                 alert("成功");
-                                location.href = "getAllProduct";
+                                location.href = "getAllSupplierG";
                             } else {
                                 alert("失败")
                             }
@@ -126,8 +134,8 @@
                 });
             }
         });
-        $("#btnOpen").click(function () {//删除多条
-            // debugger;
+        $("#btnOpen").click(function () {
+             debugger;
             var checkids = [];
             var data = [];
             $("input[name='ckb']:checked").each(function (i) {
@@ -137,18 +145,19 @@
                 alert("请选择需要启用的数据")
             } else {
                 $("#tbo").find(":checkbox:checked").each(function () {
-                    var val = $(this).parents().children().children(".proid").val();
-                    // alert(val);
-                    data.push(val);
+                    var supid = $(this).parents().children().children(".supid").val();
+                     alert(supid);
+                    data.push(supid);
                     $.ajax({
-                        url: "updateProductStateT",
+                        url: "updateSupplierStateT",
                         dateType: "json",
                         type: "post",
-                        data: {"proidsT": val},
+                        data: {"supid": supid},
                         success: function (resp) {
+                            debugger;
                             if (resp != null || resp != "") {
                                 alert("启用成功");
-                                location.href = "getAllProduct";
+                                location.href = "getAllSupplierG";
                             } else {
                                 alert("启用失败")
                             }
@@ -157,8 +166,8 @@
                 });
             }
         });
-        $("#btnClose").click(function () {//删除多条
-            // debugger;
+        $("#btnClose").click(function () {
+             debugger;
             var checkids = [];
             var data = [];
             $("input[name='ckb']:checked").each(function (i) {
@@ -168,18 +177,19 @@
                 alert("请选择需要禁用的数据")
             } else {
                 $("#tbo").find(":checkbox:checked").each(function () {
-                    var val = $(this).parents().children().children(".proid").val();
-                    // alert(val);
+                    var val = $(this).parents().children().children(".supid").val();
+                     alert(val);
                     data.push(val);
                     $.ajax({
-                        url: "updateProductStateF",
+                        url: "updateSupplierStateF",
                         dateType: "json",
                         type: "post",
-                        data: {"proidsF": val},
+                        data: {"supidF": val},
                         success: function (resp) {
+                            debugger;
                             if (resp != null || resp != "") {
                                 alert("禁用成功");
-                                location.href = "getAllProduct";
+                                location.href = "getAllSupplierG";
                             } else {
                                 alert("禁用失败")
                             }
@@ -210,7 +220,7 @@
                     title: '新增产品信息',
                     type: 2,
                     area: ['30%', '75%'],
-                    content: 'insert_Product',
+                    content: 'insertG',
                     shadeClose: true, //开启遮罩关闭
                     btn: ['确认', '取消'],
                     end: function () {
@@ -222,16 +232,38 @@
         });
     }
 
+    function deleteG(id) {
+        var id = id;
+        if(confirm('是否确定删除!')){
+            $.ajax({
+                url:'deleteSupplierG',
+                dataType:'text',
+                type:'post',
+                data:{'id':id},
+                success:function (resp) {
+                    debugger;
+                    if(resp!=null){
+                        alert('删除成功');
+                        location.reload();
+                        location.href='getAllSupplierG';
+                    }else {
+                        alert('删除失败... ');
+                    }
+                }
+            });
+        }
+    }
+
     function update(id) {
         layui.use('layer', function () {
             var layer = layui.layer;
             layer.ready(function () {
                 var index = layer.load(2);
                 layer.open({
-                    title: '新增产品信息',
+                    title: '修改供应商信息',
                     type: 2,
                     area: ['30%', '75%'],
-                    content: 'getProductById?id=' + id,
+                    content: 'queryBySupplierGId?id=' + id,
                     shadeClose: true, //开启遮罩关闭
                     btn: ['确认', '取消'],
                     end: function () {
@@ -244,19 +276,19 @@
     }
     function updateStatus(id) {
         debugger;
-        var proStaid = id;
+        var supStaid = id;
         if(confirm('是否确定通过审核!')){
             $.ajax({
-                url:'updateProducrtStatus',
+                url:'updateSupplierStatus',
                 dataType:'text',
                 type:'post',
-                data:{'proStaid':proStaid},
+                data:{'supStaid':supStaid},
                 success:function (resp) {
                     debugger;
                     if(resp!=null){
                         alert('审核通过');
                         location.reload();
-                        location.href='getAllProduct';
+                        location.href='getAllSupplierG';
                     }else {
                         alert('审核失败... ');
                     }

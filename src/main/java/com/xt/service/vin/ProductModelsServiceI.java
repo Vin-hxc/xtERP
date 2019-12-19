@@ -43,4 +43,10 @@ public interface ProductModelsServiceI {
      */
     public List<Product_type> queryType();
 
+    /**
+     * 修改审核状态
+     * @param id
+     * @return
+     */
+    public boolean updateProductModelsStatus(long id);
 }

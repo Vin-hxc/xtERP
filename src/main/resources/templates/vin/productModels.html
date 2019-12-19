@@ -62,7 +62,10 @@
         <td th:text="${proModels.weight}"></td>
         <td th:text="${proModels.type_name}"></td>
         <td th:text="${proModels.createtime}"></td>
-        <td th:text="${proModels.status=='0'?'未审核':'已审核'}"></td>
+        <td>
+            <button th:if="${proModels.status=='0'}" class="layui-btn layui-btn-primary" th:onclick="updateStatus([[${proModels.id}]])">未审核</button>
+            <span th:if="${proModels.status=='1'}">已审核</span>
+        </td>
         <td>
             <a th:href="@{deleteProduct('id'=${proModels.id})}">删除</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a th:onclick="update([[${proModels.id}]])">修改</a>
@@ -89,8 +92,8 @@
 
         $("tbody tr").click(function() {
             $(this).addClass("s1").siblings().removeClass("s1");
-            $("body tr:not(:checked)").find(":checkbox").attr("checked",false);
-            $(this).find(":checkbox").attr("checked", true);
+            // $("body tr:not(:checked)").find(":checkbox").attr("checked",false);
+            // $(this).find(":checkbox").attr("checked", true);
         });
         $("#btnDelete").click(function () {//删除多条
              debugger;
@@ -108,11 +111,11 @@
                     data.push(val);
                     $.ajax({
                         url: "deleteProductModelss",
-                        dateType: "json",
+                        dateType: "text",
                         type: "post",
                         data: {"proids": val},
                         success: function (resp) {
-                            if (resp != null || resp != "") {
+                            if (resp != null) {
                                 alert("删除成功");
                                 location.href = "getAllProductModels";
                             } else {
@@ -164,6 +167,28 @@
         $(this).css("background-color", "##F5F5F5");
     });
 
+    function updateStatus(id) {
+        debugger;
+        var proStaid = id;
+        if(confirm('是否确定通过审核!')){
+            $.ajax({
+                url:'updateProducrtModelsStatus',
+                dataType:'text',
+                type:'post',
+                data:{'proStaid':proStaid},
+                success:function (resp) {
+                    debugger;
+                    if(resp!=null){
+                        alert('审核通过');
+                        location.reload();
+                        location.href='getAllProductModels';
+                    }else {
+                        alert('审核失败... ');
+                    }
+                }
+            });
+        }
+    }
 </script>
 </body>
 </html>

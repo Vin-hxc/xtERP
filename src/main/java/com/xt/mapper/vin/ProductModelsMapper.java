@@ -52,4 +52,12 @@ public interface ProductModelsMapper {
      */
     @Select("select * from product_type where delete_Flag = '0'")
     public List<Product_type> queryType();
+
+    /**
+     * 修改审核状态
+     * @param id
+     * @return
+     */
+    @Update("update product_model set status = '1' where id = #{id}")
+    public boolean updateProductModelsStatus(long id);
 }
