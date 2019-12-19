@@ -1,6 +1,7 @@
 package com.xt.mapper.qxs.finance;
 
 import com.xt.entity.qxs.finance.FinancialSettlement;
+import com.xt.entity.qxs.finance.Income;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -39,7 +40,7 @@ public interface FinancialSettlementMapper {
      * @return
      */
     @Select("select * FinancialSettlement where id=#{id} and deleteFlag != 1")
-    FinancialSettlement getOneFs(FinancialSettlement id);
+    FinancialSettlement getOneFs(Integer id);
 
     /**
      * 修改描述
@@ -51,12 +52,11 @@ public interface FinancialSettlementMapper {
 
     /**
      * 标记删除
-     * @param deleteFlag 0 不删除; 1：删除
-     * @param id
+     * @param financialSettlement
      * @return
      */
     @Update("update FinancialSettlement set deleteFlag =#{deleteFlag} where id=#{id}")
-    boolean deleteFinancialSettlement(Integer deleteFlag,Integer id);
+    boolean deleteFinancialSettlement(FinancialSettlement financialSettlement);
 
     /**
      * 新增财务结算记录

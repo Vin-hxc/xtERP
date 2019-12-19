@@ -22,6 +22,8 @@ public class NumberServiceImpl implements NumberServiceI {
     private NumberMapper numberMapper;
     @Autowired
     private  ProductionplanMapper productionplanMapper;
+
+
     @Override
     public Boolean inserNum(Number number, Picking picking, Productionplan productionplan) {
         Boolean aBoolean = numberMapper.inserNum(number);
