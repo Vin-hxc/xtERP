@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Detailed {
-    private int id;//主键id
-    private int orderid ;//外键订单表id
-    private int storehouseid;//外键 仓库id
-    private int goodsid;//外键 商品明细
-    private int number;//商品数量
-    private int tax;//税率(%)
-    private int price;//商品单价
+    private Integer id;//主键id
+    private Integer orderid ;//外键订单表id
+    private Integer storehouseid;//外键 仓库id
+    private Integer goodsid;//外键 商品明细
+    private Integer number;//商品数量
+    private Integer tax;//税率(%)
+    private Integer price;//商品单价
     private String remarks;//备注
 }

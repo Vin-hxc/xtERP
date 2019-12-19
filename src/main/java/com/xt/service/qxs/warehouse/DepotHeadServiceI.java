@@ -28,7 +28,7 @@ public interface DepotHeadServiceI {
      * @param number
      * @return
      */
-    Depothead getOneDepotHead(String number);
+    List<Depothead> getOneDepotHead(String number);
 
     /**
      * 查询被删除的数据
