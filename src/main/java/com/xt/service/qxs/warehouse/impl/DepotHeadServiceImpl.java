@@ -1,8 +1,12 @@
 package com.xt.service.qxs.warehouse.impl;
 
+import com.xt.entity.hjn.Detailed;
+import com.xt.entity.hjn.Orders;
 import com.xt.entity.qxs.warehouse.DepotItem;
 import com.xt.entity.qxs.warehouse.Depothead;
 import com.xt.entity.qxs.warehouse.Materials;
+import com.xt.mapper.hjn.DetailedMapper;
+import com.xt.mapper.hjn.OrderMapper;
 import com.xt.mapper.qxs.warehouse.DepotHeadMapper;
 import com.xt.mapper.qxs.warehouse.DepotItemMapper;
 import com.xt.mapper.qxs.warehouse.MaterialsMapper;
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @program: xterp
@@ -29,6 +34,11 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
     private DepotItemMapper depotItemMapper;
     @Autowired
     private MaterialsMapper materialsMapper;
+    @Autowired
+    private OrderMapper orderMapper;
+    @Autowired
+    private DetailedMapper detailedMapper;
+
     /**
      * 查询所有未删除的
      * @return
@@ -53,7 +63,7 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
      * @return
      */
     @Override
-    public Depothead getOneDepotHead(String number) {
+    public List<Depothead> getOneDepotHead(String number) {
         return depotHeadMapper.getOneDepotHead(number);
     }
 
@@ -107,7 +117,7 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                     DepotItem depotItem = depotItemMapper.queryDepotItemRecord(depothead.getMaterialId());
                     //判断单据主表的类型
                     if("成品出库".equals(depothead.getType()) || "零件出库".equals(depothead.getType())){
-                        if(depotItem!=null){
+                        if(depotItem!=null || depotItem.getBasicNumber()<depothead.getAmount() ){
                             //修改子表数量
                             int i = depotItem.getBasicNumber() - depothead.getAmount();
                             boolean updateAmount = depotItemMapper.updateAmount(i, depothead.getMaterialId());
@@ -119,14 +129,28 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                                 return 5;
                             }
                         }else {
-                            //子表不存在这条数据，进行新增
-                            int type = materials.getMType().equals("材料")?2:1;
-                            DepotItem item = new DepotItem(null, id, depothead.getMaterialId(), depothead.getAmount(),
-                                    depothead.getChangeAmount(), "0", "0", type, "0");
-                            boolean addDepotItem = depotItemMapper.addDepotItem(item);
-                            if(addDepotItem){
-                                depotHeadMapper.updateDateTime(new Date(), id);
-                                return 1;
+                            //子表不存在这条数据，进行采购
+                            String str = UUID.randomUUID().toString();
+                            int orderid = Integer.parseInt(str);
+                            Orders orders = new Orders(orderid);
+                            int i = orderMapper.addOrders(orders);
+                            if(i>0){
+                                Orders order = orderMapper.queryID(orderid);
+                                int price = (int)depothead.getChangeAmount();
+                                if(order!=null){
+                                    Detailed detailed = new Detailed(null, order.getId(), depotItem.getDepotId(),
+                                            materials.getId(), depothead.getAmount(),
+                                            null, price, null);
+                                    System.err.println(detailed.getNumber());
+                                    if(depotItem!=null && depotItem.getBasicNumber()<depothead.getAmount()){
+                                        detailed.setNumber(depothead.getAmount()-depotItem.getBasicNumber());
+                                    }
+                                    System.err.println(detailed.getNumber());
+                                    int add = detailedMapper.addDetailed(detailed);
+                                    if(add>0){
+                                        return 9;
+                                    }
+                                }
                             }
                         }
                     }else if("成品入库".equals(depothead.getType()) || "零件入库".equals(depothead.getType())){

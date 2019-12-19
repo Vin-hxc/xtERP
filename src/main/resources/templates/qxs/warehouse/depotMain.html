@@ -125,6 +125,11 @@
                                     <td th:each="m:${materials}" th:text="${m.MName}"></td>
                                 </tr>
                             </thead>
+                            <tbody>
+                                <tr>
+                                    <td th:each="ls:${materials}" th:text="${ls.designation}"></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </li>
@@ -531,6 +536,10 @@
                                 }
                             })
                         });
+                    }else if(resp==9){
+                        alert('库存不足，已转至采购');
+                        location.reload();
+                        location.href='/depot/pageDepot';
                     }else {
                         alert('审核失败');
                     }

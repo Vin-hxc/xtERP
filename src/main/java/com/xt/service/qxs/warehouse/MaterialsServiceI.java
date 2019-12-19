@@ -30,4 +30,11 @@ public interface MaterialsServiceI {
      * @return
      */
     boolean addMaterials(Materials materials);
+
+    /**
+     * 根据类型查询
+     * @param type
+     * @return
+     */
+    List<Materials> queryType(String type);
 }

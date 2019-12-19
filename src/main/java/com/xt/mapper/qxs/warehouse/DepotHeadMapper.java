@@ -36,7 +36,7 @@ public interface DepotHeadMapper {
      * @return
      */
     @Select("select * from depotHead where number=#{number} and deleteFlag='1' ")
-    Depothead getOneDepotHead(String number);
+    List<Depothead> getOneDepotHead(String number);
 
     /**
      * 查询被删除的数据
