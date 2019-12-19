@@ -5,6 +5,7 @@ import com.xt.entity.zqw.Number;
 import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -35,4 +36,10 @@ public interface NumberServiceI {
      * @return
      */
     List<Productionplan> seleProduct();
+
+    /**
+     * 根据根据子表和生产查询id
+     * @return
+     */
+    List<HashMap> selePadd();
 }

@@ -53,12 +53,13 @@
     <br/>
     <div class="layui-form-item" id="big" >
         <label class="layui-form-label">所需物料</label>
-        <div id="wl" class="layui-input-block">
-            <table th:each="selepmll:${selepmll}">
+        <div id="wl" class="layui-input-block" th:each="selepmll:${selepmll}">
+            <input type="hidden" th:each="selepadd:${selepadd}" th:text="${selepadd.id}"  name="selepadd"/>
+            <table>
                 <tr >
                     <th>
                         <div>
-                            <select lay-verify=""  name="materialsId" id="materialsId">
+                            <select lay-verify=""  name="materialsId" id="materialsId" >
                                 <option th:text="'请选择'+${selepmll.mName}"></option>
                                 <option th:value="${selepmll.id}" th:text="${selepmll.designation}" name="ctname"></option>
                             </select>
@@ -67,7 +68,7 @@
                 <tr >
                     <td>
                         <div id="big1">
-                            <input type="text" name="numbersl" id="numbersl" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+                            <input type="text" name="numbersl" id="numbersl" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input" >
                         </div>
                     </td>
                 </tr>

@@ -7,6 +7,7 @@ import com.xt.entity.zqw.Productionplan;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -41,4 +42,11 @@ public interface NumberMapper {
      */
     @Select("select * from productionplan")
     List<Productionplan> seleProduct();
+
+    /**
+     * 根据根据子表和生产查询id
+     * @return
+     */
+    @Select("select picking.id from picking,productionplan,number where picking.id=productionplan.pickingid and picking.id=number.pickid")
+    List<HashMap> selePadd();
 }

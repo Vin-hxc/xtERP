@@ -10,6 +10,7 @@ import com.xt.service.zqw.NumberServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -46,6 +47,15 @@ public class NumberServiceImpl implements NumberServiceI {
     @Override
     public List<Productionplan> seleProduct() {
         return numberMapper.seleProduct();
+    }
+
+    /**
+     * 根据根据子表和生产查询id
+     * @return
+     */
+    @Override
+    public List<HashMap> selePadd() {
+        return numberMapper.selePadd();
     }
 
 }
