@@ -1,10 +1,12 @@
 package com.xt.controller.zqw;
 
 
+import com.xt.entity.qxs.warehouse.Materials;
 import com.xt.entity.vin.Product_model;
 import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
 import com.xt.entity.zqw.Userinfo;
+import com.xt.service.zqw.NumberServiceI;
 import com.xt.service.zqw.ProductionplanServiceI;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +26,8 @@ import java.util.List;
 public class ProductionplanContrller {
     @Resource
     private ProductionplanServiceI productionplanServiceI;
-
+    @Resource
+    private NumberServiceI numberServiceI;
     /**
      * 查询所有生产计划
      * @param request
@@ -50,12 +53,12 @@ public class ProductionplanContrller {
         List<HashMap> list = productionplanServiceI.dgselepro();
         List<Userinfo> seleuser = productionplanServiceI.seleuser();
         List<HashMap> list1 = productionplanServiceI.seleProckll();
-        List<Product_model> selepmll = productionplanServiceI.selepmll();
+        List<Materials> selepmll = numberServiceI.seleMat();
         request.setAttribute("selepmll",selepmll);
         request.setAttribute("dgselepd",list);
         request.setAttribute("seleuserf",seleuser);
         request.setAttribute("seleprockll",list1);
-        System.out.println("产品信息："+list1);
+        System.out.println("产品信息："+selepmll);
         return "zqw/index1";
    }
 

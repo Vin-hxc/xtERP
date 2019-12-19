@@ -1,5 +1,6 @@
 package com.xt.service.zqw.impl;
 
+import com.xt.entity.qxs.warehouse.Materials;
 import com.xt.entity.zqw.Number;
 import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
@@ -8,6 +9,8 @@ import com.xt.mapper.zqw.ProductionplanMapper;
 import com.xt.service.zqw.NumberServiceI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 所需物料数量业务实现类
@@ -28,6 +31,11 @@ public class NumberServiceImpl implements NumberServiceI {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Materials> seleMat() {
+        return numberMapper.seleMat();
     }
 
 }

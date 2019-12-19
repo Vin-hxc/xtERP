@@ -58,86 +58,12 @@
                     <th>
                         <div>
                             <select lay-verify=""  name="pickingNo" id="pickingNo">
-                                <option>请输入主板</option>
-                                <option th:value="${selepmll.id}" th:text="${selepmll.motherboard}" name="ctname"></option>
+                                <option th:value="${selepmll.mName}"></option>
+                                <option th:value="${selepmll.id}" th:text="${selepmll.designation}" name="ctname"></option>
                             </select>
                         </div>
                     </th>
-                    <td>
-                        <div id="big1">
-                            <input type="text" name="numberzb" id="numberzb" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
-                        </div>
-                    </td>
-                </tr>
                 <tr >
-                    <th>
-                        <div>
-                            <select name="pickingNo" lay-verify="" >
-                                <option>请输入cpu</option>
-                                <option th:value="${selepmll.id}" th:text="${selepmll.cpu}" name="ctname"></option>
-                            </select>
-                        </div>
-                    </th>
-                    <td>
-                        <div id="big1">
-                            <input type="text" name="numbercpu" id="numbercpu" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
-                        </div>
-                    </td>
-                </tr>
-                <tr >
-                    <th>
-                        <div>
-                            <select name="pickingNo" lay-verify="">
-                                <option>请输入内存条</option>
-                                <option th:value="${selepmll.id}" th:text="${selepmll.memories}" name="ctname"></option>
-                            </select>
-                        </div>
-                    </th>
-                    <td>
-                        <div id="big1">
-                            <input type="text" name="numbernc" id="numbernc" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
-                        </div>
-                    </td>
-                </tr>
-                <tr >
-                    <th>
-                        <div>
-                            <select name="pickingNo" lay-verify="" >
-                                <option>请输入显卡</option>
-                                <option th:value="${selepmll.id}" th:text="${selepmll.video_card}" name="ctname"></option>
-                            </select>
-                        </div>
-                    </th>
-                    <td>
-                        <div id="big1">
-                            <input type="text" name="numberxk" id="numberxk" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
-                        </div>
-                    </td>
-                </tr>
-                <tr >
-                    <th>
-                        <div>
-                            <select name="pickingNo" lay-verify="" >
-                                <option>请输入硬盘</option>
-                                <option th:value="${selepmll.id}" th:text="${selepmll.disks}" name="ctname"></option>
-                            </select>
-                        </div>
-                    </th>
-                    <td>
-                        <div id="big1">
-                            <input type="text" name="numberyp" id="numberyp" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
-                        </div>
-                    </td>
-                </tr>
-                <tr >
-                    <th>
-                        <div>
-                            <select name="pickingNo" lay-verify="" >
-                                <option>请输入固态硬盘</option>
-                                <option th:value="${selepmll.id}" th:text="${selepmll.ssd}" name="ctname"></option>
-                            </select>
-                        </div>
-                    </th>
                     <td>
                         <div id="big1">
                             <input type="text" name="numbergtyp" id="numbergtyp" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">

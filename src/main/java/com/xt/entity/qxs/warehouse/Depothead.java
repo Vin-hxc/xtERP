@@ -15,7 +15,7 @@ import java.util.Date;
 public class Depothead {
     private Integer id;//单据id /null
     private String type;//类型：出库(成品，零件)/入库(成品,零件)
-    private String number;//票据号 /随便写
+    private String number;//票据号
     private String operPersonName;//操作人姓名 /仓库管理员
     private Date createTime;//创建时间 /获取当前时间
     private Date operTime;//出入库时间 /不需要添加

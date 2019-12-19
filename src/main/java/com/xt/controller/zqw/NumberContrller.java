@@ -35,7 +35,7 @@ public class NumberContrller {
      */
     @RequestMapping("insernum")
     public String insernum(int id, Date startTime,Date endTime,int personCharge,String numberzb,String numbercpu,String numbernc,String numberxk,String numberyp,String numbergtyp,int pickingNo) throws ParseException {
-     Number number = new Number(0,numberzb,numbercpu,numbernc,numberxk,numberyp,numbergtyp,pickingNo);
+     Number number = new Number();
      Date t = new Date();
      Picking picking = new Picking();
      picking.setId(0);
