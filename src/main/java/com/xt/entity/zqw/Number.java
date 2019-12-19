@@ -11,7 +11,6 @@ public class Number {
 
   private long id;//主键
   private Integer materialsId;//材料编号
-  private Integer promId;//产品id
   private String numbersl;//数量
   private long pickid;//领料编号
 

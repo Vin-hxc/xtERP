@@ -22,6 +22,7 @@
         }
         #big1{
             margin-left: 0px;
+
         }
     </style>
     <script src="/static/js/jquery-3.4.1.min.js"></script>
@@ -57,8 +58,8 @@
                 <tr >
                     <th>
                         <div>
-                            <select lay-verify=""  name="pickingNo" id="pickingNo">
-                                <option th:value="${selepmll.mName}"></option>
+                            <select lay-verify=""  name="materialsId" id="materialsId">
+                                <option th:text="'请选择'+${selepmll.mName}"></option>
                                 <option th:value="${selepmll.id}" th:text="${selepmll.designation}" name="ctname"></option>
                             </select>
                         </div>
@@ -66,7 +67,7 @@
                 <tr >
                     <td>
                         <div id="big1">
-                            <input type="text" name="numbergtyp" id="numbergtyp" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
+                            <input type="text" name="numbersl" id="numbersl" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input">
                         </div>
                     </td>
                 </tr>

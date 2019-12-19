@@ -38,4 +38,14 @@ public class NumberServiceImpl implements NumberServiceI {
         return numberMapper.seleMat();
     }
 
+    @Override
+    public List<Picking> selepicking() {
+        return numberMapper.selepicking();
+    }
+
+    @Override
+    public List<Productionplan> seleProduct() {
+        return numberMapper.seleProduct();
+    }
+
 }

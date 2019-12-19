@@ -58,7 +58,9 @@ public class ProductionplanContrller {
         request.setAttribute("dgselepd",list);
         request.setAttribute("seleuserf",seleuser);
         request.setAttribute("seleprockll",list1);
-        System.out.println("产品信息："+selepmll);
+        for (Materials materials : selepmll) {
+            System.out.println();
+        }
         return "zqw/index1";
    }
 

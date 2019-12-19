@@ -23,4 +23,16 @@ public interface NumberServiceI {
      * @return
      */
     List<Materials> seleMat();
+
+    /**
+     * 查询领料信息
+     * @return
+     */
+    List<Picking> selepicking();
+
+    /**
+     * 查询生产计划
+     * @return
+     */
+    List<Productionplan> seleProduct();
 }

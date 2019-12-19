@@ -23,8 +23,8 @@ public interface ProductionplanMapper {
      * 查询生产计划
      * @return
      */
-    @Select("SELECT productionPlan.*,product.product_name,userInfo.userName,product_model.* FROM productionPlan,product,userInfo,picking,product_model where\n" +
-            "productionPlan.productId=product.id and productionPlan.personCharge=userInfo.id and picking.pickingNo=product_model.id")
+    @Select("SELECT productionPlan.*,product.product_name,userInfo.userName,Materials.* FROM productionPlan,product,userInfo,picking,Materials where\n" +
+            "productionPlan.productId=product.id and productionPlan.personCharge=userInfo.id and picking.pickingNo=Materials.id")
     List<HashMap> seleProuct();
     /**
      * 添加一个生产计划

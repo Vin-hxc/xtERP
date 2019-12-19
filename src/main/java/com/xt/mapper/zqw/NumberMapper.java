@@ -2,6 +2,8 @@ package com.xt.mapper.zqw;
 
 import com.xt.entity.qxs.warehouse.Materials;
 import com.xt.entity.zqw.Number;
+import com.xt.entity.zqw.Picking;
+import com.xt.entity.zqw.Productionplan;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
@@ -16,13 +18,27 @@ public interface NumberMapper {
      * @param number
      * @return
      */
-    @Insert("insert into number(id,numberzb,numbercpu,numbernc,numberxk,numberyp,numbergtyp,pickid) values (null,#{numberzb},#{numbercpu},#{numbernc},#{numberxk},#{numberyp},#{numbergtyp},#{pickid})")
+    @Insert("insert into number(id,materialsId,numbersl,pickid) values (null,#{materialsId},#{numbersl},#{pickid})")
     Boolean inserNum(Number number);
 
     /**
      * 查询材料编号信息
      * @return
      */
-    @Select("select * from materials")
+    @Select("select * from materials where mtype='零件'")
     List<Materials> seleMat();
+
+    /**
+     * 查询领料信息
+     * @return
+     */
+    @Select("select * from Picking")
+    List<Picking> selepicking();
+
+    /**
+     * 查询生产计划
+     * @return
+     */
+    @Select("select * from productionplan")
+    List<Productionplan> seleProduct();
 }
