@@ -33,15 +33,8 @@ public class NumberContrller {
      * @return
      */
     @RequestMapping("insernum")
-    public String insernum(int id, Date startTime, Date endTime, int personCharge, String[] numbersl, int materialsId, HttpServletRequest request) throws ParseException {
-     Date t = new Date();
-
-        List<Materials> materials =numberServiceI.seleMat();
-            Productionplan productionplan = new Productionplan(0, id, startTime, endTime, personCharge, 0, 0, materialsId);
-            for (int i=0;i<numbersl.length;i++){
-                Number number = new Number(0, materialsId, numbersl[i], materialsId);
-                Boolean aBoolean = numberServiceI.inserNum(number, new Picking(0, materialsId, t, 0, 0), productionplan);
-            }
+    public String insernum(int id, Date startTime, Date endTime, int personCharge,  String[] numbersl, int materialsId, HttpServletRequest request) throws ParseException {
+            numberServiceI.inserNum(id,startTime,endTime,personCharge,numbersl,materialsId);
             return "redirect:/pdsele";
     }
 }

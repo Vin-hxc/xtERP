@@ -5,6 +5,7 @@ import com.xt.entity.zqw.Number;
 import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public interface NumberServiceI {
      * @param number
      * @return
      */
-    Boolean inserNum(Number number, Picking picking, Productionplan productionplan);
+    Boolean inserNum(int id, Date startTime, Date endTime, int personCharge, String[] number, int materialsId);
 
     /**
      * 查询材料表信息
