@@ -214,6 +214,7 @@
         layui.use('layer', function () {
             var layer = layui.layer;
             layer.ready(function () {
+                var index = layer.load(2);
                 layer.open({
                     title: '新增客户信息',
                     type: 2,
