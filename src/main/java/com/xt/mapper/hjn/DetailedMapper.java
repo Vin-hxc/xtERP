@@ -1,6 +1,7 @@
 package com.xt.mapper.hjn;
 
 import com.xt.entity.hjn.Detailed;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +20,7 @@ public interface DetailedMapper {
      *
      * @return
      */
-    //@Insert("insert into Detailed values(null,#{orderid},#{storehouseid},#{goodsid},#{number},#{tax},#{price},#{remarks}")
+    @Insert("insert into Detailed values(null,#{orderid},#{storehouseid},#{goodsid},#{number},#{tax},#{price},#{remarks})")
     int addDetailed(Detailed detailed);
 
     /**

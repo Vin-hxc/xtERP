@@ -36,7 +36,9 @@ public interface OrderMapper {
      *
      * @return
      */
-    //@Insert("insert into orders values(null,#{orderid},#{supplierid},#{purchaserid},#{rebate},#{paytype},#{total},#{amount_paid},#{total_tax},#{orderstate},#{preferential},#{costid})")
+    @Insert("insert into orders values(null,#{orderId},#{supplierid}," +
+            "#{rebate},#{paytype},#{total},#{amount_paid},#{total_tax}," +
+            "#{orderstate},#{preferential},#{costid},#{createtime},#{purchaserid},#{finance})")
     int addOrders(Orders order);
 
 
@@ -88,6 +90,6 @@ public interface OrderMapper {
      * @param id
      * @return
      */
-    @Select("select * from orders wehre orderid=#{id}")
+    @Select("select * from orders where orderId=#{id}")
     Orders queryID(Integer id);
 }

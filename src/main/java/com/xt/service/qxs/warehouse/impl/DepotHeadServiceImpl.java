@@ -105,8 +105,7 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
      */
     @Override
     public int depotHeadExamin(Depothead head) {
-        boolean b = depotHeadMapper.depotHeadExamin(head);
-        if(b){
+        if(head.getStatus()==1){
             //根据id查询出当前数据
             Depothead depothead = depotHeadMapper.getDepotHeadID(head.getId());
             if(depothead!=null){
@@ -117,11 +116,12 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                     DepotItem depotItem = depotItemMapper.queryDepotItemRecord(depothead.getMaterialId());
                     //判断单据主表的类型
                     if("成品出库".equals(depothead.getType()) || "零件出库".equals(depothead.getType())){
-                        if(depotItem!=null || depotItem.getBasicNumber()<depothead.getAmount() ){
+                        if(depotItem!=null && depotItem.getBasicNumber()>depothead.getAmount() ){
                             //修改子表数量
                             int i = depotItem.getBasicNumber() - depothead.getAmount();
                             boolean updateAmount = depotItemMapper.updateAmount(new DepotItem(i,depothead.getMaterialId()));
                             if(updateAmount){
+                                depotHeadMapper.depotHeadExamin(head);
                                 depotHeadMapper.updateDateTime(new Depothead(head.getId()));
                                 return 1;
                             }else {
@@ -130,35 +130,37 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                                 return 5;
                             }
                         }else {
-                            //子表不存在这条数据，进行采购
-                            String str = UUID.randomUUID().toString();
-                            int orderid = Integer.parseInt(str);
-                            Orders orders = new Orders(orderid);
-                            int i = orderMapper.addOrders(orders);
-                            if(i>0){
-                                Orders order = orderMapper.queryID(orderid);
-                                int price = (int)depothead.getChangeAmount();
-                                if(order!=null){
-                                    Detailed detailed = new Detailed(null, order.getId(), depotItem.getDepotId(),
-                                            materials.getId(), depothead.getAmount(),
-                                            null, price, null);
-                                    System.err.println(detailed.getNumber());
-                                    if(depotItem!=null && depotItem.getBasicNumber()<depothead.getAmount()){
-                                        detailed.setNumber(depothead.getAmount()-depotItem.getBasicNumber());
-                                    }
-                                    System.err.println(detailed.getNumber());
-                                    int add = detailedMapper.addDetailed(detailed);
-                                    if(add>0){
-                                        if("成品出库".equals(depothead.getType())){
-                                            head.setStatus(2);
-                                            depotHeadMapper.depotHeadExamin(head);
-                                            return 8;
+                            if("零件出库".equals(depothead.getType())){
+                                //子表不存在这条数据，进行采购
+                                int orderid = (int)(Math.random()*1000);
+                                System.err.println(orderid);
+                                Orders orders = new Orders(orderid);
+                                int i = orderMapper.addOrders(orders);
+                                if(i>0){
+                                    Orders order = orderMapper.queryID(orderid);
+                                    System.err.println(order);
+                                    int price = (int)depothead.getChangeAmount();
+                                    if(order!=null){
+                                        Detailed detailed = new Detailed(null, order.getId(), 2,
+                                                materials.getId(), depothead.getAmount(),
+                                                null, price, null);
+                                        System.err.println(detailed);
+                                        if(depotItem!=null && depotItem.getBasicNumber()<depothead.getAmount()){
+                                            detailed.setNumber(depothead.getAmount()-depotItem.getBasicNumber());
                                         }
-                                        head.setStatus(2);
-                                        depotHeadMapper.depotHeadExamin(head);
-                                        return 9;
+                                        System.err.println(detailed.getNumber());
+                                        int add = detailedMapper.addDetailed(detailed);
+                                        if(add>0){
+                                            head.setStatus(4);
+                                            depotHeadMapper.depotHeadExamin(head);
+                                            return 9;
+                                        }
                                     }
                                 }
+                            }else if("成品出库".equals(depothead.getType())){
+                                head.setStatus(3);
+                                depotHeadMapper.depotHeadExamin(head);
+                                return 8;
                             }
                         }
                     }else if("成品入库".equals(depothead.getType()) || "零件入库".equals(depothead.getType())){
@@ -168,6 +170,7 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                             boolean updateAmount = depotItemMapper.updateAmount
                                     (new DepotItem(i,depothead.getMaterialId()));
                             if(updateAmount){
+                                depotHeadMapper.depotHeadExamin(head);
                                 depotHeadMapper.updateDateTime(new Depothead(head.getId()));
                                 return 2;
                             }else  {
@@ -182,6 +185,7 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                                     depothead.getChangeAmount(), null, null, t, "0");
                             boolean addDepotItem = depotItemMapper.addDepotItem(item);
                             if(addDepotItem){
+                                depotHeadMapper.depotHeadExamin(head);
                                 depotHeadMapper.updateDateTime(new Depothead(head.getId()));
                                 return 2;
                             }
@@ -191,9 +195,10 @@ public class DepotHeadServiceImpl implements DepotHeadServiceI {
                     return 3;
                 }
             }
+        }else if (head.getStatus()==2){
+            depotHeadMapper.depotHeadExamin(head);
+            return 2;
         }
-        head.setStatus(2);
-        depotHeadMapper.depotHeadExamin(head);
         return 0;
     }
 
