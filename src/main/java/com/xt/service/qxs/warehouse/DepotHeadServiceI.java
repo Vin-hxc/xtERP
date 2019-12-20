@@ -52,18 +52,17 @@ public interface DepotHeadServiceI {
 
     /**
      * 审批
-     * @param status 1:已审核 0:未审核 2：不通过 默认 0 其他数值为待审核
+     * @param depothead 1:已审核 0:未审核 2：不通过 默认 0 其他数值为待审核
      * @return
      */
-    int depotHeadExamin(Integer status, Integer id);
+    int depotHeadExamin(Depothead depothead);
 
     /**
      * 标记删除
-     * @param deleteFlag 1 删除 0 未删除 默认 0
-     * @param id 条件
+     * @param depothead 1 删除 0 未删除 默认 0
      * @return
      */
-    boolean deleteDepotHead(String deleteFlag, Integer id);
+    boolean deleteDepotHead(Depothead depothead);
 
     /**
      * 报表查询

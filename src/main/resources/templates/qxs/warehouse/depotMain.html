@@ -285,7 +285,7 @@
                     ],*/
                     series:[{
                         type:'pie',
-                        radius:'95%',
+                        radius:'85%',
                         data:[
                             {value:ck[0],name:material[0]},
                             {value:ck[1],name:material[1]},
@@ -537,7 +537,11 @@
                             })
                         });
                     }else if(resp==9){
-                        alert('库存不足，已转至采购');
+                        alert('零件库存不足，已转至采购');
+                        location.reload();
+                        location.href='/depot/pageDepot';
+                    }else if(resp==8){
+                        alert('成品库存不足，已告知销售')
                         location.reload();
                         location.href='/depot/pageDepot';
                     }else {

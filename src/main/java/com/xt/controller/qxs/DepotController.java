@@ -1,6 +1,7 @@
 package com.xt.controller.qxs;
 
 import com.xt.entity.qxs.warehouse.Depot;
+import com.xt.entity.qxs.warehouse.DepotItem;
 import com.xt.entity.qxs.warehouse.Depothead;
 import com.xt.entity.qxs.warehouse.Materials;
 import com.xt.service.qxs.warehouse.DepotHeadServiceI;
@@ -20,7 +21,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -109,7 +109,7 @@ public class DepotController {
     @ResponseBody
     @RequestMapping("deleteItem")
     public boolean deleteItem(Integer id){
-        return depotItemServiceI.deleteFlagDepotItem("1",id);
+        return depotItemServiceI.deleteFlagDepotItem(new DepotItem("1",id));
     }
 
     /**
@@ -132,7 +132,7 @@ public class DepotController {
     @ResponseBody
     @RequestMapping("headState")
     public int stateHead(Integer id,Integer state){
-        int i = depotHeadServiceI.depotHeadExamin(state, id);
+        int i = depotHeadServiceI.depotHeadExamin(new Depothead(state,id,null));
         return i;
     }
 
@@ -144,7 +144,7 @@ public class DepotController {
     @ResponseBody
     @RequestMapping("deleteHead")
     public boolean deleteHead(Integer id){
-        return depotHeadServiceI.deleteDepotHead("1",id);
+        return depotHeadServiceI.deleteDepotHead(new Depothead(null,id,"1"));
     }
 
     /**
