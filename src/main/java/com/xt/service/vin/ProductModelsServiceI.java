@@ -49,4 +49,11 @@ public interface ProductModelsServiceI {
      * @return
      */
     public boolean updateProductModelsStatus(long id);
+
+    /**
+     * 根据id 查询产品型号信息
+     * @param id
+     * @return
+     */
+    public Product_model queryByModelId(long id);
 }
