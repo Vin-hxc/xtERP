@@ -130,11 +130,9 @@ public class SupplierController {
      */
     @RequestMapping("queryBySupplierGId")
     public String queryBySupplierGId(Long id, Model model){
-        List<Supplier> suppliers = supplierServiceIl.queryBySupplierId(id);
-        model.addAttribute("suppliers",suppliers);
-        for (Supplier list : suppliers){
-            System.out.println(list);
-        }
+        Supplier supplierG = supplierServiceIl.queryBySupplierId(id);
+        System.out.println(supplierG);
+        model.addAttribute("supplierG",supplierG);
         return "vin/supplier/updateSupplierG";
     }
 
@@ -146,11 +144,9 @@ public class SupplierController {
      */
     @RequestMapping("queryBySupplierKId")
     public String queryBySupplierKId(Long id, Model model){
-        List<Supplier> suppliers = supplierServiceIl.queryBySupplierId(id);
-        model.addAttribute("suppliers",suppliers);
-        for (Supplier list : suppliers){
-            System.out.println(list);
-        }
+        Supplier supplierK = supplierServiceIl.queryBySupplierId(id);
+        model.addAttribute("supplierK",supplierK);
+        System.out.println(supplierK);
         return "vin/supplier/updateSupplierK";
     }
 
@@ -235,5 +231,39 @@ public class SupplierController {
     @RequestMapping("insertK")
     public String insertK(){
         return "vin/supplier/insertSupplierK";
+    }
+
+    /**
+     * 添加供应商信息
+     * @param supplier
+     * @return
+     */
+    @RequestMapping("insertSupplierG")
+    @ResponseBody
+    public String insertSupplierG(Supplier supplier){
+        System.out.println(supplier);
+        boolean flag = supplierServiceIl.insertSupplierG(supplier);
+        if (flag){
+            return "true";
+        }else {
+            return "";
+        }
+    }
+
+    /**
+     * 添加客户信息
+     * @param supplier
+     * @return
+     */
+    @RequestMapping("insertSupplierK")
+    @ResponseBody
+    public String insertSupplierK(Supplier supplier){
+        System.out.println(supplier);
+        boolean flag = supplierServiceIl.insertSupplierK(supplier);
+        if (flag){
+            return "true";
+        }else {
+            return "";
+        }
     }
 }

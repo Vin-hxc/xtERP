@@ -177,14 +177,14 @@
                 alert("请选择需要禁用的数据")
             } else {
                 $("#tbo").find(":checkbox:checked").each(function () {
-                    var val = $(this).parents().children().children(".supid").val();
-                     alert(val);
-                    data.push(val);
+                    var supid = $(this).parents().children().children(".supid").val();
+                     alert(supid);
+                    data.push(supid);
                     $.ajax({
                         url: "updateSupplierStateF",
                         dateType: "json",
                         type: "post",
-                        data: {"supidF": val},
+                        data: {"supid": supid},
                         success: function (resp) {
                             debugger;
                             if (resp != null || resp != "") {
@@ -216,6 +216,7 @@
         layui.use('layer', function () {
             var layer = layui.layer;
             layer.ready(function () {
+                var index = layer.load(2);
                 layer.open({
                     title: '新增产品信息',
                     type: 2,

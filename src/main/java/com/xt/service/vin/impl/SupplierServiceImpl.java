@@ -49,7 +49,7 @@ public class SupplierServiceImpl implements SupplierServiceI {
     }
 
     @Override
-    public List<Supplier> queryBySupplierId(long id) {
+    public Supplier queryBySupplierId(long id) {
         return supplierMapper.queryBySupplierId(id);
     }
 
