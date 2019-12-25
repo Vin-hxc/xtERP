@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../static/css/H-ui.min.css" />
 </head>
 <body>
-<table class="layui-table" th:each="selepropick:${selepropick}" style="width: 600px">
+<table class="layui-table"  style="width: 600px">
     <colgroup>
         <col width="150">
         <col width="200">
@@ -22,35 +22,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>主板数量</td>
-        <td th:text="${selepropick.motherboard}"></td>
-        <td th:text="${selepropick.numberzb}"></td>
-    </tr>
-    <tr>
-        <td>cpu数量</td>
-        <td th:text="${selepropick.cpu}"></td>
-        <td th:text="${selepropick.numbercpu}"></td>
-    </tr>
-    <tr>
-        <td>内存条数量</td>
-        <td th:text="${selepropick.memories}"></td>
-        <td th:text="${selepropick.numbernc}"></td>
-    </tr>
-    <tr>
-        <td>显卡数量</td>
-        <td th:text="${selepropick.video_card}"></td>
-        <td th:text="${selepropick.numberxk}"></td>
-    </tr>
-    <tr>
-        <td>硬盘数量</td>
-        <td th:text="${selepropick.disks}"></td>
-        <td th:text="${selepropick.numberyp}"></td>
-    </tr>
-    <tr>
-        <td>固态硬盘数量</td>
-        <td th:text="${selepropick.ssd}"></td>
-        <td th:text="${selepropick.numbergtyp}"></td>
+    <tr th:each="selepropick:${selepropick}">
+        <td th:text="${selepropick.mName}"></td>
+        <td th:text="${selepropick.catname}"></td>
+        <td th:text="${selepropick.numbersl}"></td>
     </tr>
     </tbody>
 </table>

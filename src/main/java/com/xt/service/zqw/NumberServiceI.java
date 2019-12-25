@@ -18,7 +18,7 @@ public interface NumberServiceI {
      * @param number
      * @return
      */
-    Boolean inserNum(int id, Date startTime, Date endTime, int personCharge, String[] number, int materialsId);
+    Boolean inserNum(int id, Date startTime, Date endTime, int personCharge, Integer[] numbersl, int[] materialsId,String[] catname,Integer quantity);
 
     /**
      * 查询材料表信息

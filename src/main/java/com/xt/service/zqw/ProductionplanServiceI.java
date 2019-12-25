@@ -4,7 +4,8 @@ import com.xt.entity.vin.Product_model;
 
 import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
-import com.xt.entity.zqw.Userinfo;
+import com.xt.entity.zqw.SysUser;
+
 import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
@@ -68,7 +69,7 @@ public interface ProductionplanServiceI {
      * 查询用户姓名
      * @return
      */
-    List<Userinfo> seleuser();
+    List<SysUser> seleuser();
 
     /**
      * 根据id查询所需物料
@@ -82,4 +83,12 @@ public interface ProductionplanServiceI {
      * @return
      */
     List<HashMap> seleProckll();
+
+    /**
+     * 修改审核状态
+     * @param id
+     * @param productionAudit
+     * @return
+     */
+    boolean productSh(@Param("id") int id,@Param("productionAudit")int productionAudit);
 }

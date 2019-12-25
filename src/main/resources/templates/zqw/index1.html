@@ -24,6 +24,13 @@
             margin-left: 0px;
 
         }
+        #selepl{
+            margin-left: 110px;
+            width: 400px;
+        }
+        #selepl input{
+            margin-top: 10px;
+        }
     </style>
     <script src="/static/js/jquery-3.4.1.min.js"></script>
 </head>
@@ -51,41 +58,30 @@
     </div>
     <br/>
     <br/>
-    <div class="layui-form-item" id="big" >
-        <label class="layui-form-label">所需物料</label>
-        <div id="wl" class="layui-input-block" th:each="selepmll:${selepmll}">
-            <input type="hidden" th:each="selepadd:${selepadd}" th:text="${selepadd.id}"  name="selepadd"/>
-            <table>
-                <tr >
-                    <th>
-                        <div>
-                            <select lay-verify=""  name="materialsId" id="materialsId" >
-                                <option th:text="'请选择'+${selepmll.mName}"></option>
-                                <option th:value="${selepmll.id}" th:text="${selepmll.designation}" name="ctname"></option>
-                            </select>
-                        </div>
-                    </th>
-                <tr >
-                    <td>
-                        <div id="big1">
-                            <input type="text" name="numbersl" id="numbersl" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input" >
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <br>
+    <div th:each="selepmll:${selepmll}" id="selepl">
+        <span th:text="${selepmll.mName}"></span>
+        <input type="hidden"  th:value="${selepmll.id}"  name="materialsId"/>
+        <input type="text" name="catname" id="catname" required lay-verify="required" autocomplete="off" class="layui-input"  >
+        <input type="text" name="numbersl" id="numbersl" required lay-verify="required" placeholder="请输入数量" autocomplete="off" class="layui-input" >
+        <br/>
+    </div>
         <div class="layui-form-item" id="big">
             <label class="layui-form-label">负责人</label>
             <div class="layui-input-block">
                 <select name="personCharge" lay-verify="required" id="personCharge" >
                     <option>请选择负责人</option>
                     <option th:each="seleuserf:${seleuserf}"
-                            th:value="${seleuserf.id}" th:text="${seleuserf.userName}" >
+                            th:value="${seleuserf.id}" th:text="${seleuserf.name}" >
                     </option>
                 </select>
             </div>
         </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">生产数量</label>
+        <div class="layui-input-block">
+            <input type="text" name="quantity" required  lay-verify="required"  placeholder="生产数量" autocomplete="off" class="layui-input" >
+        </div>
+    </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn" lay-submit lay-filter="formDemo" id="tj">立即提交</button>

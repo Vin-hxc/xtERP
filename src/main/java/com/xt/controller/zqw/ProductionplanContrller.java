@@ -5,7 +5,7 @@ import com.xt.entity.qxs.warehouse.Materials;
 import com.xt.entity.vin.Product_model;
 import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
-import com.xt.entity.zqw.Userinfo;
+import com.xt.entity.zqw.SysUser;
 import com.xt.service.zqw.NumberServiceI;
 import com.xt.service.zqw.ProductionplanServiceI;
 import org.springframework.stereotype.Controller;
@@ -51,7 +51,7 @@ public class ProductionplanContrller {
     @RequestMapping("dgselepd")
    public String dgselepd(HttpServletRequest request){
         List<HashMap> list = productionplanServiceI.dgselepro();
-        List<Userinfo> seleuser = productionplanServiceI.seleuser();
+        List<SysUser> seleuser = productionplanServiceI.seleuser();
         List<HashMap> list1 = productionplanServiceI.seleProckll();
         List<Materials> selepmll = numberServiceI.seleMat();
         request.setAttribute("selepmll",selepmll);
@@ -75,7 +75,7 @@ public class ProductionplanContrller {
      * @param pickingid
      * @return
      */
-   @RequestMapping("inserPro")
+/*   @RequestMapping("inserPro")
     public String inserPro( int id, String startTime,String endTime,int personCharge,int pickingid,HttpServletRequest request) throws ParseException {
        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
        Date date1 = sdf.parse(startTime);
@@ -84,7 +84,7 @@ public class ProductionplanContrller {
        boolean b = productionplanServiceI.inserProuct(productionplan);
        System.out.println(b);
        return "redirect:/pdsele";
-    }
+    }*/
 
     /**
      * 删除生产计划
@@ -108,6 +108,17 @@ public class ProductionplanContrller {
         List<HashMap> selepropick = productionplanServiceI.selepropick(pickingid);
         request.setAttribute("selepropick",selepropick);
         return "zqw/selepropick";
+    }
+
+    /**
+     * 修改生产的审核状态
+     * @param id
+     * @return
+     */
+    @RequestMapping("DgaddProduct")
+    public String DgaddProduct(int id){
+        boolean b = productionplanServiceI.productSh(id, 1);
+        return "redirect:/pdsele";
     }
 
 }

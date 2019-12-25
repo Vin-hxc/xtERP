@@ -3,7 +3,7 @@ package com.xt.service.zqw.impl;
 import com.xt.entity.vin.Product_model;
 import com.xt.entity.zqw.Picking;
 import com.xt.entity.zqw.Productionplan;
-import com.xt.entity.zqw.Userinfo;
+import com.xt.entity.zqw.SysUser;
 import com.xt.mapper.zqw.PickingMapper;
 import com.xt.mapper.zqw.ProductionplanMapper;
 import com.xt.service.zqw.ProductionplanServiceI;
@@ -98,7 +98,7 @@ public class ProductionplanServiceImpl implements ProductionplanServiceI {
      * @return
      */
     @Override
-    public List<Userinfo> seleuser() {
+    public List<SysUser> seleuser() {
         return productionplanMapper.seleuser();
     }
 
@@ -115,6 +115,11 @@ public class ProductionplanServiceImpl implements ProductionplanServiceI {
     @Override
     public List<HashMap> seleProckll() {
         return productionplanMapper.seleProckll();
+    }
+
+    @Override
+    public boolean productSh(int id, int productionAudit) {
+        return productionplanMapper.productSh(id,productionAudit);
     }
 
 

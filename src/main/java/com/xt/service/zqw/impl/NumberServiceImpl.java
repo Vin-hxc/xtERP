@@ -24,25 +24,20 @@ public class NumberServiceImpl implements NumberServiceI {
     private NumberMapper numberMapper;
     @Autowired
     private  ProductionplanMapper productionplanMapper;
-    @Autowired
-    private PickingMapper pickingMapper;
 
 
     @Override
-    public Boolean inserNum(int id, Date startTime, Date endTime, int personCharge, String[] number, int materialsId) {
-        for (int i=0;i<number.length;i++){
-            Number numbers = new Number(0, materialsId, number[i], personCharge);
+    public Boolean inserNum(int id, Date startTime, Date endTime, int personCharge, Integer[] numbersl, int[] materialsId,String[] catname,Integer quantity) {
+        Number numbers = null;
+        for (int i=0;i<numbersl.length;i++){
+                numbers = new Number(0, materialsId[i], numbersl[i], id,catname[i]);
+                System.out.println("添加的值"+catname[i]);
             numberMapper.inserNum(numbers);
         }
         Date t = new Date();
-        Productionplan productionplan = new Productionplan(0, id, startTime, endTime, personCharge, 0, 0, personCharge);
+        Productionplan productionplan = new Productionplan(0, id, startTime, endTime, personCharge, 0, 0,id ,quantity);
         boolean b1 = productionplanMapper.inserProuct(productionplan);
-        Picking picking = new Picking(0, personCharge, t, 0, 0);
-        boolean b = pickingMapper.inserPicking(picking);
-        if (b&&b1){
-            return true;
-        }
-       return false;
+        return true;
     }
 
 

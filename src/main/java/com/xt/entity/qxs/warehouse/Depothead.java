@@ -16,12 +16,12 @@ public class Depothead {
     private Integer id;//单据id /null
     private String type;//类型：出库(成品，零件)/入库(成品,零件)
     private String number;//票据号
-    private String operPersonName;//操作人姓名 /仓库管理员
+    private String operPersonName;//操作人姓名 /仓库管理员 不需要添加
     private Date createTime;//创建时间 /获取当前时间
     private Date operTime;//出入库时间 /不需要添加
     private Integer organId;//供应商/客户 id / 不添加
     private Integer handsPersonId;//经手人id：销售/采购 /派工人
-    private Integer account;//外键 付款账号 //不添加
+    private Integer accountId;//外键 付款账号 //不添加
     private double changeAmount;//单价
     private Double totalPrice;//合计金额
     private String payType;//付款方式 //不添加
